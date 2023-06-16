@@ -60,7 +60,15 @@
     "metro-react-native-babel-preset": "0.73.10",
     "prettier": "^2.4.1",
     "react-test-renderer": "18.2.0",
-    "typescript": "4.8.4"
+    "typescript": "4.8.4",
+    "@types/convert-units": "^2.3.5",
+    "@types/react-native": "^0.71.5",
+    "@types/react-navigation": "^3.4.0",
+    "autoprefixer": "^10.4.8",
+    "babel-plugin-module-alias": "^1.6.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "postcss": "^8.4.16",
+    "react-native-clean-project": "^4.0.1"
   },
   "jest": {
     "preset": "react-native"
