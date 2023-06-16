@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 import {produce} from 'immer';
 import {store} from './mmkv';
 import uuid from 'react-native-uuid';

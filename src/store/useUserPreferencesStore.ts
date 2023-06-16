@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 import {store} from './mmkv';
 import moment from 'moment';
 import produce, {Draft} from 'immer';
