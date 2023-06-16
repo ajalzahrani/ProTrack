@@ -1,0 +1,113 @@
+const sessions = [
+  {
+    session_id: 1,
+    datetime: new Date(),
+    duration: '1:30:00',
+    workout: 1,
+    exercise: [
+      {
+        exerciseID: 1,
+        set: [
+          {
+            setno: 1,
+            leftedWeight: 120,
+            reps: 6,
+            TUT: 20,
+          },
+          {
+            setno: 2,
+            leftedWeight: 120,
+            reps: 6,
+            TUT: 30,
+          },
+          {
+            setno: 3,
+            leftedWeight: 120,
+            reps: 6,
+            TUT: 15,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    session_id: 2,
+    datetime: new Date(),
+    duration: '1:30:00',
+    workout: 3,
+    exercise: [
+      {
+        exerciseID: 1,
+        set: [
+          {
+            setno: 1,
+            leftedWeight: 120,
+            reps: 6,
+            TUT: 20,
+          },
+          {
+            setno: 2,
+            leftedWeight: 120,
+            reps: 6,
+            TUT: 30,
+          },
+        ],
+      },
+      {
+        exerciseID: 2,
+        set: [
+          {
+            setno: 1,
+            leftedWeight: 120,
+            reps: 6,
+            TUT: 20,
+          },
+          {
+            setno: 2,
+            leftedWeight: 120,
+            reps: 3,
+            TUT: 30,
+          },
+        ],
+      },
+    ],
+  },
+];
+
+// Weight x Reps = Volume (total weight moved)
+function volume(sessionId) {
+  const session = sessions[sessionId];
+  let exercises = session.exercise;
+  let sumRep = 0;
+  let sumWeghit = 0;
+  for (let i = 0; i < exercises.length; i++) {
+    let sets = exercises[i].set;
+    for (let j = 0; j < sets.length; j++) {
+      sumRep += sets[j].reps;
+      sumWeghit += sets[j].leftedWeight;
+    }
+  }
+  // return {sumRep, sumWeghit};
+  return sumRep * sumWeghit;
+}
+
+console.log(volume(1));
+
+// Weight * Resp * sets = volume
+function volume2(sessionId) {
+  const session = sessions[sessionId];
+  let exercises = session.exercise;
+  let sumRep = [];
+  let sumWeghit = [];
+  for (let i = 0; i < exercises.length; i++) {
+    let sets = exercises[i].set;
+    for (let j = 0; j < sets.length; j++) {
+      sumRep.push(sets[j].reps);
+      sumWeghit.push(sets[j].leftedWeight);
+    }
+  }
+  sumRep;
+  sumWeghit;
+}
+
+console.log(volume2(0));

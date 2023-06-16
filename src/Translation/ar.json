@@ -1,0 +1,40 @@
+{
+  "home": {
+    "title": "مرحبا",
+    "introduction": "بمجرد أن تمارس الرياضة بانتظام ، فإن أصعب شيء هو التوقف",
+    "btnQuickStart": "بداية سريعة"
+  },
+  "routines": {
+    "routines": "الجداول",
+    "printRoutines": "اطبع الجداول"
+  },
+  "schedule": {
+    "addNewWorkout": "أضف تمرين جديد",
+    "preListOfWorkouts": "التمارين المنسقة",
+    "addNewWorkoutOrChoose": "أضف تمرينًا جديدًا أو حدد واحدًا تم تكوينه مسبقًا."
+  },
+  "workout": {
+    "addNewExercise": "اضف تمرين جديد",
+    "delete": "امسح",
+    "skitch": "اعتمد"
+  },
+  "exercise": {
+    "bodyPart": "العضلة",
+    "equipment": "الجهاز",
+    "name": "الأسم",
+    "target": "الهدف"
+  },
+  "settings": {
+    "gender": "الجنس",
+    "dob": "تاريخ الميلاد",
+    "location": "العنوان",
+    "email": "الإيميل"
+  },
+  "common": {
+    "currentLanguage": "اللفة الحالية هي ",
+    "actions": {
+      "toggleToEnglish": "الانجليزية",
+      "toggleToArabic": "العربية"
+    }
+  }
+}

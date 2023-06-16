@@ -1,0 +1,1115 @@
+[
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "0001",
+    "name": "3/4 sit-up",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "0002",
+    "name": "45° side bend",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "0003",
+    "name": "air bike",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "body weight",
+    "id": "1512",
+    "name": "all fours squad stretch",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "0006",
+    "name": "alternate heel touchers",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "cable",
+    "id": "0007",
+    "name": "alternate lateral pulldown",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "lower legs",
+    "equipment": "body weight",
+    "id": "1368",
+    "name": "ankle circles",
+    "target": "calves"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "body weight",
+    "id": "3293",
+    "name": "archer pull up",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "body weight",
+    "id": "3294",
+    "name": "archer push up",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "2355",
+    "name": "arm slingers hanging bent knee legs",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "2333",
+    "name": "arm slingers hanging straight legs",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "body weight",
+    "id": "3214",
+    "name": "arms apart circular toe touch (male)",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "body weight",
+    "id": "3204",
+    "name": "arms overhead full sit-up (male)",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "leverage machine",
+    "id": "0009",
+    "name": "assisted chest dip (kneeling)",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "assisted",
+    "id": "0011",
+    "name": "assisted hanging knee raise",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "assisted",
+    "id": "0010",
+    "name": "assisted hanging knee raise with throw down",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "lower legs",
+    "equipment": "assisted",
+    "id": "1708",
+    "name": "assisted lying calves stretch",
+    "target": "calves"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "assisted",
+    "id": "1709",
+    "name": "assisted lying glutes stretch",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "assisted",
+    "id": "1710",
+    "name": "assisted lying gluteus and piriformis stretch",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "assisted",
+    "id": "0012",
+    "name": "assisted lying leg raise with lateral throw down",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "assisted",
+    "id": "0013",
+    "name": "assisted lying leg raise with throw down",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "medicine ball",
+    "id": "0014",
+    "name": "assisted motion russian twist",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "leverage machine",
+    "id": "0015",
+    "name": "assisted parallel close grip pull-up",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "assisted",
+    "id": "0016",
+    "name": "assisted prone hamstring",
+    "target": "hamstrings"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "assisted",
+    "id": "1713",
+    "name": "assisted prone lying quads stretch",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "assisted",
+    "id": "1714",
+    "name": "assisted prone rectus femoris stretch",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "leverage machine",
+    "id": "0017",
+    "name": "assisted pull-up",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "assisted",
+    "id": "1716",
+    "name": "assisted seated pectoralis major stretch with stability ball",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "assisted",
+    "id": "1712",
+    "name": "assisted side lying adductor stretch",
+    "target": "adductors"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "assisted",
+    "id": "1758",
+    "name": "assisted sit-up",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "leverage machine",
+    "id": "1431",
+    "name": "assisted standing chin-up",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "leverage machine",
+    "id": "1432",
+    "name": "assisted standing pull-up",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "assisted",
+    "id": "0018",
+    "name": "assisted standing triceps extension (with towel)",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "leverage machine",
+    "id": "0019",
+    "name": "assisted triceps dip (kneeling)",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "leverage machine",
+    "id": "2364",
+    "name": "assisted wide-grip chest dip (kneeling)",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "cardio",
+    "equipment": "body weight",
+    "id": "3220",
+    "name": "astride jumps (male)",
+    "target": "cardiovascular system"
+  },
+  {
+    "bodyPart": "cardio",
+    "equipment": "body weight",
+    "id": "3672",
+    "name": "back and forth step",
+    "target": "cardiovascular system"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "stability ball",
+    "id": "1314",
+    "name": "back extension on exercise ball",
+    "target": "spine"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "body weight",
+    "id": "3297",
+    "name": "back lever",
+    "target": "upper back"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "body weight",
+    "id": "1405",
+    "name": "back pec stretch",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "body weight",
+    "id": "1473",
+    "name": "backward jump",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "body weight",
+    "id": "0020",
+    "name": "balance board",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "band",
+    "id": "0968",
+    "name": "band alternating biceps curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0969",
+    "name": "band alternating v-up",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "0970",
+    "name": "band assisted pull-up",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0971",
+    "name": "band assisted wheel rollerout",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "band",
+    "id": "1254",
+    "name": "band bench press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "0980",
+    "name": "band bent-over hip extension",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0972",
+    "name": "band bicycle crunch",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "0974",
+    "name": "band close-grip pulldown",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "band",
+    "id": "0975",
+    "name": "band close-grip push-up",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "band",
+    "id": "0976",
+    "name": "band concentration curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "3117",
+    "name": "band fixed back close grip pulldown",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "3116",
+    "name": "band fixed back underhand pulldown",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "0977",
+    "name": "band front lateral raise",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "0978",
+    "name": "band front raise",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1408",
+    "name": "band hip lift",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0979",
+    "name": "band horizontal pallof press",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0981",
+    "name": "band jack knife sit-up",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "0983",
+    "name": "band kneeling one arm pulldown",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0985",
+    "name": "band kneeling twisting crunch",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "0984",
+    "name": "band lying hip internal rotation",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "1002",
+    "name": "band lying straight leg raise",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "band",
+    "id": "0986",
+    "name": "band one arm overhead biceps curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "0987",
+    "name": "band one arm single leg split squat",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "0988",
+    "name": "band one arm standing low row",
+    "target": "upper back"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "band",
+    "id": "0989",
+    "name": "band one arm twisting chest press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "0990",
+    "name": "band one arm twisting seated row",
+    "target": "upper back"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "0991",
+    "name": "band pull through",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "0992",
+    "name": "band push sit-up",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "0993",
+    "name": "band reverse fly",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "lower arms",
+    "equipment": "band",
+    "id": "0994",
+    "name": "band reverse wrist curl",
+    "target": "forearms"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "0996",
+    "name": "band seated hip internal rotation",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "1011",
+    "name": "band seated twist",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "0997",
+    "name": "band shoulder press",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "1018",
+    "name": "band shrug",
+    "target": "traps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "band",
+    "id": "0998",
+    "name": "band side triceps extension",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "lower legs",
+    "equipment": "band",
+    "id": "0999",
+    "name": "band single leg calf raise",
+    "target": "calves"
+  },
+  {
+    "bodyPart": "lower legs",
+    "equipment": "band",
+    "id": "1000",
+    "name": "band single leg reverse calf raise",
+    "target": "calves"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1001",
+    "name": "band single leg split squat",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1004",
+    "name": "band squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1003",
+    "name": "band squat row",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "1005",
+    "name": "band standing crunch",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "1022",
+    "name": "band standing rear delt row",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "1007",
+    "name": "band standing twisting crunch",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1008",
+    "name": "band step-up",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1009",
+    "name": "band stiff leg deadlift",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "band",
+    "id": "1023",
+    "name": "band straight back stiff leg deadlift",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "1010",
+    "name": "band straight leg deadlift",
+    "target": "spine"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "1012",
+    "name": "band twisting overhead press",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "lower legs",
+    "equipment": "band",
+    "id": "1369",
+    "name": "band two legs calf raise - (band under both legs) v. 2",
+    "target": "calves"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "band",
+    "id": "1013",
+    "name": "band underhand pulldown",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "1014",
+    "name": "band v-up",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "waist",
+    "equipment": "band",
+    "id": "1015",
+    "name": "band vertical pallof press",
+    "target": "abs"
+  },
+  {
+    "bodyPart": "lower arms",
+    "equipment": "band",
+    "id": "1016",
+    "name": "band wrist curl",
+    "target": "forearms"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "band",
+    "id": "1017",
+    "name": "band y-raise",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0023",
+    "name": "barbell alternate biceps curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0024",
+    "name": "barbell bench front squat",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0025",
+    "name": "barbell bench press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0026",
+    "name": "barbell bench squat",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "1316",
+    "name": "barbell bent arm pullover",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "0027",
+    "name": "barbell bent over row",
+    "target": "upper back"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "2407",
+    "name": "barbell biceps curl (with arm blaster)",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0028",
+    "name": "barbell clean and press",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0029",
+    "name": "barbell clean-grip front squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0030",
+    "name": "barbell close-grip bench press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0031",
+    "name": "barbell curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0032",
+    "name": "barbell deadlift",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0033",
+    "name": "barbell decline bench press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "0034",
+    "name": "barbell decline bent arm pullover",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0035",
+    "name": "barbell decline close grip to skull press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "1255",
+    "name": "barbell decline pullover",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0036",
+    "name": "barbell decline wide-grip press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "0037",
+    "name": "barbell decline wide-grip pullover",
+    "target": "lats"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0038",
+    "name": "barbell drag curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "lower legs",
+    "equipment": "barbell",
+    "id": "1370",
+    "name": "barbell floor calf raise",
+    "target": "calves"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0039",
+    "name": "barbell front chest squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "barbell",
+    "id": "0041",
+    "name": "barbell front raise",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0040",
+    "name": "barbell front raise and pullover",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0042",
+    "name": "barbell front squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0043",
+    "name": "barbell full squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1461",
+    "name": "barbell full squat (back pov)",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1462",
+    "name": "barbell full squat (side pov)",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1545",
+    "name": "barbell full zercher squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1409",
+    "name": "barbell glute bridge",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "3562",
+    "name": "barbell glute bridge two legs on bench (male)",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0044",
+    "name": "barbell good morning",
+    "target": "hamstrings"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0045",
+    "name": "barbell guillotine bench press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0046",
+    "name": "barbell hack squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1436",
+    "name": "barbell high bar squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0047",
+    "name": "barbell incline bench press",
+    "target": "pectorals"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "1719",
+    "name": "barbell incline close grip bench press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0048",
+    "name": "barbell incline reverse-grip press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "0049",
+    "name": "barbell incline row",
+    "target": "upper back"
+  },
+  {
+    "bodyPart": "chest",
+    "equipment": "barbell",
+    "id": "0050",
+    "name": "barbell incline shoulder raise",
+    "target": "serratus anterior"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0051",
+    "name": "barbell jefferson squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0052",
+    "name": "barbell jm bench press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0053",
+    "name": "barbell jump squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1410",
+    "name": "barbell lateral lunge",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "1435",
+    "name": "barbell low bar squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0054",
+    "name": "barbell lunge",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "1720",
+    "name": "barbell lying back of the head tricep extension",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0055",
+    "name": "barbell lying close-grip press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0056",
+    "name": "barbell lying close-grip triceps extension",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0057",
+    "name": "barbell lying extension",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0058",
+    "name": "barbell lying lifting (on hip)",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0059",
+    "name": "barbell lying preacher curl",
+    "target": "biceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0061",
+    "name": "barbell lying triceps extension",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0060",
+    "name": "barbell lying triceps extension skull crusher",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0063",
+    "name": "barbell narrow stance squat",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "0064",
+    "name": "barbell one arm bent over row",
+    "target": "upper back"
+  },
+  {
+    "bodyPart": "upper arms",
+    "equipment": "barbell",
+    "id": "0065",
+    "name": "barbell one arm floor press",
+    "target": "triceps"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0066",
+    "name": "barbell one arm side deadlift",
+    "target": "glutes"
+  },
+  {
+    "bodyPart": "shoulders",
+    "equipment": "barbell",
+    "id": "0067",
+    "name": "barbell one arm snatch",
+    "target": "delts"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0068",
+    "name": "barbell one leg squat",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "upper legs",
+    "equipment": "barbell",
+    "id": "0069",
+    "name": "barbell overhead squat",
+    "target": "quads"
+  },
+  {
+    "bodyPart": "lower arms",
+    "equipment": "barbell",
+    "id": "1411",
+    "name": "barbell palms down wrist curl over a bench",
+    "target": "forearms"
+  },
+  {
+    "bodyPart": "lower arms",
+    "equipment": "barbell",
+    "id": "1412",
+    "name": "barbell palms up wrist curl over a bench",
+    "target": "forearms"
+  },
+  {
+    "bodyPart": "back",
+    "equipment": "barbell",
+    "id": "3017",
+    "name": "barbell pendlay row",
+    "target": "upper back"
+  }
+]

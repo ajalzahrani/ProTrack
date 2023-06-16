@@ -1,0 +1,40 @@
+{
+  "home": {
+    "title": "Welcome",
+    "introduction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus malesuada pellentesque pharetra libero. Cras proin posuere risus, ut. Nunc nullam congue mi suspendisse rhoncus. Fermentum, bibendum tempus, ullamcorper.",
+    "btnQuickStart": "Quick Start"
+  },
+  "routines": {
+    "routines": "Routines",
+    "printRoutines": "Print routines"
+  },
+  "schedule": {
+    "addNewWorkout": "Add new workout",
+    "preListOfWorkouts": "Pre-list of workouts",
+    "addNewWorkoutOrChoose": "Add new workout or select pre-configure one."
+  },
+  "workout": {
+    "addNewExercise": "Add new exercise",
+    "delete": "Delete",
+    "skitch": "Skitch"
+  },
+  "exercise": {
+    "bodyPart": "Body part",
+    "equipment": "Equipment",
+    "name": "Name",
+    "target": "Target"
+  },
+  "settings": {
+    "gender": "Gender",
+    "dob": "Date of birth",
+    "location": "Location",
+    "email": "Email"
+  },
+  "common": {
+    "currentLanguage": "The current language is ",
+    "actions": {
+      "toggleToEnglish": "English",
+      "toggleToArabic": "Arabic"
+    }
+  }
+}
