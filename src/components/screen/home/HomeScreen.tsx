@@ -6,7 +6,6 @@ import KACModal from 'src/components/shared/KACModal';
 import useUserBodyMeasureStore from 'src/store/useUserBodyMeasureStore';
 import useBMICas from 'src/components/hooks/useBMI';
 
-
 // assets
 import {colors, assets} from 'src/assets';
 
@@ -26,21 +25,19 @@ const HomeScreen = () => {
 
   return (
     <ScreenContainer>
-      <ModalInput
+      {/* <ModalInput
         message="Hello, World"
         visible={modalView}
         setVisible={setModalVisible}
         textValue={textValue}
         setTextValue={setTextValue}
-      />
+      /> */}
 
       <View style={styles.containerStyle}>
         {/* <Text style={styles.homeTitle}>{textValue}</Text> */}
         <Text style={styles.homeTitle}>{t('home.title')}!</Text>
         <Text style={styles.homeTitle}>{bm.metric}</Text>
-        <Text style={styles.homeTitle}>
-          weight: {bm.weight}
-        </Text>
+        <Text style={styles.homeTitle}>weight: {bm.weight}</Text>
         <Text style={styles.homeTitle}>BMI {bm.bmi}</Text>
         <Image style={styles.image} source={assets.bgImage} />
         <View style={styles.descriptionContainerStyle}>
@@ -70,7 +67,7 @@ const styles = StyleSheet.create({
   containerStyle: {
     alignItems: 'center',
     padding: 16,
-    marginTop: 120,
+    // marginTop: 120,
   },
   image: {
     marginTop: 12,
