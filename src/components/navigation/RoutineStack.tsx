@@ -27,7 +27,7 @@ export type RoutineStackRootParamList = {
     exercises: exercisesType[];
     handleExercise: (exerciseId: string) => void;
   };
-  SessionScreen: {workout: workoutType};
+  SessionScreen: {routineId: string; workout: workoutType};
   SessionReportScreen: {sessionId: string};
 };
 

@@ -15,11 +15,13 @@ import {CustomModal, ModalInput, Pressable} from 'src/components/shared';
 import PressableButton from '../../shared/PressableButton';
 import ScreenContainer from 'src/components/shared/ScreenContainer';
 import useRoutineStore from 'src/store/useRoutineStore';
+import useSessionStore from 'src/store/useSessionStore';
 
 const HomeScreen = () => {
   const [modalView, setModalVisible] = useState(false);
   const routines = useRoutineStore(s => s.routines);
   const [textValue, setTextValue] = useState('');
+  const sesisons = useSessionStore(s => s.sessions);
   const bm = useUserBodyMeasureStore(s => s.bodyMeasurements);
   const {t} = useTranslation();
 
@@ -47,7 +49,7 @@ const HomeScreen = () => {
 
           <PressableButton
             title={t('home.btnQuickStart')}
-            onPress={() => setModalVisible(true)}
+            onPress={() => console.log(sesisons[2])}
             style={{paddingHorizontal: 40, marginTop: 20}}
           />
         </View>

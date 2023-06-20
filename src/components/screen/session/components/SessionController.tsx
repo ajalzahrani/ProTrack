@@ -31,10 +31,15 @@ type SessionScreenNavigationProp = NativeStackNavigationProp<
 
 type SessionControllerType = {
   sessionId: string;
+  routineId: string;
   workoutId: string;
 };
 
-const SessionController = ({sessionId, workoutId}: SessionControllerType) => {
+const SessionController = ({
+  sessionId,
+  routineId,
+  workoutId,
+}: SessionControllerType) => {
   const [isActive, setIsActive] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const registerSession = useSessionStore(s => s.registerSession);
@@ -75,9 +80,11 @@ const SessionController = ({sessionId, workoutId}: SessionControllerType) => {
       startTimeRef.current?.toString() || '',
       Date.now().toString(),
       workoutId,
+      routineId,
       [],
     );
     console.log('hi do something');
+    console.log('session duration: ', hours + ':' + minutes + ':' + seconds);
     // Show report modal
     navigation.navigate('SessionReportScreen', {sessionId: sessionId});
     console.log('do navigate');

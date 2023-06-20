@@ -13,6 +13,8 @@ const HistoryView = () => {
 
   useEffect(() => {
     if (selectedDate !== undefined) {
+      // console.log('daySesison length: ', getSessionsByDate(selectedDate));
+
       setDaySessoins(getSessionsByDate(selectedDate));
     }
   }, [selectedDate]);
@@ -20,7 +22,7 @@ const HistoryView = () => {
     <View style={{flex: 1, margin: 20}}>
       <ScrollView contentContainerStyle={{paddingBottom: 72}}>
         <Calendars setSelectedDate={setSelectedDate} />
-        <Text style={{color: colors.white}}>
+        <Text style={{color: colors.white, marginTop: 20}}>
           {daySessions.length} {daySessions.length > 1 ? 'Sessions' : 'Session'}
         </Text>
         {daySessions.length > 0 &&

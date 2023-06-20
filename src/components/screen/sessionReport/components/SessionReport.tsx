@@ -6,6 +6,7 @@ import {colors} from 'src/assets';
 
 // Components
 import useExerciseName from 'src/components/hooks/useExerciseName';
+import useRoutineName from 'src/components/hooks/useRoutineName';
 
 import moment from 'moment';
 
@@ -17,27 +18,29 @@ type SessionReportProp = {
 
 const SessionReport: React.FC<SessionReportProp> = ({session}) => {
   const getExerciseName = useExerciseName();
+  const getRoutineName = useRoutineName();
+
   console.log(session);
   return (
     <View>
-      {/* <Text style={{color: colors.white}}>{session.length}</Text> */}
       <Text style={{fontSize: 30, color: colors.white}}>
-        {moment(session.datetime).format('DD MMM YYYY  h:mm:ss a')}
+        {moment(session.datetime).format('DD MMM YYYY h:mm a')}
       </Text>
       <Text style={style.generalFontSize}>
-        {moment(session.startTime).format('h:mm:ss a').toString()} -{' '}
-        {moment(session.endTime).format('h:mm:ss a').toString()}
+        {moment(session.startTime).format('h:mm a').toString()} -{' '}
+        {moment(session.endTime).format('h:mm a').toString()}
       </Text>
       <Divider />
       <Text style={style.generalFontSize}>Total Time</Text>
       <Text style={{color: colors.yellow, fontSize: 35, fontWeight: 'bold'}}>
-        {/* {session.duration.hours.hours}:{session.duration.minutes.minutes}:
-        {session.duration.seconds.seconds} */}
         {session.duration}
       </Text>
       <Divider />
       <Text style={style.generalFontSize}>Routine Name</Text>
-      <Text style={style.generalFontSize}>{/** Get the routine name */}</Text>
+      <Text style={style.generalFontSize}>
+        {/** Get the routine name */}
+        {session.routineId ? getRoutineName(session.routineId) : null}
+      </Text>
       <Divider />
       {session.exercise.map((exercise, i) => {
         return (

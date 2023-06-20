@@ -55,6 +55,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
   // FIXME: Fix last cards on screen when opened
 
   const workout = route.params.workout;
+  const routineId = route.params.routineId;
   const [ref, setRef] = useState<FlatList<any> | null>(null); // ref to flatlist
   const registerSession = useSessionStore(s => s.registerSession);
   const [sessionId, setSessionId] = useState(uuidv4());
@@ -124,6 +125,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
       new Date().toString(),
       new Date().toString(),
       workout.id,
+      routineId,
       [],
     );
     navigation.getParent()?.setOptions({
@@ -159,7 +161,11 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
         renderItem={renderExercise}
         keyExtractor={item => item.id}
       />
-      <SessionController sessionId={sessionId} workoutId={workout.id} />
+      <SessionController
+        sessionId={sessionId}
+        routineId={routineId}
+        workoutId={workout.id}
+      />
     </ScreenContainer>
   );
 };

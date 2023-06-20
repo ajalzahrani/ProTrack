@@ -33,6 +33,7 @@ type Actions = {
     startTime: string,
     endTime: string,
     workoutId: string,
+    routineId: string,
     exercise?: sessionExerciseType[],
   ) => void;
   getSessionsByDate: (date: string) => sessionType[];
@@ -83,6 +84,7 @@ const useSessionStore = create<State & Actions>((set, get) => ({
     startTime: string,
     endTime: string,
     workoutId: string,
+    routineId: string,
     exercise?: sessionExerciseType[],
   ) =>
     set(
@@ -96,6 +98,7 @@ const useSessionStore = create<State & Actions>((set, get) => ({
           state.sessions[sessionIndex].startTime = startTime;
           state.sessions[sessionIndex].endTime = endTime;
           state.sessions[sessionIndex].workoutId = workoutId;
+          state.sessions[sessionIndex].routineId = routineId;
         } else {
           if (exercise !== undefined) {
             state.sessions.push({
@@ -105,6 +108,7 @@ const useSessionStore = create<State & Actions>((set, get) => ({
               startTime: startTime,
               endTime: endTime,
               workoutId: workoutId,
+              routineId: routineId,
               exercise: exercise,
             });
           }
@@ -117,18 +121,27 @@ const useSessionStore = create<State & Actions>((set, get) => ({
     let daySession = [];
     for (let i = 0; i < get().sessions.length; i++) {
       console.log(
+        'store date',
         moment(
           get().sessions[i].datetime,
           'ddd MMM DD YYYY HH:mm:ss [GMT]ZZZ',
         ).format('YYYY-MM-DD'),
       );
-      console.log(date);
+      console.log('param date', date);
+      // console.log('session loged', get().sessions.length);
+
       if (
-        moment(get().sessions[i].datetime, 'YYYY-MM-DD').toString() === date
+        moment(
+          get().sessions[i].datetime,
+          'ddd MMM DD YYYY HH:mm:ss [GMT]ZZZ',
+        ).format('YYYY-MM-DD') === date
       ) {
         daySession.push(get().sessions[i]);
+        console.log('full sessions: ', get().sessions[i]);
       }
     }
+    // console.log('sessoin 1: ', daySession[0]);
+
     return daySession;
   },
 }));

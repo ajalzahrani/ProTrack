@@ -195,6 +195,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
               onPress={() => {
                 addNewRoutine(routine.id, routine);
                 navigation.navigate('SessionScreen', {
+                  routineId: routine.id,
                   workout: workout,
                 });
               }}
