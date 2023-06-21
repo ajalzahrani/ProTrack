@@ -1,39 +1,48 @@
-import {View, SafeAreaView, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
+import {useWindowDimensions} from 'react-native';
+import {TabView, SceneMap} from 'react-native-tab-view';
 import {colors} from 'src/assets/theme';
 import ProgressView from './components/ProgressView';
 import HistoryView from './components/HistoryView';
 import StatisticView from './components/StatisticView';
 import ScreenContainer from 'src/components/shared/ScreenContainer';
 
-const StatScreen = () => {
-  // FIXME: Adjust the design
-  const [selectedIndex, setSelectedIndex] = useState(0);
+const HistoryRoute = () => {
+  return <HistoryView />;
+};
+const StatisticRoute = () => {
+  return <StatisticView />;
+};
+const ProgressRoute = () => {
+  return <ProgressView />;
+};
+const renderScene = SceneMap({
+  history: HistoryRoute,
+  progress: ProgressRoute,
+  statistic: StatisticRoute,
+});
 
-  const renderView = () => {
-    if (selectedIndex == 0) {
-      return <HistoryView />;
-    } else if (selectedIndex == 1) {
-      return <ProgressView />;
-    } else if (selectedIndex == 2) {
-      return <StatisticView />;
-    }
-  };
+const StatScreen = () => {
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    {key: 'first', title: 'History'},
+    {key: 'second', title: 'Progress'},
+    {key: 'third', title: 'Statistic'},
+  ]);
 
   return (
-    <ScreenContainer children={''}>
-      {/* <SegmentedControl
-        values={['History', 'Progress', 'Statistic']}
-        selectedIndex={selectedIndex}
-        onChange={event => {
-          // FIXME: maybe because of bellow line
-          setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
-        }}
-        backgroundColor={colors.offwhite}
-        appearance="light"
-        tabStyle={{marginTop: 10, marginHorizontal: 50, marginBottom: 15}}
-      /> */}
-      {renderView()}
+    <ScreenContainer>
+      <TabView
+        navigationState={{index, routes}}
+        onIndexChange={setIndex}
+        renderScene={SceneMap({
+          first: HistoryView,
+          second: ProgressView,
+          third: StatisticView,
+        })}
+      />
     </ScreenContainer>
   );
 };

@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React, {useMemo} from 'react';
 import useSessionStore from 'src/store/useSessionStore';
-import {getExerciseName} from 'src/components/shared';
+import useExerciseName from 'src/components/hooks/useExerciseName';
 
 type exerciseCounterArrayType = {
   id: string;
@@ -9,6 +9,7 @@ type exerciseCounterArrayType = {
 };
 const StatisticView = () => {
   const sessions = useSessionStore(state => state.sessions);
+  const getExerciesName = useExerciseName();
 
   const exerciseCounterArray: exerciseCounterArrayType[] = [{id: '', value: 0}];
   const exerciseCounts = useMemo(() => {
@@ -35,7 +36,7 @@ const StatisticView = () => {
       {exerciseCounts.map((v, i) => {
         return (
           <Text style={{color: 'white'}} key={i}>
-            {getExerciseName(v.id)}: {v.value}
+            {getExerciesName(v.id)}: {v.value}
           </Text>
         );
       })}
