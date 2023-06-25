@@ -24,7 +24,7 @@ import {colors, assets} from 'src/assets';
 // components
 import ExerciseCard from './components/ExerciseCard';
 import RestTimeController from './components/RestTimeController';
-import {PressableButton} from 'src/components/shared';
+import {PressableButtonColor} from 'src/components/shared';
 import {ScreenContainer} from 'src/components/shared';
 import {CustomModal} from 'src/components/shared';
 
@@ -277,7 +277,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             })}
             {RestTimeDrawer()}
 
-            <PressableButton
+            <PressableButtonColor
               title={t('workout.skitch')}
               iconSource={assets.icn_edit}
               onPress={() => {
@@ -295,7 +295,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
               }}
             />
             {/* Test button */}
-            <PressableButton
+            <PressableButtonColor
               title={t('workout.delete')}
               onPress={() => {
                 if (workout !== undefined) {

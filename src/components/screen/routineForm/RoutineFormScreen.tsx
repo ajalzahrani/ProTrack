@@ -6,7 +6,7 @@ import {colors} from 'src/assets';
 
 // Components
 import uuidv4 from 'src/components/shared/uuid4v';
-import {PressableButton} from 'src/components/shared';
+import {PressableButtonColor} from 'src/components/shared';
 import Calendars2 from './components/Calendars2';
 import useRoutineStore from 'src/store/useRoutineStore';
 
@@ -111,7 +111,7 @@ const RoutineFormScreen: React.FC<RoutineFormScreenProp> = ({
         setEndDay={setEndDate}
       />
 
-      <PressableButton title={`${result} Level`} onPress={onPress} />
+      <PressableButtonColor title={`${result} Level`} onPress={onPress} />
 
       <TextInput
         style={[style.textInputStyle, style.richBox]}
@@ -122,7 +122,7 @@ const RoutineFormScreen: React.FC<RoutineFormScreenProp> = ({
         multiline={true}
         underlineColorAndroid="transparent"
       />
-      <PressableButton onPress={handleOnPress} title="Okey" />
+      <PressableButtonColor onPress={handleOnPress} title="Okey" />
     </View>
   );
 };

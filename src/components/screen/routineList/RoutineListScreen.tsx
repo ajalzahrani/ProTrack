@@ -17,7 +17,12 @@ import useRoutineStore from 'src/store/useRoutineStore';
 
 // Componenets
 import RoutineCard from './components/RoutineCard';
-import {ScreenContainer, PressableButton} from 'src/components/shared';
+import {
+  ScreenContainer,
+  PressableButton,
+  Pressable,
+  PressableButtonColor,
+} from 'src/components/shared';
 
 // Navigation
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -113,9 +118,10 @@ const RoutineListScreen: React.FC<RoutineListProps> = ({route, navigation}) => {
             </View>
           ))}
         </ScrollView>
-        <PressableButton
+        <PressableButtonColor
           title={t('routines.printRoutines')}
           onPress={() => console.log(JSON.stringify(routines))}
+          style={{backgroundColor: 'white', padding: 20, borderRadius: 20}}
         />
       </View>
     </ScreenContainer>
