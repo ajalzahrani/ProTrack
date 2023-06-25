@@ -16,19 +16,92 @@ import {
   VictoryScatter,
   VictoryTheme,
 } from 'victory-native';
-import {ScreenContainer} from 'src/components/shared';
+import {Pressable, ScreenContainer} from 'src/components/shared';
 import ScreenContainerScroll from 'src/components/shared/ScreenContainerScroll';
 
-const data = {
-  labels: ['Jan', 'February', 'March', 'April', 'May', 'June', 'Jul'],
-  datasets: [
-    {
-      data: [10, 45, 28, 80, 99, 43],
-    },
-  ],
+const LineChart_ChartKit = ({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}) => {
+  return (
+    <LineChart
+      data={{
+        labels: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ],
+        datasets: [
+          {
+            data: [
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+            ],
+          },
+        ],
+      }}
+      // data={data}
+      // width={Dimensions.get('window').width} // from react-native
+      width={width} // from react-native
+      height={height}
+      yAxisLabel="$"
+      yAxisSuffix="k"
+      yAxisInterval={1} // optional, defaults to 1
+      chartConfig={{
+        ackgroundGradientFrom: '#fff',
+        backgroundGradientFromOpacity: 0,
+        backgroundGradientTo: '#fff',
+        backgroundGradientToOpacity: 0.5,
+        // backgroundColor: '#e26a00',
+        // backgroundGradientFrom: '#fb8c00',
+        // backgroundGradientTo: '#ffa726',
+        // decimalPlaces: 2, // optional, defaults to 2dp
+        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+        style: {
+          // margin: 20,
+          borderRadius: 16,
+        },
+        propsForDots: {
+          r: '6',
+          strokeWidth: '2',
+          // stroke: '#ffa726',
+          stroke: colors.red,
+        },
+      }}
+      bezier
+      style={{
+        marginVertical: 10,
+        borderRadius: 16,
+        margin: 20,
+      }}
+    />
+  );
 };
 
-const LineChart2 = props => {
+const LineChart_Victor = ({width, height}: {width: number; height: number}) => {
   const data = [
     {x: 'Mon', y: 150},
     {x: 'Tue', y: 230},
@@ -39,8 +112,8 @@ const LineChart2 = props => {
     {x: 'sun', y: 260},
   ];
   return (
-    <View>
-      <VictoryChart theme={VictoryTheme.material} height={250} width={400}>
+    <View style={{alignItems: 'center'}}>
+      <VictoryChart theme={VictoryTheme.material} height={height} width={width}>
         <VictoryArea
           style={{data: {fill: 'rgba(230, 231, 231,0.8)'}}}
           data={data}
@@ -64,81 +137,72 @@ const LineChart2 = props => {
 };
 
 const ProgressView = () => {
+  // Skitch weight loss
+  // Every time user register new weight value it should be counted by value(Y) and date(X)
+  // X-axis
+  // Let the use choose time frame period (day, month, year)
+  // present data for a day by 7 days
+  // present data for month by registerd days
+  // present data for year by 12 months
+  // Y-axis
+  // present data for y-axis by the max value and divide by value(?)
+
+  // present scatter weigt goal different
+
   const screenWidth = Dimensions.get('window').width;
   return (
     <ScreenContainerScroll>
-      <LineChart
-        data={{
-          labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-          ],
-          datasets: [
-            {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
-            },
-          ],
-        }}
-        // data={data}
-        // width={Dimensions.get('window').width} // from react-native
-        width={screenWidth} // from react-native
-        height={320}
-        yAxisLabel="$"
-        yAxisSuffix="k"
-        yAxisInterval={1} // optional, defaults to 1
-        chartConfig={{
-          ackgroundGradientFrom: '#fff',
-          backgroundGradientFromOpacity: 0,
-          backgroundGradientTo: '#fff',
-          backgroundGradientToOpacity: 0.5,
-          // backgroundColor: '#e26a00',
-          // backgroundGradientFrom: '#fb8c00',
-          // backgroundGradientTo: '#ffa726',
-          // decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            // margin: 20,
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: '6',
-            strokeWidth: '2',
-            // stroke: '#ffa726',
-            stroke: colors.red,
-          },
-        }}
-        bezier
+      <Pressable
+        title="Chart data"
         style={{
-          marginVertical: 10,
-          borderRadius: 16,
-          margin: 20,
+          backgroundColor: 'white',
+          marginHorizontal: 20,
+          marginTop: 20,
+          padding: 20,
+        }}
+        onPress={() => {
+          console.warn(
+            'Not Implemented, this button should allow user to choose which data to progress view',
+          );
         }}
       />
-      <LineChart2 />
+      <LineChart_Victor width={screenWidth} height={250} />
+      {/* <LineChart_ChartKit width={screenWidth} height={250} /> */}
+      <View style={{padding: 20}}>
+        <Text style={{color: 'white', fontWeight: '600'}}>
+          {'Skitch weight loss'.toUpperCase() + '\n'}
+        </Text>
+        {/* <Text style={{color: 'white', fontWeight: '200'}}></Text> */}
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * Every time user register new weight value it should be counted by
+          value(Y) and date(X)
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}></Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>X-axis</Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * Let the user choose time frame period {'\n'} (day,month, year){' '}
+          {/* you can insert new line like so ;) */}
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * present data for a day by 7 days
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * present data for month by registerd days
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * present data for year by 12 months
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}></Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>Y-axis</Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * present data for y-axis by the max value and divide by value(?)
+          present
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}></Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          * scatter weigt goal different
+        </Text>
+      </View>
     </ScreenContainerScroll>
   );
 };

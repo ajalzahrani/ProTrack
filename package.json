@@ -45,6 +45,7 @@
     "react-native-tab-view": "^3.5.1",
     "react-native-uuid": "^2.0.1",
     "reinput": "^3.7.2",
+    "victory-native": "^36.6.11",
     "zustand": "^4.1.3"
   },
   "devDependencies": {
