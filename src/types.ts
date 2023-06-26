@@ -28,7 +28,12 @@ export type userBodyMeasurementsType = {
   boneMass: string;
   visceralFat: string;
   boneDensity: string;
-  // customMeasurements?: [{title: string; value: number}];
+  registerDate: string;
+};
+
+export type bodyMeasurementsRecordType = {
+  weight: string;
+  registerDate: string;
 };
 
 export type userType = {
