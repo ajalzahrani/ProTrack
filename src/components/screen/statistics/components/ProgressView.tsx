@@ -18,6 +18,7 @@ import {
 } from 'victory-native';
 import {Pressable, ScreenContainer} from 'src/components/shared';
 import ScreenContainerScroll from 'src/components/shared/ScreenContainerScroll';
+import useUserBodyMeasurementsRecordStore from 'src/store/useUserBodyMeasurementsRecordStore';
 
 const LineChart_ChartKit = ({
   width,
@@ -102,15 +103,36 @@ const LineChart_ChartKit = ({
 };
 
 const LineChart_Victor = ({width, height}: {width: number; height: number}) => {
-  const data = [
-    {x: 'Mon', y: 150},
-    {x: 'Tue', y: 230},
-    {x: 'Wed', y: 224},
-    {x: 'Thu', y: 218},
-    {x: 'Fri', y: 135},
-    {x: 'Sat', y: 147},
-    {x: 'sun', y: 260},
-  ];
+  const userBodyRecord = useUserBodyMeasurementsRecordStore(
+    s => s.bodyMeasurementsRecord,
+  );
+
+  type dataObjType = {
+    x: string;
+    y: string;
+  };
+
+  const dataObj: dataObjType[] = [];
+  for (let i = 0; i < userBodyRecord.length; i++) {
+    dataObj.push({
+      x: new Date(userBodyRecord[i].registerDate).getMinutes().toString(),
+      y: userBodyRecord[i].weightRecord,
+    });
+  }
+
+  dataObj.sort((a, b) => parseInt(a.y) - parseInt(b.y));
+  dataObj.sort((a, b) => parseInt(a.x) - parseInt(b.x));
+  const data = dataObj;
+  // [
+  //   {x: 'Mon', y: 150},
+  //   {x: 'Tue', y: 230},
+  //   {x: 'Wed', y: 224},
+  //   {x: 'Thu', y: 218},
+  //   {x: 'Fri', y: 135},
+  //   {x: 'Sat', y: 147},
+  //   {x: 'sun', y: 260},
+
+  // ];
   return (
     <View style={{alignItems: 'center'}}>
       <VictoryChart theme={VictoryTheme.material} height={height} width={width}>
@@ -148,6 +170,9 @@ const ProgressView = () => {
   // present data for y-axis by the max value and divide by value(?)
 
   // present scatter weigt goal different
+  const userBodyRecord = useUserBodyMeasurementsRecordStore(
+    s => s.bodyMeasurementsRecord,
+  );
 
   const screenWidth = Dimensions.get('window').width;
   return (
@@ -163,6 +188,17 @@ const ProgressView = () => {
         onPress={() => {
           console.warn(
             'Not Implemented, this button should allow user to choose which data to progress view',
+          );
+          for (let i = 0; i < userBodyRecord.length; i++) {
+            console.log(
+              userBodyRecord[i].registerDate +
+                ' ' +
+                userBodyRecord[i].weightRecord,
+            );
+          }
+
+          console.log(
+            new Date(userBodyRecord[0].registerDate).getMinutes().toString(),
           );
         }}
       />
@@ -201,6 +237,9 @@ const ProgressView = () => {
         <Text style={{color: 'white', fontWeight: '200'}}></Text>
         <Text style={{color: 'white', fontWeight: '200'}}>
           * scatter weigt goal different
+        </Text>
+        <Text style={{color: 'white', fontWeight: '200'}}>
+          {'\n'}* Number of records {userBodyRecord.length}
         </Text>
       </View>
     </ScreenContainerScroll>

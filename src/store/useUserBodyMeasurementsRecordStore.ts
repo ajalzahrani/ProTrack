@@ -23,26 +23,25 @@ type State = {
 };
 
 type Actions = {
-  setWeight: (weight: string) => void;
+  setWeightRecord: (weight: string) => void;
 };
 
 const initialState: State = {
   bodyMeasurementsRecord: [
-    {weight: '71', registerDate: new Date().toISOString()},
+    {weightRecord: '71', registerDate: new Date().toISOString()},
   ],
 };
 
 const useUserBodyMeasurementsRecordStore = create<State & Actions>(
   (set, get) => ({
     ...initialState,
-    setWeight: weight =>
+    setWeightRecord: weightRecord =>
       set(state => ({
         ...state,
-        bodyMeasurements: {
+        bodyMeasurementsRecord: [
           ...state.bodyMeasurementsRecord,
-          weight,
-          registerDate: new Date().toISOString(),
-        },
+          {weightRecord, registerDate: new Date().toISOString()},
+        ],
       })),
   }),
 );

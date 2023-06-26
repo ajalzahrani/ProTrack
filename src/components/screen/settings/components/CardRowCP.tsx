@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from './CardPickersStyle';
 import CustomPicker2 from 'src/components/shared/CustomPicker2';
-import useUserBodyMeasureSessionStore from 'src/store/useUserBodyMeasurementsRecordStore';
+import useUserBodyMeasurementsRecordStore from 'src/store/useUserBodyMeasurementsRecordStore';
 import {CustomModal} from 'src/components/shared';
 
 type CardRowCPType = {
@@ -18,8 +18,11 @@ const CardRowCP: React.FC<CardRowCPType> = ({
   value,
   setValue,
 }) => {
-  const bmSession = useUserBodyMeasureSessionStore(
-    s => s.bodyMeasurementsSession,
+  const bmSession = useUserBodyMeasurementsRecordStore(
+    s => s.bodyMeasurementsRecord,
+  );
+  const setWeightRecord = useUserBodyMeasurementsRecordStore(
+    s => s.setWeightRecord,
   );
   const {t} = useTranslation();
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -51,6 +54,7 @@ const CardRowCP: React.FC<CardRowCPType> = ({
             onPress: () => {
               // record value to userBodySession
               console.log('record value to userBodyRecord');
+              setWeightRecord(pickedValue);
               setCustomModalVisable(false);
             },
           },

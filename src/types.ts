@@ -32,7 +32,7 @@ export type userBodyMeasurementsType = {
 };
 
 export type bodyMeasurementsRecordType = {
-  weight: string;
+  weightRecord: string;
   registerDate: string;
 };
 
