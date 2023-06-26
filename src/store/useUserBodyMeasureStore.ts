@@ -62,7 +62,10 @@ const useUserBodyMeasureStore = create<State & Actions>((set, get) => ({
   setWeight: weight =>
     set(state => ({
       ...state,
-      bodyMeasurements: {...state.bodyMeasurements, weight},
+      bodyMeasurements: {
+        ...state.bodyMeasurements,
+        weight,
+      },
     })),
 
   setBmi: bmi =>

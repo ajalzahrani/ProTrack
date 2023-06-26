@@ -40,6 +40,16 @@ const StatisticView = () => {
           </Text>
         );
       })}
+      <Text style={{color: 'white', fontWeight: '600'}}>
+        {'\n'}
+        {'\n'}
+        {'\n'}
+        Statisctic View
+        {'\n'}
+      </Text>
+      <Text style={{color: 'white', fontWeight: '200'}}>
+        Show body measurements according to BMI scintific studies
+      </Text>
     </View>
   );
 };
