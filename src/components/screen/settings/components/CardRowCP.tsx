@@ -1,8 +1,10 @@
 import {Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from './CardPickersStyle';
 import CustomPicker2 from 'src/components/shared/CustomPicker2';
+import useUserBodyMeasureSessionStore from 'src/store/useUserBodyMeasurementsRecordStore';
+import {CustomModal} from 'src/components/shared';
 
 type CardRowCPType = {
   header: string;
@@ -16,20 +18,55 @@ const CardRowCP: React.FC<CardRowCPType> = ({
   value,
   setValue,
 }) => {
+  const bmSession = useUserBodyMeasureSessionStore(
+    s => s.bodyMeasurementsSession,
+  );
   const {t} = useTranslation();
   const [modalVisible, setModalVisible] = React.useState(false);
-  // const [selectedItem, setSelectedItem] = React.useState(items[0]);
+  const [customModalVisable, setCustomModalVisable] = React.useState(false);
+  const [pickedValue, setPickedValue] = React.useState(value);
+
   const closeModal = () => {
     setModalVisible(false);
+    setValue(pickedValue);
+    console.log('askUserModal');
+    askUserModal();
+  };
+
+  const askUserModal = () => {
+    console.log('Inside askUserModal');
+
+    setCustomModalVisable(true);
   };
 
   return (
     <>
+      <CustomModal
+        visible={customModalVisable}
+        setVisible={setCustomModalVisable}
+        message="Do you want make a record?"
+        buttons={[
+          {
+            text: 'Yes',
+            onPress: () => {
+              // record value to userBodySession
+              console.log('record value to userBodyRecord');
+              setCustomModalVisable(false);
+            },
+          },
+          {
+            text: 'No',
+            onPress: () => {
+              setCustomModalVisable(false);
+            },
+          },
+        ]}
+      />
       <CustomPicker2
         visible={modalVisible}
         onClose={closeModal}
-        selectedItem={value}
-        setSelectedItem={setValue}
+        selectedItem={pickedValue}
+        setSelectedItem={setPickedValue}
         items={items}></CustomPicker2>
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
