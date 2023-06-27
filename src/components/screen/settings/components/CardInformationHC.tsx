@@ -33,8 +33,15 @@ const CardInformationHC = ({title, rows}: CardInformationHCType) => {
             />
           );
         case 'date':
-          if (row.value !== undefined && row.value instanceof Date) {
-            return <CardRowDate key={i} header={row.header} dob={row.value} />;
+          if (row.value !== undefined && typeof row.value === 'string') {
+            return (
+              <CardRowDate
+                key={i}
+                header={row.header}
+                value={row.value}
+                setValue={row.setValue ? row.setValue : () => {}}
+              />
+            );
           }
         case 'text':
           if (row.value !== undefined && typeof row.value === 'string') {

@@ -126,7 +126,8 @@ const SettingsScreen = () => {
             {
               picker: 'date',
               header: 'DOB',
-              value: new Date(),
+              value: userPreferences.dob,
+              setValue: setDOB,
             },
             {
               picker: 'text',
