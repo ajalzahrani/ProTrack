@@ -1,5 +1,5 @@
 import {Text, TouchableOpacity} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from './CardPickersStyle';
 import CustomPicker2 from 'src/components/shared/CustomPicker2';
@@ -11,12 +11,14 @@ type CardRowCPType = {
   items: string[];
   value: string;
   setValue: (value: string) => void;
+  isRecord: boolean;
 };
 const CardRowCP: React.FC<CardRowCPType> = ({
   header,
   items,
   value,
   setValue,
+  isRecord,
 }) => {
   const bmSession = useUserBodyMeasurementsRecordStore(
     s => s.bodyMeasurementsRecord,
@@ -25,21 +27,14 @@ const CardRowCP: React.FC<CardRowCPType> = ({
     s => s.setWeightRecord,
   );
   const {t} = useTranslation();
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [customModalVisable, setCustomModalVisable] = React.useState(false);
-  const [pickedValue, setPickedValue] = React.useState(value);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [customModalVisable, setCustomModalVisable] = useState(false);
+  const [pickedValue, setPickedValue] = useState(value);
 
   const closeModal = () => {
     setModalVisible(false);
     setValue(pickedValue);
-    console.log('askUserModal');
-    askUserModal();
-  };
-
-  const askUserModal = () => {
-    console.log('Inside askUserModal');
-
-    setCustomModalVisable(true);
+    if (isRecord) setCustomModalVisable(true);
   };
 
   return (

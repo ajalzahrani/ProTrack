@@ -42,11 +42,7 @@ function generateNums(N: number) {
 
 const SettingsScreen = () => {
   const userPreferences = useUserPreferencesStore(s => s.preferences);
-  const setFirstname = useUserPreferencesStore(s => s.setFirstName);
-  const setUsername = useUserPreferencesStore(s => s.setUsername);
-  const setLastname = useUserPreferencesStore(s => s.setLastName);
   const setLocation = useUserPreferencesStore(s => s.setLocation);
-  const setMobile = useUserPreferencesStore(s => s.setMobile);
   const setGender = useUserPreferencesStore(s => s.setGender);
   const setEmail = useUserPreferencesStore(s => s.setEmail);
   const setDOB = useUserPreferencesStore(s => s.setDOB);
@@ -55,24 +51,8 @@ const SettingsScreen = () => {
   const setMetric = useUserBodyMeasureStore(s => s.setMetric);
   const setHight = useUserBodyMeasureStore(s => s.setHeight);
   const setWeight = useUserBodyMeasureStore(s => s.setWeight);
-  const setMuscleMass = useUserBodyMeasureStore(s => s.setMuscleMass);
-  const setBodyWater = useUserBodyMeasureStore(s => s.setBodyWater);
-  const setBoneDensity = useUserBodyMeasureStore(s => s.setBoneDensity);
-  const setBoneMass = useUserBodyMeasureStore(s => s.setBoneMass);
-  const setVisceralFat = useUserBodyMeasureStore(s => s.setVisceralFat);
   useUnit();
   useBMICas();
-  const [value, setValue] = useState<string>('----');
-
-  const [modal, setModal] = useState(false);
-
-  const onClose = (fvalue: string, svalue: string) => {
-    setModal(s => !s);
-    // save the value
-    console.log('fValue: ', fvalue, ' svalue: ', svalue);
-    const newValue = fvalue + ' ' + svalue;
-    setValue(newValue);
-  };
 
   const {t, i18n} = useTranslation();
 
@@ -107,7 +87,6 @@ const SettingsScreen = () => {
           <Image source={assets.AsianBueaty} style={styles.image} />
           <View style={{marginLeft: 16}}>
             <Text style={styles.userFullName}>John Wick</Text>
-            <Text style={styles.userFullName}>{value}</Text>
             <Text style={styles.username}>@johnWick</Text>
           </View>
         </View>
@@ -150,83 +129,36 @@ const SettingsScreen = () => {
               picker: 'picker',
               header: 'Height',
               items: generateNums(200),
-              value: bodyMeasurements.height,
+              value:
+                bodyMeasurements.height +
+                (bodyMeasurements.metric == 'metric' ? ' CM' : ' FT'),
               setValue: setHight,
+              // isRecord: true,
             },
             {
               picker: 'picker',
               header: 'Weight',
               items: generateNums(250),
-              value: bodyMeasurements.weight,
+              value:
+                bodyMeasurements.weight +
+                (bodyMeasurements.metric == 'imperial' ? ' LB' : ' KG'),
               setValue: setWeight,
+              // isRecord: true,
             },
             {
               picker: 'picker',
               header: 'BMI',
               items: generateNums(50),
               value: bodyMeasurements.bmi,
-              // setValue: setBmi,
             },
             {
               picker: 'picker',
-              header: 'Muscle Mass',
-              items: generateNums(70),
-              value: bodyMeasurements.muscleMass,
-              setValue: setMuscleMass,
-            },
-            {
-              picker: 'picker',
-              header: 'Body Water',
-              items: generateNums(100),
-              value: bodyMeasurements.bodyWater,
-              setValue: setBodyWater,
-            },
-            {
-              picker: 'picker',
-              header: 'Unit of Measurement',
+              header: 'Unit',
               items: ['metric', 'imperial'],
               value: bodyMeasurements.metric,
               setValue: setMetric,
             },
-            // {
-            //   picker: 'picker',
-            //   header: 'Bone Mass',
-            //   value: generateNums(100),
-            // },
-            // {
-            //   picker: 'picker',
-            //   header: 'Visceral Fat',
-            //   value: generateNums(100),
-            // },
-            // {
-            //   picker: 'picker',
-            //   header: 'Bone Density',
-            //   value: generateNums(100),
-            // },
-            // {
-            //   picker: 'text',
-            //   header: 'Bone Density',
-            //   message: 'some message',
-            //   value: 'some text',
-            // },
           ]}
-        />
-        {/* <CardInformationHC
-          title="Language"
-          rows={[
-            {
-              picker: 'picker',
-              header: 'Language',
-              items: languages.map(l => l.label),
-            },
-          ]}
-        /> */}
-
-        <PressableButton
-          title="Show PickerList"
-          onPress={() => setModal(true)}
-          style={{padding: 20}}
-          titleStyle={{color: 'white', fontSize: 20, fontWeight: '800'}}
         />
 
         <View style={styles.centeredView}>
@@ -234,22 +166,6 @@ const SettingsScreen = () => {
             <LanguageButton {...lang} key={lang.name} />
           ))}
         </View>
-        <PickerList
-          visible={modal}
-          onClose={onClose}
-          pickers={[
-            {
-              items: ['1', '2', '3', '4', '5'],
-              selectedItem: 'hi',
-              setSelectedItem: () => console.log('hi'),
-            },
-            {
-              items: ['5', '6', '7', '8', '9'],
-              selectedItem: 'hi',
-              setSelectedItem: () => console.log('hi'),
-            },
-          ]}
-        />
       </ScrollView>
     </ScreenContainer>
   );

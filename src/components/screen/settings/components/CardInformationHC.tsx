@@ -16,6 +16,7 @@ type CardInformationHCType = {
     value?: string | string[] | Date;
     setValue?: (value: string) => void;
     message?: string;
+    isRecord?: boolean;
   }[];
 };
 const CardInformationHC = ({title, rows}: CardInformationHCType) => {
@@ -30,6 +31,7 @@ const CardInformationHC = ({title, rows}: CardInformationHCType) => {
               items={row.items ? row.items : []}
               value={typeof row.value === 'string' ? row.value : ''}
               setValue={row.setValue ? row.setValue : () => {}}
+              isRecord={row.isRecord ? row.isRecord : false}
             />
           );
         case 'date':

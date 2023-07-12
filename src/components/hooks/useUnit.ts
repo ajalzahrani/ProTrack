@@ -1,7 +1,6 @@
 import {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import useUserBodyMeasureStore from 'src/store/useUserBodyMeasureStore';
-import {convertWeight} from 'src/utility/unitconversion';
-import {convertHeight} from 'src/utility/unitconversion';
+import {convertWeight, convertHeight} from 'src/utility/unitconversion';
 
 // Metric system or the International System of Units (SI). In this system, the unit of weight or mass is the kilogram (kg).
 

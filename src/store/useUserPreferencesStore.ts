@@ -64,3 +64,7 @@ const useUserPreferencesStore = create<State & Actions>((set, get) => ({
 }));
 
 export default useUserPreferencesStore;
+
+const storeSet = (data: string) => {
+  store.set(def.userPreferences, data);
+};

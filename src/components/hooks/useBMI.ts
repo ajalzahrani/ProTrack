@@ -5,6 +5,7 @@ import {convert} from 'src/utility/unitconversion';
 export default function useBMI() {
   const bm = useUserBodyMeasureStore(s => s.bodyMeasurements);
   const setBmi = useUserBodyMeasureStore(s => s.setBmi);
+
   useEffect(() => {
     if (bm.weight !== undefined && bm.height !== undefined) {
       if (bm.metric == 'metric') {

@@ -48,6 +48,8 @@ export default function ModalInput({
           onChangeText={setText}
           value={text}
           autoCapitalize="none"
+          autoCorrect={false}
+          autoFocus={true}
         />
       </CustomModal>
     </>
@@ -56,11 +58,15 @@ export default function ModalInput({
 
 const styles = StyleSheet.create({
   textInput: {
-    width: '100%',
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    width: 250,
+    // height: 40,
+    // margin: 12,
+    // borderWidth: 1,
+    borderBottomWidth: 0.2,
+    marginVertical: 12,
+    // backgroundColor: 'gray',
+    padding: 5,
+    fontSize: 20,
   },
   btnContainer: {
     backgroundColor: 'white',

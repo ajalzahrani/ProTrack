@@ -6,6 +6,7 @@ const routineGlobalKey = 'routines';
 const sessionGlobalKey = 'session';
 const userPreferences = 'preferences';
 const userBodyMeasurements = 'bodymeasurements';
+const shopGKEY = 'shop';
 
 const def = {
   exerciseMasterGlobalKey,
@@ -13,5 +14,6 @@ const def = {
   sessionGlobalKey,
   userPreferences,
   userBodyMeasurements,
+  shopGKEY,
 };
 export default def;

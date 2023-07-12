@@ -21,6 +21,6 @@ export function convertHeight(height: string, sys: string) {
     return convert(h).from('cm').to('ft');
   } else {
     // return cvtFootToCm(h);
-    return convert(h).from('ft').to('cm');
+    return Math.ceil(convert(h).from('ft').to('cm'));
   }
 }

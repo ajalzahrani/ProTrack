@@ -7,6 +7,7 @@ export type sessionExerciseType = {
     tut: number;
   }[];
 };
+
 export type sessionType = {
   sesisonId: string;
   datetime: string;
@@ -50,18 +51,6 @@ export type userType = {
   mobile?: string;
   email: string;
   location?: string;
-
-  // workout preferences
-  activityLevel?: number; // 1-7 days per week
-  activityLevelDescription?: [
-    'Basal Metabolic Rate (BMR)',
-    'Sedentary: little or no exercise',
-    'Light: exercise 1-3 times/week',
-    'Moderate: exercise 4-5 times/week',
-    'Active: daily exercise or intense exercise 3-4 times/week',
-    'Very Active: intense exercise 6-7 times/week',
-    'Extra Active: very intense exercise daily, or physical job',
-  ];
 };
 export type exerciseMasterType = {
   id: string;
@@ -71,22 +60,26 @@ export type exerciseMasterType = {
   gifUrl?: string;
   target?: string;
 };
+
 export type weekdaysType = {
   id: number;
   symbol: string;
   workoutId: string;
   isWorkday: boolean;
 };
+
 export type exercisesType = {
   id: string;
   freq: number[];
 };
+
 export type workoutType = {
   id: string;
   title: string;
   exercises: exercisesType[];
   resttime: number[];
 };
+
 export type routineType = {
   id: string;
   title: string;
