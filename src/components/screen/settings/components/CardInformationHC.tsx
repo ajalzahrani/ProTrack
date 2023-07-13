@@ -51,7 +51,8 @@ const CardInformationHC = ({title, rows}: CardInformationHCType) => {
               <CardRowText
                 key={i}
                 header={row.header}
-                text={row.value}
+                value={row.value}
+                setValue={row.setValue ? row.setValue : () => {}}
                 message={row.message ? row.message : ''}
               />
             );

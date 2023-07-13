@@ -1,5 +1,5 @@
 import {StyleSheet, ViewStyle, TextInput} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomModal from './CustomModal';
 
 type ModalInputProps = {
@@ -19,7 +19,8 @@ export default function ModalInput({
   textValue,
   setTextValue,
 }: ModalInputProps) {
-  const [text, setText] = React.useState(textValue);
+  const [text, setText] = useState(textValue);
+
   return (
     <>
       <CustomModal
@@ -37,8 +38,8 @@ export default function ModalInput({
           {
             text: 'Cancel',
             onPress: () => {
-              setTextValue('');
-              setText('');
+              // setTextValue('');
+              setText(textValue);
               setVisible(false);
             },
           },

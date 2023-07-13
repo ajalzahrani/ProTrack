@@ -7,11 +7,14 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
-
 import useUserPreferencesStore from 'src/store/useUserPreferencesStore';
 import useUserBodyMeasureStore from 'src/store/useUserBodyMeasureStore';
 import useUnit from 'src/components/hooks/useUnit';
 import {convertHeight, convertWeight} from 'src/utility/unitconversion';
+
+// Store this import is for testing
+import {store} from 'src/store/mmkv';
+import def from 'src/components/shared/GlobalDefinition';
 
 // Components
 import {colors, assets} from 'src/assets';
@@ -39,6 +42,8 @@ function generateNums(N: number) {
 // Appearence
 // Languages
 // ProTrack FAQ
+
+// FIXME: Editing email and location with empty the textInput
 
 const SettingsScreen = () => {
   const userPreferences = useUserPreferencesStore(s => s.preferences);
@@ -111,14 +116,16 @@ const SettingsScreen = () => {
             {
               picker: 'text',
               header: 'Email',
-              value: '',
+              setValue: setEmail,
+              value: userPreferences.email,
               message: 'Please enter your email',
             },
             {
               picker: 'text',
               header: 'Location',
-              value: '',
+              value: userPreferences.location,
               message: 'Please enter your location',
+              setValue: setLocation,
             },
           ]}
         />
@@ -166,6 +173,14 @@ const SettingsScreen = () => {
             <LanguageButton {...lang} key={lang.name} />
           ))}
         </View>
+        <TouchableOpacity
+          style={{padding: 12, backgroundColor: 'gray'}}
+          onPress={() => {
+            const userPreferences = store.getString(def.userPreferences);
+            console.log(userPreferences);
+          }}>
+          <Text>Print User Preferences</Text>
+        </TouchableOpacity>
       </ScrollView>
     </ScreenContainer>
   );
