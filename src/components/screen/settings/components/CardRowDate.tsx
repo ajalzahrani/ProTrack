@@ -4,10 +4,11 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import DatePicker from 'react-native-date-picker';
 import styles from './CardPickersStyle';
+import moment from 'moment';
 
 type CardRowDateType = {
   header: string;
@@ -16,16 +17,19 @@ type CardRowDateType = {
 };
 const CardRowDate: React.FC<CardRowDateType> = ({header, value, setValue}) => {
   const {t} = useTranslation();
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [date, setDate] = React.useState<Date>(
-    value.length === 0 ? new Date() : new Date(value),
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState<Date>(
+    value.length === 0
+      ? moment(new Date(), 'yyyy-mm-dd').toDate()
+      : moment(new Date(value), 'yyyy-mm-dd').toDate(),
   );
   useEffect(() => {
-    setValue(date.toLocaleDateString());
+    console.log('Date to save, at cmp create: ', date.toDateString());
+    setValue(date.toDateString());
   }, [date]);
+
   useEffect(() => {
     console.log(value);
-    console.log(value.length);
   }, []);
   return (
     <>
@@ -38,7 +42,7 @@ const CardRowDate: React.FC<CardRowDateType> = ({header, value, setValue}) => {
           onConfirm={date => {
             setModalVisible(false);
             setDate(date);
-            // setValue(date.toString());
+            // setValue(date.toLocaleDateString());
           }}
           onCancel={() => {
             setModalVisible(false);

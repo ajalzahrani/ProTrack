@@ -18,7 +18,7 @@ const getPreferences = (): userType => {
         firstname: '',
         lastname: '',
         dob: '',
-        gender: '',
+        gender: 'Female',
         email: '',
         location: '',
       };
@@ -52,12 +52,30 @@ const useUserPreferencesStore = create<State & Actions>((set, get) => ({
     set(state => ({...state, preferences: {...state.preferences, firstname}})),
   setLastName: lastname =>
     set(state => ({...state, preferences: {...state.preferences, lastname}})),
-  setDOB: dob =>
-    set(state => ({...state, preferences: {...state.preferences, dob}})),
   setMobile: mobile =>
     set(state => ({...state, preferences: {...state.preferences, mobile}})),
+  setDOB: dob =>
+    set(
+      produce((state: Draft<State & Actions>) => {
+        console.log('dob address: ', dob);
+        if (dob.length > 0 && dob != undefined) {
+          state.preferences.dob = dob;
+          storeSet(JSON.stringify(state.preferences));
+          console.log('dob saved');
+        }
+      }),
+    ),
   setGender: gender =>
-    set(state => ({...state, preferences: {...state.preferences, gender}})),
+    set(
+      produce((state: Draft<State & Actions>) => {
+        console.log('gender address: ', gender);
+        if (gender.length > 0 && gender != undefined) {
+          state.preferences.gender = gender;
+          storeSet(JSON.stringify(state.preferences));
+          console.log('gender saved');
+        }
+      }),
+    ),
   setEmail: email =>
     set(
       produce((state: Draft<State & Actions>) => {

@@ -29,6 +29,7 @@ import useBMICas from 'src/components/hooks/useBMI';
 import PickerList from 'src/components/shared/PickerList';
 import {Picker} from '@react-native-picker/picker';
 import {ViewRow} from 'src/components/shared';
+import {userType} from 'src/types';
 
 function generateNums(N: number) {
   const setOfNums = [...Array(N).keys()].map(i => (i + 1).toString());
@@ -104,7 +105,7 @@ const SettingsScreen = () => {
               picker: 'picker',
               header: 'Gender',
               items: ['Male', 'Female'],
-              value: userPreferences.gender ? userPreferences.gender : 'Male',
+              value: userPreferences.gender,
               setValue: setGender,
             },
             {
@@ -180,6 +181,19 @@ const SettingsScreen = () => {
             console.log(userPreferences);
           }}>
           <Text>Print User Preferences</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{padding: 12, backgroundColor: 'gray'}}
+          onPress={() => {
+            const userPreferences = store.getString(def.userPreferences);
+            if (userPreferences != undefined) {
+              const up: userType = JSON.parse(userPreferences);
+              up.dob = '';
+              store.set(def.userPreferences, JSON.stringify(up));
+              console.log('User Prefrences dob cleared.');
+            }
+          }}>
+          <Text>Clear User Preferences</Text>
         </TouchableOpacity>
       </ScrollView>
     </ScreenContainer>

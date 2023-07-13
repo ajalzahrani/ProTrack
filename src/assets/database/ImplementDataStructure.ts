@@ -10,11 +10,29 @@ export function ImplementDataStructure() {
 
   if (!store.contains(def.exerciseMasterGlobalKey)) {
     store.set('exercises', JSON.stringify(exerciseMaster));
-    console.log('Exercises data implemented successfully');
+    console.log('✅ Exercises data implemented successfully');
   }
 
   if (!store.contains(def.routineGlobalKey)) {
     store.set('routines', JSON.stringify(routines));
-    console.log('Workouts data implemented successfully ');
+    console.log('✅ Workouts data implemented successfully ');
   }
+  // if (!store.contains(def.sessionGlobalKey)) {
+  //   store.set('exercises', JSON.stringify(exerciseMaster));
+  //   console.log('✅ Session data implemented successfully');
+  // }
+
+  // if (!store.contains(def.userPreferences)) {
+  //   store.set('routines', JSON.stringify(routines));
+  //   console.log('✅ User preferences data implemented successfully ');
+  // }
+  // if (!store.contains(def.userBodyMeasurements)) {
+  //   store.set('exercises', JSON.stringify(exerciseMaster));
+  //   console.log('✅ User body measurements data implemented successfully');
+  // }
+
+  // if (!store.contains(def.shopGKEY)) {
+  //   store.set('routines', JSON.stringify(routines));
+  //   console.log('✅ ShopGKEY data implemented successfully ');
+  // }
 }
