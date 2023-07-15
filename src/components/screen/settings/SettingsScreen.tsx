@@ -29,10 +29,17 @@ import useBMICas from 'src/components/hooks/useBMI';
 import PickerList from 'src/components/shared/PickerList';
 import {Picker} from '@react-native-picker/picker';
 import {ViewRow} from 'src/components/shared';
-import {userType} from 'src/types';
+import {
+  bodyMeasurementsRecordType,
+  userBodyMeasurementsType,
+  userType,
+} from 'src/types';
 
-function generateNums(N: number) {
-  const setOfNums = [...Array(N).keys()].map(i => (i + 1).toString());
+function generateNums(min: number, max: number, adder: number) {
+  const setOfNums: string[] = [];
+  for (let i = min; i <= max; i += adder) {
+    setOfNums.push(i.toString());
+  }
   return setOfNums;
 }
 
@@ -58,7 +65,6 @@ const SettingsScreen = () => {
   const setHight = useUserBodyMeasureStore(s => s.setHeight);
   const setWeight = useUserBodyMeasureStore(s => s.setWeight);
   useUnit();
-  useBMICas();
 
   const {t, i18n} = useTranslation();
 
@@ -136,28 +142,24 @@ const SettingsScreen = () => {
             {
               picker: 'picker',
               header: 'Height',
-              items: generateNums(200),
-              value:
-                bodyMeasurements.height +
-                (bodyMeasurements.metric == 'metric' ? ' CM' : ' FT'),
               setValue: setHight,
-              // isRecord: true,
+              value: bodyMeasurements.height,
+              items:
+                bodyMeasurements.metric == 'metric'
+                  ? generateNums(120, 220, 1)
+                  : generateNums(1, 10, 0.5),
+              extra: bodyMeasurements.metric == 'metric' ? 'CM' : 'FT',
             },
             {
               picker: 'picker',
               header: 'Weight',
-              items: generateNums(250),
-              value:
-                bodyMeasurements.weight +
-                (bodyMeasurements.metric == 'imperial' ? ' LB' : ' KG'),
+              items:
+                bodyMeasurements.metric == 'metric'
+                  ? generateNums(40, 240, 1)
+                  : generateNums(88, 529, 1),
+              value: bodyMeasurements.weight,
               setValue: setWeight,
-              // isRecord: true,
-            },
-            {
-              picker: 'picker',
-              header: 'BMI',
-              items: generateNums(50),
-              value: bodyMeasurements.bmi,
+              extra: bodyMeasurements.metric == 'metric' ? 'KG' : 'LB',
             },
             {
               picker: 'picker',
@@ -174,6 +176,22 @@ const SettingsScreen = () => {
             <LanguageButton {...lang} key={lang.name} />
           ))}
         </View>
+        <TouchableOpacity
+          style={{padding: 12, backgroundColor: 'gray'}}
+          onPress={() => {
+            const userMesasurement = store.getString(def.userBodyMeasurements);
+            if (userMesasurement != undefined) {
+              const um: userBodyMeasurementsType = JSON.parse(userMesasurement);
+              um.bmi = '';
+              um.height = '168';
+              um.weight = '76';
+              um.metric = 'metric';
+              store.set(def.userBodyMeasurements, JSON.stringify(um));
+              console.log('User body measurement cleared.');
+            }
+          }}>
+          <Text>Clear User Measurements</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={{padding: 12, backgroundColor: 'gray'}}
           onPress={() => {

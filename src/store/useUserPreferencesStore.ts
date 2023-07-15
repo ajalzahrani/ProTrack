@@ -57,44 +57,36 @@ const useUserPreferencesStore = create<State & Actions>((set, get) => ({
   setDOB: dob =>
     set(
       produce((state: Draft<State & Actions>) => {
-        console.log('dob address: ', dob);
         if (dob.length > 0 && dob != undefined) {
           state.preferences.dob = dob;
           storeSet(JSON.stringify(state.preferences));
-          console.log('dob saved');
         }
       }),
     ),
   setGender: gender =>
     set(
       produce((state: Draft<State & Actions>) => {
-        console.log('gender address: ', gender);
         if (gender.length > 0 && gender != undefined) {
           state.preferences.gender = gender;
           storeSet(JSON.stringify(state.preferences));
-          console.log('gender saved');
         }
       }),
     ),
   setEmail: email =>
     set(
       produce((state: Draft<State & Actions>) => {
-        console.log('email address: ', email);
         if (email.length > 0 && email != undefined) {
           state.preferences.email = email;
           storeSet(JSON.stringify(state.preferences));
-          console.log('email saved');
         }
       }),
     ),
   setLocation: location =>
     set(
       produce((state: Draft<State & Actions>) => {
-        console.log('location address: ', location);
         if (location.length > 0 && location != undefined) {
           state.preferences.location = location;
           storeSet(JSON.stringify(state.preferences));
-          console.log('location saved');
         }
       }),
     ),

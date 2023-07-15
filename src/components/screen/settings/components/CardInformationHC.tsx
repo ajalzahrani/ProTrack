@@ -6,6 +6,7 @@ import Divider from 'src/components/shared/Divider';
 import CardRowCP from './CardRowCP';
 import CardRowDate from './CardRowDate';
 import CardRowText from './CardRowText';
+import {ViewRow} from 'src/components/shared';
 
 type CardInformationHCType = {
   title: string;
@@ -17,6 +18,7 @@ type CardInformationHCType = {
     setValue?: (value: string) => void;
     message?: string;
     isRecord?: boolean;
+    extra?: string;
   }[];
 };
 const CardInformationHC = ({title, rows}: CardInformationHCType) => {
@@ -32,6 +34,7 @@ const CardInformationHC = ({title, rows}: CardInformationHCType) => {
               value={typeof row.value === 'string' ? row.value : ''}
               setValue={row.setValue ? row.setValue : () => {}}
               isRecord={row.isRecord ? row.isRecord : false}
+              extra={row.extra}
             />
           );
         case 'date':

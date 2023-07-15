@@ -1,10 +1,10 @@
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from './CardPickersStyle';
 import CustomPicker2 from 'src/components/shared/CustomPicker2';
 import useUserBodyMeasurementsRecordStore from 'src/store/useUserBodyMeasurementsRecordStore';
-import {CustomModal} from 'src/components/shared';
+import {CustomModal, ViewRow} from 'src/components/shared';
 
 type CardRowCPType = {
   header: string;
@@ -12,6 +12,7 @@ type CardRowCPType = {
   value: string;
   setValue: (value: string) => void;
   isRecord: boolean;
+  extra?: string;
 };
 const CardRowCP: React.FC<CardRowCPType> = ({
   header,
@@ -19,6 +20,7 @@ const CardRowCP: React.FC<CardRowCPType> = ({
   value,
   setValue,
   isRecord,
+  extra,
 }) => {
   const bmSession = useUserBodyMeasurementsRecordStore(
     s => s.bodyMeasurementsRecord,
@@ -71,8 +73,10 @@ const CardRowCP: React.FC<CardRowCPType> = ({
         onPress={() => setModalVisible(true)}
         style={styles.cardRowContainer}>
         <Text style={styles.cardRowText}>{t(header)}</Text>
-        <Text style={styles.cardRowText}>{t(value)}</Text>
-        {/* <Text style={styles.cardRowText}>{t('cm')}</Text> */}
+        <ViewRow>
+          <Text style={styles.cardRowText}>{t(value)}</Text>
+          <Text style={styles.cardRowText}> {extra}</Text>
+        </ViewRow>
       </TouchableOpacity>
     </>
   );

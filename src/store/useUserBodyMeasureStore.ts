@@ -14,7 +14,7 @@ const getUserBodyMeasurements = (): userBodyMeasurementsType => {
     : {
         metric: 'metric',
         height: '168',
-        weight: '71',
+        weight: '76',
         bmi: '',
         muscleMass: '',
         bodyWater: '',
@@ -48,31 +48,40 @@ const useUserBodyMeasureStore = create<State & Actions>((set, get) => ({
   ...initialState,
 
   setMetric: metric =>
-    set(state => ({
-      ...state,
-      bodyMeasurements: {...state.bodyMeasurements, metric},
-    })),
+    set(
+      produce((state: Draft<State & Actions>) => {
+        state.bodyMeasurements.metric = metric;
+        storeSet(JSON.stringify(state.bodyMeasurements));
+        console.log('Metric saved');
+      }),
+    ),
 
   setHeight: height =>
-    set(state => ({
-      ...state,
-      bodyMeasurements: {...state.bodyMeasurements, height},
-    })),
+    set(
+      produce((state: Draft<State & Actions>) => {
+        state.bodyMeasurements.height = height;
+        storeSet(JSON.stringify(state.bodyMeasurements));
+        console.log('height saved');
+      }),
+    ),
 
   setWeight: weight =>
-    set(state => ({
-      ...state,
-      bodyMeasurements: {
-        ...state.bodyMeasurements,
-        weight,
-      },
-    })),
+    set(
+      produce((state: Draft<State & Actions>) => {
+        state.bodyMeasurements.weight = weight;
+        storeSet(JSON.stringify(state.bodyMeasurements));
+        console.log('weight saved');
+      }),
+    ),
 
   setBmi: bmi =>
-    set(state => ({
-      ...state,
-      bodyMeasurements: {...state.bodyMeasurements, bmi},
-    })),
+    set(
+      produce((state: Draft<State & Actions>) => {
+        state.bodyMeasurements.bmi = bmi;
+        storeSet(JSON.stringify(state.bodyMeasurements));
+        console.log('bmi saved');
+      }),
+    ),
 
   setMuscleMass: muscleMass =>
     set(state => ({
@@ -103,3 +112,7 @@ const useUserBodyMeasureStore = create<State & Actions>((set, get) => ({
 }));
 
 export default useUserBodyMeasureStore;
+
+const storeSet = (data: string) => {
+  store.set(def.userBodyMeasurements, data);
+};
