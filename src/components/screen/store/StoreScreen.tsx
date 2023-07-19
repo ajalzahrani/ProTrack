@@ -18,37 +18,6 @@ const StoreScreen = (props: Props) => {
     <ScreenContainer>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{fontSize: 20, color: '#fff'}}>Welcome to Store</Text>
-        <Pressable
-          title="CustomModal"
-          onPress={() => {
-            console.log('Presable component');
-            setMv(true);
-          }}
-          titleStyle={{color: 'black'}}
-          style={{backgroundColor: 'red', padding: 10}}
-        />
-        <Pressable
-          title={value}
-          onPress={() => {
-            console.log('CustomPicker2');
-            setMv1(true);
-          }}
-          titleStyle={{color: 'black'}}
-          style={{backgroundColor: 'red', padding: 10}}
-        />
-        <CustomModal
-          visible={mv}
-          setVisible={setMv}
-          message="Hello, World"
-          buttons={[{text: 'Ok', onPress: () => setMv(false)}]}
-        />
-        <CustomPicker2
-          visible={mv1}
-          onClose={() => setMv1(false)}
-          items={['1', '2', '3', '4']}
-          setSelectedItem={item => setValue(item)}
-          selectedItem={value}
-        />
       </View>
     </ScreenContainer>
   );
