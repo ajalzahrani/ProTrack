@@ -27,7 +27,7 @@ const RoutineCard: React.FC<RoutineCardProps> = ({routine}) => {
     <>
       <CustomModal
         visible={modalVisible}
-        onClose={onClose}
+        setVisible={onClose}
         message="Are you sure you want to save changes?"
         buttons={[
           {

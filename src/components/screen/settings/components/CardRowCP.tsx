@@ -2,9 +2,8 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from './CardPickersStyle';
-import CustomPicker2 from 'src/components/shared/CustomPicker2';
 import useUserBodyMeasurementsRecordStore from 'src/store/useUserBodyMeasurementsRecordStore';
-import {CustomModal, ViewRow} from 'src/components/shared';
+import {CustomModal, ViewRow, CustomPicker2} from 'src/components/shared';
 
 type CardRowCPType = {
   header: string;
