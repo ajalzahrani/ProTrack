@@ -9,6 +9,7 @@ import ListCardTitle from './ListCardTitle';
 import CustomModal from './CustomModal';
 import ModalInput from './ModalInput';
 import CustomPicker2 from './CustomPicker2';
+import CustomPicker from './CustomPicker';
 
 export {
   PressableButton,
@@ -22,4 +23,5 @@ export {
   CustomModal,
   ModalInput,
   CustomPicker2,
+  CustomPicker,
 };

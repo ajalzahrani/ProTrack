@@ -3,7 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from './CardPickersStyle';
 import useUserBodyMeasurementsRecordStore from 'src/store/useUserBodyMeasurementsRecordStore';
-import {CustomModal, ViewRow, CustomPicker2} from 'src/components/shared';
+import {
+  CustomModal,
+  ViewRow,
+  CustomPicker2,
+  CustomPicker,
+} from 'src/components/shared';
 
 type CardRowCPType = {
   header: string;
@@ -34,8 +39,8 @@ const CardRowCP: React.FC<CardRowCPType> = ({
 
   const closeModal = () => {
     setModalVisible(false);
-    setValue(pickedValue);
-    if (isRecord) setCustomModalVisable(true);
+    // setValue(pickedValue);
+    // if (isRecord) setCustomModalVisable(true);
   };
 
   return (
@@ -62,12 +67,13 @@ const CardRowCP: React.FC<CardRowCPType> = ({
           },
         ]}
       />
-      <CustomPicker2
+      <CustomPicker
         visible={modalVisible}
         onClose={closeModal}
-        selectedItem={pickedValue}
-        setSelectedItem={setPickedValue}
-        items={items}></CustomPicker2>
+        selectedItem={value}
+        setSelectedItem={setValue}
+        items={items}
+      />
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
         style={styles.cardRowContainer}>
