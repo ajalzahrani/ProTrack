@@ -6,9 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import React, {useState} from 'react';
-import {colors} from 'src/assets';
 import ListCard from './ListCard';
-import PressableButton from './Pressable';
 import ViewRow from './ViewRow';
 
 type propType = {

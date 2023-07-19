@@ -18,11 +18,7 @@ import def from 'src/components/shared/GlobalDefinition';
 
 // Components
 import {colors, assets} from 'src/assets';
-import {
-  PressableButton,
-  PressableButtonColor,
-  ScreenContainer,
-} from 'src/components/shared';
+import {PressableButton, ScreenContainer} from 'src/components/shared';
 import {useTranslation} from 'react-i18next';
 import CardInformationHC from './components/CardInformationHC';
 import useBMICas from 'src/components/hooks/useBMI';

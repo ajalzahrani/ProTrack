@@ -13,11 +13,7 @@ import produce from 'immer';
 // Components
 import CalenderRow from './components/CalenderRow';
 import WorkoutCard from './components/WorkoutCard';
-import {
-  CustomModal,
-  PressableButton,
-  PressableButtonColor,
-} from 'src/components/shared';
+import {CustomModal, PressableButton} from 'src/components/shared';
 import compareObjects from 'src/components/shared/compareObjects';
 import {ScreenContainer} from 'src/components/shared';
 import {routineType, workoutType} from 'src/types';
@@ -189,7 +185,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
               </TouchableOpacity>
             </View>
 
-            <PressableButtonColor
+            <PressableButton
               title={'Start'}
               iconSource={assets.icn_start}
               onPress={() => {

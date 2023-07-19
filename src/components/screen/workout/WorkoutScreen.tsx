@@ -1,22 +1,16 @@
 import {
   View,
   Text,
-  SafeAreaView,
   Image,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Modal,
-  Alert,
-  Pressable,
   TextInput,
 } from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
-// import LinearGradient from 'react-native-linear-gradient';
-import {RouteProp, useNavigation} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import uuidv4 from 'src/components/shared/uuid4v';
-import produce from 'immer';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -24,9 +18,11 @@ import {colors, assets} from 'src/assets';
 // components
 import ExerciseCard from './components/ExerciseCard';
 import RestTimeController from './components/RestTimeController';
-import {PressableButtonColor} from 'src/components/shared';
-import {ScreenContainer} from 'src/components/shared';
-import {CustomModal} from 'src/components/shared';
+import {
+  PressableButton,
+  ScreenContainer,
+  CustomModal,
+} from 'src/components/shared';
 
 // Navigation
 import {RoutineStackRootParamList} from 'src/components/navigation/RoutineStack';
@@ -277,7 +273,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             })}
             {RestTimeDrawer()}
 
-            <PressableButtonColor
+            <PressableButton
               title={t('workout.skitch')}
               iconSource={assets.icn_edit}
               onPress={() => {
@@ -295,7 +291,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
               }}
             />
             {/* Test button */}
-            <PressableButtonColor
+            <PressableButton
               title={t('workout.delete')}
               onPress={() => {
                 if (workout !== undefined) {

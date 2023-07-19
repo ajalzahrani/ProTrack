@@ -1,42 +1,25 @@
 import {Text, View, Image, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import KACModal from 'src/components/shared/KACModal';
 import useUserBodyMeasureStore from 'src/store/useUserBodyMeasureStore';
-import useBMICas from 'src/components/hooks/useBMI';
 
 // assets
 import {colors, assets} from 'src/assets';
 
 // Components
-import QuickStart from './components/QuickStart';
-import {CustomModal, ModalInput, Pressable} from 'src/components/shared';
-import PressableButton from '../../shared/PressableButton';
-import ScreenContainer from 'src/components/shared/ScreenContainer';
+import {PressableButton, ScreenContainer} from 'src/components/shared';
 import useRoutineStore from 'src/store/useRoutineStore';
 import useSessionStore from 'src/store/useSessionStore';
 
 const HomeScreen = () => {
-  const [modalView, setModalVisible] = useState(false);
   const routines = useRoutineStore(s => s.routines);
-  const [textValue, setTextValue] = useState('');
   const sesisons = useSessionStore(s => s.sessions);
   const bm = useUserBodyMeasureStore(s => s.bodyMeasurements);
   const {t} = useTranslation();
 
   return (
     <ScreenContainer>
-      {/* <ModalInput
-        message="Hello, World"
-        visible={modalView}
-        setVisible={setModalVisible}
-        textValue={textValue}
-        setTextValue={setTextValue}
-      /> */}
-
       <View style={styles.containerStyle}>
-        {/* <Text style={styles.homeTitle}>{textValue}</Text> */}
         <Text style={styles.homeTitle}>{t('home.title')}!</Text>
         <Text style={styles.homeTitle}>{bm.metric}</Text>
         <Text style={styles.homeTitle}>weight: {bm.weight}</Text>
