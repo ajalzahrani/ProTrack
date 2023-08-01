@@ -31,7 +31,24 @@ import {
   userType,
 } from 'src/types';
 
-function generateNums(min: number, max: number, adder: number) {
+export function generateNumsPickedValue(pickedValue: string) {
+  // convert pickedValue to number
+  const pickedValueNum = Number(pickedValue);
+  // generate array of numbers
+  const addre = pickedValueNum % 1;
+  return generateNums(pickedValueNum - 20, pickedValueNum + 20, addre);
+}
+
+export function generateNums(
+  min: number,
+  max: number,
+  adder: number,
+  pickedValue?: string,
+): string[] {
+  // generate array of numbers according to pickedValue
+  if (pickedValue != undefined) {
+    return generateNumsPickedValue(pickedValue);
+  }
   const setOfNums: string[] = [];
   for (let i = min; i <= max; i += adder) {
     setOfNums.push(i.toString());

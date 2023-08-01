@@ -12,13 +12,21 @@ export default function useUnit() {
   const setHeight = useUserBodyMeasureStore(s => s.setHeight);
 
   const firstUpdate = useRef(true);
+  const metricRef = useRef(bm.metric);
 
   useLayoutEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     }
-    setWeight(convertWeight(bm.weight, bm.metric).toFixed(1));
-    setHeight(convertHeight(bm.height, bm.metric).toFixed(1));
+    if (bm.metric !== metricRef.current) {
+      setWeight(convertWeight(bm.weight, bm.metric).toFixed(1));
+      setHeight(convertHeight(bm.height, bm.metric).toFixed(1));
+      metricRef.current = bm.metric;
+      // bm.metric = metricRef.current;
+      console.log('useUnit: ', bm.metric);
+      console.log('weight: ', bm.weight);
+      console.log('height: ', bm.height);
+    }
   }, [bm.metric]);
 }

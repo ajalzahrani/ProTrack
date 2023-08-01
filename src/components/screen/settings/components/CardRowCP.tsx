@@ -8,6 +8,7 @@ import {
   ViewRow,
   CustomPicker2,
   CustomPicker,
+  Pressable,
 } from 'src/components/shared';
 
 type CardRowCPType = {
@@ -42,6 +43,11 @@ const CardRowCP: React.FC<CardRowCPType> = ({
     // setValue(pickedValue);
     // if (isRecord) setCustomModalVisable(true);
   };
+
+  useEffect(() => {
+    console.log('pickedValue: ', pickedValue);
+    setValue(pickedValue);
+  }, [pickedValue]);
 
   return (
     <>

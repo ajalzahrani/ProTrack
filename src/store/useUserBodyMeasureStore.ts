@@ -61,7 +61,7 @@ const useUserBodyMeasureStore = create<State & Actions>((set, get) => ({
       produce((state: Draft<State & Actions>) => {
         state.bodyMeasurements.height = height;
         storeSet(JSON.stringify(state.bodyMeasurements));
-        console.log('height saved');
+        // console.log('height saved');
       }),
     ),
 
@@ -70,7 +70,7 @@ const useUserBodyMeasureStore = create<State & Actions>((set, get) => ({
       produce((state: Draft<State & Actions>) => {
         state.bodyMeasurements.weight = weight;
         storeSet(JSON.stringify(state.bodyMeasurements));
-        console.log('weight saved');
+        // console.log('weight saved');
       }),
     ),
 

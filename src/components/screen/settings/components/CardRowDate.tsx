@@ -23,10 +23,10 @@ const CardRowDate: React.FC<CardRowDateType> = ({header, value, setValue}) => {
       ? moment(new Date(), 'yyyy-mm-dd').toDate()
       : moment(new Date(value), 'yyyy-mm-dd').toDate(),
   );
-  useEffect(() => {
-    console.log('Date to save, at cmp create: ', date.toDateString());
-    setValue(date.toDateString());
-  }, [date]);
+  // useEffect(() => {
+  //   console.log('Date to save, at cmp create: ', date.toDateString());
+  //   setValue(date.toDateString());
+  // }, [date]);
 
   useEffect(() => {
     console.log(value);
