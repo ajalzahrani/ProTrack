@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {colors, assets} from 'src/assets';
 import {CustomModal, ViewRow} from 'src/components/shared';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 type Props = {
   title: string;
@@ -39,11 +40,12 @@ function StaticViewCard({title, notification, value}: Props) {
           onPress={() => {
             setNotificationModal(true);
           }}>
-          <Image
+          <Entypo name="info-with-circle" size={20} color={colors.offwhite} />
+          {/* <Image
             source={assets.icn_remove2}
             style={{height: 15, width: 15, marginRight: 10}}
             resizeMode="stretch"
-          />
+          /> */}
         </TouchableOpacity>
       </ViewRow>
       <View
