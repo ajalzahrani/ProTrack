@@ -1,14 +1,6 @@
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  SafeAreaView,
-  StyleProp,
-  ViewStyle,
-  ScrollView,
-} from 'react-native';
+import {ViewStyle, ScrollView} from 'react-native';
 import React from 'react';
-import {colors} from 'src/assets';
+import ScreenContainer from './ScreenContainer';
 
 type propType = {
   children: React.ReactNode;
@@ -19,21 +11,12 @@ type propType = {
 
 const ScreenContainerScroll = ({children, style}: propType) => {
   return (
-    <SafeAreaView style={[styles.safeAreaView, style]}>
+    <ScreenContainer>
       <ScrollView contentContainerStyle={{paddingBottom: 72}}>
         {children}
       </ScrollView>
-    </SafeAreaView>
+    </ScreenContainer>
   );
 };
 
 export default ScreenContainerScroll;
-
-const styles = StyleSheet.create({
-  safeAreaView: {
-    // marginHorizontal: 20,
-    // marginTop: 20,
-    backgroundColor: colors.primary,
-    flex: 1,
-  },
-});
