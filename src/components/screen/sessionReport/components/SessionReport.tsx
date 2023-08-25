@@ -27,8 +27,21 @@ const SessionReport: React.FC<SessionReportProp> = ({session}) => {
         {moment(session.datetime).format('DD MMM YYYY h:mm a')}
       </Text>
       <Text style={style.generalFontSize}>
-        {moment(session.startTime).format('h:mm a').toString()} -{' '}
-        {moment(session.endTime).format('h:mm a').toString()}
+        {session.startTime
+          ? !isNaN(parseInt(session.startTime)) &&
+            moment
+              .unix(parseInt(session.startTime) / 1000)
+              .format('h:mm a')
+              .toString()
+          : null}
+        {' - '}
+        {session.endTime
+          ? !isNaN(parseInt(session.endTime)) &&
+            moment
+              .unix(parseInt(session.endTime) / 1000)
+              .format('h:mm a')
+              .toString()
+          : null}
       </Text>
       <Divider />
       <Text style={style.generalFontSize}>Total Time</Text>
