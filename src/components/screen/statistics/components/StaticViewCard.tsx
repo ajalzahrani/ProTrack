@@ -8,29 +8,67 @@ type Props = {
   title: string;
   notification: string;
   value?: string;
+  style?: any;
 };
 
-function StaticViewCard({title, notification, value}: Props) {
+// function StaticViewCard({title, notification, value, style}: Props) {
+//   const [notificationModal, setNotificationModal] = useState(false);
+//   return (
+//     <View style={[styles.cardContainer]}>
+//       <CustomModal
+//         visible={notificationModal}
+//         setVisible={setNotificationModal}
+//         message={notification}
+//         style={{backgroundColor: colors.secondary}}
+//         // buttons={[{text: 'Ok', onPress: () => setNotificationModal(false)}]}
+//       >
+//         <TouchableOpacity
+//           style={{
+//             backgroundColor: colors.white,
+//             padding: 10,
+//             borderRadius: 10,
+//           }}
+//           onPress={() => {
+//             setNotificationModal(false);
+//           }}>
+//           <Text style={{}}>Ok</Text>
+//         </TouchableOpacity>
+//       </CustomModal>
+//       <ViewRow style={{flexWrap: 'wrap', alignItems: 'center'}}>
+//         <Text style={styles.cardTitle}>{title}</Text>
+//         <TouchableOpacity
+//           style={{marginLeft: 'auto'}}
+//           onPress={() => {
+//             setNotificationModal(true);
+//           }}>
+//           <Entypo name="info-with-circle" size={16} color={colors.offwhite} />
+//         </TouchableOpacity>
+//       </ViewRow>
+//       <View
+//         style={{
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//         }}>
+//         <Text style={styles.cardRowValue}>{value}</Text>
+//       </View>
+//     </View>
+//   );
+// }
+function StaticViewCard({title, notification, value, style}: Props) {
   const [notificationModal, setNotificationModal] = useState(false);
   return (
-    <View style={styles.cardContainer}>
+    <View style={[styles.cardContainer, style]}>
       <CustomModal
         visible={notificationModal}
         setVisible={setNotificationModal}
         message={notification}
-        style={{backgroundColor: colors.secondary}}
-        // buttons={[{text: 'Ok', onPress: () => setNotificationModal(false)}]}
-      >
+        style={styles.modalContainer}>
         <TouchableOpacity
-          style={{
-            backgroundColor: colors.white,
-            padding: 10,
-            borderRadius: 10,
-          }}
+          style={styles.modalButton}
           onPress={() => {
             setNotificationModal(false);
           }}>
-          <Text style={{}}>Ok</Text>
+          <Text style={styles.modalButtonText}>Ok</Text>
         </TouchableOpacity>
       </CustomModal>
       <ViewRow style={{flexWrap: 'wrap', alignItems: 'center'}}>
@@ -40,18 +78,14 @@ function StaticViewCard({title, notification, value}: Props) {
           onPress={() => {
             setNotificationModal(true);
           }}>
-          <Entypo name="info-with-circle" size={20} color={colors.offwhite} />
-          {/* <Image
-            source={assets.icn_remove2}
-            style={{height: 15, width: 15, marginRight: 10}}
-            resizeMode="stretch"
-          /> */}
+          <Entypo name="info-with-circle" size={16} color={colors.offwhite} />
         </TouchableOpacity>
       </ViewRow>
       <View
         style={{
           justifyContent: 'center',
           alignItems: 'center',
+          marginTop: 10,
         }}>
         <Text style={styles.cardRowValue}>{value}</Text>
       </View>
@@ -59,51 +93,74 @@ function StaticViewCard({title, notification, value}: Props) {
   );
 }
 
-export default StaticViewCard;
-
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 12,
-    marginTop: 20,
-    width: 20,
-  },
   cardContainer: {
-    width: 150,
-    marginTop: 20,
+    flexBasis: '30%',
+    marginBottom: 20,
+    marginTop: 10,
     paddingHorizontal: 12,
     paddingVertical: 20,
-    backgroundColor: colors.offwhite,
-    borderRadius: 20,
-    // shadowColor: '#171717',
-    // shadowOffset: {width: -2, height: 4},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 3,
-    // justifyContent: 'center',
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   cardTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
     color: colors.white,
-  },
-  cardRowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  cardRowTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
-    color: colors.white,
+    marginBottom: 10,
   },
   cardRowValue: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     color: colors.white,
   },
-  cardRowNotification: {
-    fontSize: 16,
-    fontWeight: 'bold',
+
+  modalContainer: {
+    backgroundColor: colors.secondary,
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalButton: {
+    backgroundColor: colors.primary,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  modalButtonText: {
     color: colors.white,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
+
+export default StaticViewCard;
+
+// const styles = StyleSheet.create({
+//   cardContainer: {
+//     flexBasis: '30%',
+//     marginBottom: 20,
+//     marginTop: 10,
+//     paddingHorizontal: 12,
+//     paddingVertical: 20,
+//     backgroundColor: colors.offwhite,
+//     borderRadius: 10,
+//   },
+//   cardTitle: {
+//     color: colors.white,
+//   },
+//   cardRowValue: {
+//     fontSize: 20,
+//     fontWeight: 'bold',
+//     color: colors.white,
+//   },
+// });

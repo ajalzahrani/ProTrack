@@ -36,12 +36,13 @@ const StatisticView = () => {
 
   return (
     <ScreenContainerScroll style={{paddingHorizontal: 20}}>
-      <ViewRow
+      <View
         style={{
+          marginHorizontal: 20,
+          marginTop: 20,
+          flexDirection: 'row',
           flexWrap: 'wrap',
-          marginTop: 40,
-          // marginHorizontal: 20,
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
         }}>
         <StaticViewCard
           title="Sessions"
@@ -154,7 +155,7 @@ const StatisticView = () => {
           value={um.bmi.toString()}
           notification="Your Body Mass Index"
         />
-      </ViewRow>
+      </View>
 
       <View style={{paddingHorizontal: 20, marginTop: 20}}>
         <Text style={{color: 'white', fontWeight: '600'}}>Statisctic View</Text>
