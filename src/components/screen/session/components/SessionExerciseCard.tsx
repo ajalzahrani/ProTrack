@@ -30,6 +30,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   scrollToNextCard,
 }) => {
   // FIXME: Add value picker for weight and time
+  // FIXME: Disable edit session proprties after set is registered
   const registerSet = useSessionStore(s => s.registerSet);
   const [isActive, setIsActive] = useState(false);
   const [isPressed, setIsPressed] = useState(false);

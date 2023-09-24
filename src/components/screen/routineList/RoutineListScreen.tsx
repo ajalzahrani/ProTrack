@@ -14,6 +14,7 @@ import {colors, assets} from 'src/assets';
 
 // Store
 import useRoutineStore from 'src/store/useRoutineStore';
+import useSessionStore from 'src/store/useSessionStore';
 
 // Componenets
 import RoutineCard from './components/RoutineCard';
@@ -43,6 +44,7 @@ type RoutineListProps = {
 
 const RoutineListScreen: React.FC<RoutineListProps> = ({route, navigation}) => {
   const routines = useRoutineStore(s => s.routines);
+  const sessions = useSessionStore(s => s.sessions);
   const setRoutineId = useRoutineStore(s => s.setRoutineId);
 
   const {t} = useTranslation();
@@ -116,6 +118,11 @@ const RoutineListScreen: React.FC<RoutineListProps> = ({route, navigation}) => {
         <PressableButton
           title={t('routines.printRoutines')}
           onPress={() => console.log(JSON.stringify(routines))}
+          style={{backgroundColor: 'white', padding: 20, borderRadius: 20}}
+        />
+        <PressableButton
+          title={t('routines.printSessions')}
+          onPress={() => console.log(JSON.stringify(sessions))}
           style={{backgroundColor: 'white', padding: 20, borderRadius: 20}}
         />
       </View>
