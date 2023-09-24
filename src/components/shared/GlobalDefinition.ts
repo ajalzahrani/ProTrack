@@ -3,7 +3,7 @@
 
 const exerciseMasterGlobalKey = 'exercises';
 const routineGlobalKey = 'routines';
-const sessionGlobalKey = 'session';
+const sessionGlobalKey = 'sessions';
 const userPreferences = 'preferences';
 const userBodyMeasurements = 'bodymeasurements';
 const shopGKEY = 'shop';
