@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import useSessionStore from 'src/store/useSessionStore';
 import useExerciseName from 'src/components/hooks/useExerciseName';
 import useUserBodyMeasureStore from 'src/store/useUserBodyMeasureStore';
@@ -15,24 +15,92 @@ type exerciseCounterArrayType = {
 const StatisticView = () => {
   const um = useUserBodyMeasureStore(s => s.bodyMeasurements);
   const sessions = useSessionStore(state => state.sessions);
-  const getExerciesName = useExerciseName();
   useBMI();
 
-  const exerciseCounterArray: exerciseCounterArrayType[] = [{id: '', value: 0}];
   const exerciseCounts = useMemo(() => {
-    for (let i = 0; i < sessions.length; i++) {
-      for (let j = 0; j < sessions[i].exercise.length; j++) {
-        const id = sessions[i].exercise[j].exerciseId;
-        const index = sessions[i].exercise.findIndex(i => i.exerciseId === id);
-        if (index === -1) {
-          exerciseCounterArray.push({id: id, value: 1});
-        } else {
-          exerciseCounterArray[index].value += 1;
-        }
-      }
-    }
-    return exerciseCounterArray;
+    let counts = 0;
+    sessions.forEach(session => {
+      counts += session.exercise.length;
+    });
+    console.log('exerciseCount recomputed: ', counts.toString());
+    return counts.toString();
   }, [sessions]);
+
+  const totalWeightLifted = useMemo(() => {
+    const totalWeightLefted = sessions.reduce(
+      (acc, cur) =>
+        acc +
+        cur?.exercise.reduce(
+          (acc, cur) =>
+            acc + cur?.set.reduce((acc, cur) => acc + cur?.weight, 0),
+          0,
+        ),
+      0,
+    );
+    console.log('totalWightLeft recomputed: ', totalWeightLefted.toString());
+    return totalWeightLefted.toString();
+  }, [sessions]);
+
+  const totalDuration = useMemo(() => {
+    let durations = 0;
+    for (let i = 0; i < sessions.length; i++) {
+      const [hours, minutes, seconds] = sessions[i].duration.split(':');
+      const durationInHours = parseInt(hours) + parseInt(minutes) / 60;
+      durations += durationInHours;
+    }
+    console.log(durations.toString());
+    console.log('duration recomputed: ', durations.toString());
+    return durations;
+  }, [sessions]);
+
+  const totalReps = useMemo(() => {
+    const reps = sessions.reduce(
+      (acc, cur) =>
+        acc +
+        cur?.exercise.reduce(
+          (acc, cur) => acc + cur?.set.reduce((acc, cur) => acc + cur?.reps, 0),
+          0,
+        ),
+      0,
+    );
+    console.log('reps recomputed: ', reps.toString());
+    return reps;
+  }, [sessions]);
+
+  // const totDisteance = useMemo(() => {
+  //   sessions.reduce(
+  //     (acc, cur) =>
+  //       acc +
+  //       cur?.exercise.reduce(
+  //         (acc, cur) =>
+  //           acc + cur?.set.reduce((acc, cur) => acc + cur?.disteance, 0),
+  //         0,
+  //       ),
+  //     0,
+  //   );
+  // }, [sessions.length]);
+
+  // const totalCalories = useMemo(() => {
+  //   sessions.reduce(
+  //     (acc, cur) =>
+  //       acc +
+  //       cur?.exercise.reduce(
+  //         (acc, cur) =>
+  //           acc + cur?.set.reduce((acc, cur) => acc + cur?.calories, 0),
+  //         0,
+  //       ),
+  //     0,
+  //   );
+  // }, [sessions.length]);
+
+  const totalSets = useMemo(() => {
+    const sets = sessions.reduce(
+      (acc, cur) =>
+        acc + cur?.exercise.reduce((acc, cur) => acc + cur?.set.length, 0),
+      0,
+    );
+    return sets;
+  }, [sessions.length]);
 
   return (
     <ScreenContainerScroll style={{paddingHorizontal: 20}}>
@@ -51,103 +119,37 @@ const StatisticView = () => {
         />
         <StaticViewCard
           title="Exercies"
-          value={sessions
-            .reduce((acc, cur) => acc + cur?.exercise.length, 0)
-            .toString()}
+          value={exerciseCounts.toString()}
           notification="Total exercises you have made"
         />
         <StaticViewCard
           title="Weight Lifted"
-          value={sessions
-            .reduce(
-              (acc, cur) =>
-                acc +
-                cur?.exercise.reduce(
-                  (acc, cur) =>
-                    acc + cur?.sets.reduce((acc, cur) => acc + cur?.weight, 0),
-                  0,
-                ),
-              0,
-            )
-            .toString()}
+          value={totalWeightLifted}
           notification="Total weight you have lifted"
         />
         <StaticViewCard
           title="Reps"
-          value={sessions
-            .reduce(
-              (acc, cur) =>
-                acc +
-                cur?.exercise.reduce(
-                  (acc, cur) =>
-                    acc + cur?.sets.reduce((acc, cur) => acc + cur?.reps, 0),
-                  0,
-                ),
-              0,
-            )
-            .toString()}
+          value={totalReps.toString()}
           notification="Total Reps you have made"
         />
         <StaticViewCard
           title="Time"
-          value={sessions
-            .reduce(
-              (acc, cur) =>
-                acc +
-                cur?.exercise.reduce(
-                  (acc, cur) =>
-                    acc + cur?.sets.reduce((acc, cur) => acc + cur?.time, 0),
-                  0,
-                ),
-              0,
-            )
-            .toString()}
+          value={totalDuration.toString()}
           notification="Total time you have spent"
         />
         <StaticViewCard
           title="Distance"
-          value={sessions
-            .reduce(
-              (acc, cur) =>
-                acc +
-                cur?.exercise.reduce(
-                  (acc, cur) =>
-                    acc +
-                    cur?.sets.reduce((acc, cur) => acc + cur?.distance, 0),
-                  0,
-                ),
-              0,
-            )
-            .toString()}
+          value={'0'}
           notification="Total Distance you have covered"
         />
         <StaticViewCard
           title="Calories"
-          value={sessions
-            .reduce(
-              (acc, cur) =>
-                acc +
-                cur?.exercise.reduce(
-                  (acc, cur) =>
-                    acc +
-                    cur?.sets.reduce((acc, cur) => acc + cur?.calories, 0),
-                  0,
-                ),
-              0,
-            )
-            .toString()}
+          value={'0'}
           notification="Total Calories you have burned"
         />
         <StaticViewCard
           title="Sets"
-          value={sessions
-            .reduce(
-              (acc, cur) =>
-                acc +
-                cur?.exercise.reduce((acc, cur) => acc + cur?.sets.length, 0),
-              0,
-            )
-            .toString()}
+          value={totalSets.toString()}
           notification="Total Sets you have made"
         />
         <StaticViewCard
