@@ -62,7 +62,7 @@ const Router = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Store"
         component={StoreScreen}
         options={{
@@ -83,7 +83,7 @@ const Router = () => {
             </View>
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Routines"
         component={RoutineStack}

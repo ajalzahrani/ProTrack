@@ -5,7 +5,7 @@
 - [x] 1.1.1: Home screen quick start button should show a list of workouts and let the user select one to start.
 
 ### Store screen
-- [ ] 2.1.1: Hide it
+- [x] 2.1.1: Hide it
 
 ### RoutineList screen
 - [ ] 3.1.1: Change + button to info button.
