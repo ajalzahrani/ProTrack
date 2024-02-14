@@ -2,7 +2,7 @@
 
 # Production Checklist
 ### Home screen 
-- [ ] 1.1.1: Home screen quick start button should start today sesison if there is a routine for today
+- [x] 1.1.1: Home screen quick start button should show a list of workouts and let the user select one to start.
 
 ### Store screen
 - [ ] 2.1.1: Hide it
@@ -67,3 +67,6 @@
 - [ ] 11.1.3: Change app logo.
 
 # Future Features
+
+### Home screen 
+- [ ] 1.1.1: Home screen quick start button should start today sesison if there is a routine for today

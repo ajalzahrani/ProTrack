@@ -29,7 +29,7 @@ import {RoutineStackRootParamList} from 'src/components/navigation/RoutineStack'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {workoutType} from 'src/types';
 import compareObjects from 'src/components/shared/compareObjects';
-type WorkoutScreenRouteProp = RouteProp<
+export type WorkoutScreenRouteProp = RouteProp<
   RoutineStackRootParamList,
   'WorkoutScreen'
 >;
@@ -48,6 +48,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
   // FIXME: Re-design Rest time controllers
 
   const workoutStore = route?.params?.workout;
+  const routineId = route?.params?.routineId;
   const [workout, setWorkout] = useState<workoutType>(
     workoutStore || {
       id: uuidv4(),
@@ -284,6 +285,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             })}
             {RestTimeDrawer()}
 
+            {routineId === undefined ? (
             <PressableButton
               title={t('workout.skitch')}
               iconSource={assets.icn_edit}
@@ -301,6 +303,21 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
                 }
               }}
             />
+            ) : (
+              <PressableButton
+              // title={t('workout.skitch')}
+              title='Start'
+              iconSource={assets.icn_edit}
+              onPress={() => {
+                // naviaget to session screen
+                navigation.navigate('SessionScreen', {
+                  routineId: routineId,
+                  workout: workout,
+                });
+              }}
+            />
+            )}
+            
 
             <PressableButton
               title={t('workout.delete')}

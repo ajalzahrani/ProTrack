@@ -3,22 +3,20 @@ import React from 'react';
 // Stack Navigator
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const StackNav = createNativeStackNavigator<RoutineStackRootParamList>();
+const StackNav = createNativeStackNavigator<HomeStackRootParamList>();
 
 // Screens
-import RoutineListScreen from '../screen/routineList/RoutineListScreen';
-import RoutineFormScreen from '../screen/routineForm/RoutineFormScreen';
-import RoutineScreen from '../screen/routine/RoutineScreen';
+import HomeScreen from '../screen/home/HomeScreen';
+import WorkoutListScreen from '../screen/workoutList/WorkoutListScreen';
 import WorkoutScreen from '../screen/workout/WorkoutScreen';
 import ExerciseScreen from '../screen/exercise/ExerciseScreen';
 import SessionScreen from '../screen/session/SessionScreen';
 import SessionReportScreen from '../screen/sessionReport/SessionReportScreen';
 import {exercisesType, routineType, workoutType} from '../../types';
 
-export type RoutineStackRootParamList = {
-  RoutineListScreen: {name: string};
-  RoutineFormScreen: {routine: routineType};
-  RoutineScreen: undefined;
+export type HomeStackRootParamList = {
+  HomeScreen: undefined;
+  WorkoutListScreen: undefined;
   WorkoutScreen: {
     workout: workoutType | undefined;
     routineId: string | undefined;
@@ -29,21 +27,20 @@ export type RoutineStackRootParamList = {
     exercises: exercisesType[];
     handleExercise: (exerciseId: string) => void;
   };
-  SessionScreen: {routineId: string; workout: workoutType};
+  SessionScreen: {routineId: string; workout: workoutType}; 
   SessionReportScreen: {sessionId: string};
 };
 
 // use this for useNavigation hook
-export type routineStackProp =
-  NativeStackNavigationProp<RoutineStackRootParamList>;
+export type homeeStackProp =
+  NativeStackNavigationProp<HomeStackRootParamList>;
 
-const RoutineStack = () => {
+const HomeStack = () => {
   return (
     <StackNav.Navigator screenOptions={{headerShown: false}}>
-      <StackNav.Screen name="RoutineListScreen" component={RoutineListScreen} />
-      <StackNav.Screen name="RoutineScreen" component={RoutineScreen} />
+      <StackNav.Screen name="HomeScreen" component={HomeScreen} />
+      <StackNav.Screen name="WorkoutListScreen" component={WorkoutListScreen}/>
       <StackNav.Screen name="WorkoutScreen" component={WorkoutScreen} />
-      <StackNav.Screen name="SessionScreen" component={SessionScreen} />
       <StackNav.Screen
         name="ExerciseScreen"
         component={ExerciseScreen}
@@ -52,6 +49,7 @@ const RoutineStack = () => {
           headerShown: false,
         }}
       />
+      <StackNav.Screen name="SessionScreen" component={SessionScreen} />
       <StackNav.Screen
         name="SessionReportScreen"
         component={SessionReportScreen}
@@ -60,16 +58,8 @@ const RoutineStack = () => {
           headerShown: false,
         }}
       />
-      <StackNav.Screen
-        name="RoutineFormScreen"
-        component={RoutineFormScreen}
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-        }}
-      />
     </StackNav.Navigator>
   );
 };
 
-export default RoutineStack;
+export default HomeStack;

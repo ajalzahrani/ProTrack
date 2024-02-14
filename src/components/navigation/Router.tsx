@@ -10,15 +10,15 @@ const Tab = createBottomTabNavigator();
 
 // Stack Navigator
 import RoutineStack from './RoutineStack';
+import HomeStack from './HomeStack';
 
 // Screens
-import HomeScreen from '../screen/home/HomeScreen';
 import StatScreen from '../screen/statistics/StatScreen';
 import SettingsScreen from '../screen/settings/SettingsScreen';
 import StoreScreen from '../screen/store/StoreScreen';
 
 export type RouterStackRootParamList = {
-  HomeScreen: undefined;
+  HomeStack: undefined;
   StatScreen: undefined;
   RoutineStack: undefined;
   SettingsScreen: undefined;
@@ -37,7 +37,7 @@ const Router = () => {
       }}>
       <Tab.Screen
         name="home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
