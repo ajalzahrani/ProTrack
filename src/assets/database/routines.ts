@@ -30,7 +30,16 @@ const routines = [
         ],
         resttime: [7, 7],
       },
-      {id: '3', title: 'Legs workout', exercises: [], resttime: [0, 0]},
+      {
+        id: '3',
+        title: 'Legs workout',
+        exercises: [
+          {freq: [15, 10, 10], id: '7'},
+          {freq: [15, 10, 10], id: '9'},
+          {freq: [15, 10, 10], id: '14'},
+        ],
+        resttime: [0, 0],
+      },
     ],
     weekdays: [
       {id: 0, symbol: 'S', isWorkday: true, workoutId: '1'},
