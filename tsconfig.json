@@ -1,10 +1,12 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
-    "compilerOptions": {
+  "compilerOptions": {
     "baseUrl": ".",
     "target": "es2017",
     "module": "esnext",
-    "lib": ["es6"],
+    "lib": [
+      "es6"
+    ],
     "allowJs": true,
     "jsx": "react-native",
     "noEmit": true,
@@ -21,7 +23,12 @@
     "**/*.test.tsx"
   ],
   "paths": {
-    "*": ["src/*"],
-    "@components/*": ["src/components/*"]
+    "*": [
+      "src/*"
+    ],
+    "@components/*": [
+      "src/components/*"
+    ],
+    "moduleResolution": "node",
   }
 }

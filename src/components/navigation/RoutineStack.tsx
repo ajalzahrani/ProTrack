@@ -22,6 +22,7 @@ export type RoutineStackRootParamList = {
   WorkoutScreen: {
     workout: workoutType | undefined;
     handleUpdateRoutineWorkout: (workout: workoutType) => void;
+    handleDeleteRoutineWorkout: (workout: workoutType) => void;
   };
   ExerciseScreen: {
     exercises: exercisesType[];

@@ -58,7 +58,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
   );
 
   // TODO: delete workout function
-
+  
   const [modalVisible, setModalVisible] = useState(false);
   const [titleModalVisible, setTitleModalVisible] = useState(false);
   const {t} = useTranslation();
@@ -76,6 +76,17 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
 
       navigation!.goBack();
     }
+  };
+
+  const handleDeleteWorkout = () => {
+    if (workout !== undefined) {
+      const routineWorkoutHandler = route?.params.handleUpdateRoutineWorkout;
+      if (routineWorkoutHandler !== undefined) routineWorkoutHandler(workout);
+    } else {
+      console.log('workout is undefined');
+    }
+
+    navigation!.goBack();
   };
 
   const handleTitle = (title: string) => {
@@ -290,14 +301,25 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
                 }
               }}
             />
-            {/* Test button */}
+
             <PressableButton
               title={t('workout.delete')}
               onPress={() => {
                 if (workout !== undefined) {
                   if (workout.id !== undefined) {
-                    // deleteWorkout();
+                    route?.params.handleDeleteRoutineWorkout(workout);
+                  }
+                }
+                navigation!.goBack();
+              }}
+            />
 
+            {/* Test button */}
+            <PressableButton
+              title={'Test'}
+              onPress={() => {
+                if (workout !== undefined) {
+                  if (workout.id !== undefined) {
                     console.log(workoutStore);
                     console.log(workout);
                   }

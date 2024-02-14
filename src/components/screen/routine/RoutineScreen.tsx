@@ -76,6 +76,23 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
     );
   };
 
+  const handleDeleteWorkout = (workout: workoutType) => {
+    setRoutine(
+      produce(routine, draft => {
+        // delete workout from routine
+        draft.workouts = draft.workouts.filter(w => w.id !== workout.id);
+
+        // set isWorkDay to false if workout is deleted
+        draft.weekdays.forEach(day => {
+          if (day.workoutId === workout.id) {
+            day.workoutId = '';
+            day.isWorkday = false;
+          }
+        });
+      }),
+    );
+  };
+
   const handleUpdateRoutineAddWekDay = (workoutId: string) => {
     setWorkoutId(workoutId);
     if (workoutId !== '') {
@@ -147,6 +164,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
               navigation.navigate('WorkoutScreen', {
                 workout: undefined,
                 handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
+                handleDeleteRoutineWorkout: handleDeleteWorkout,
               });
             }}>
             <Image source={assets.icn_plus} style={{}} />
@@ -173,6 +191,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
                   navigation.navigate('WorkoutScreen', {
                     workout: workout,
                     handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
+                    handleDeleteRoutineWorkout: handleDeleteWorkout,
                   });
                 }}>
                 <Image source={assets.icn_edit} />

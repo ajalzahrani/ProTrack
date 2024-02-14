@@ -18,12 +18,12 @@ const StatisticView = () => {
   useBMI();
 
   const exerciseCounts = useMemo(() => {
-    let counts = 0;
+    let exerciseCount = 0;
     sessions.forEach(session => {
-      counts += session.exercise.length;
+      exerciseCount += session.exercise.length;
     });
-    console.log('exerciseCount recomputed: ', counts.toString());
-    return counts.toString();
+    console.log('exerciseCount recomputed: ', exerciseCount.toString());
+    return exerciseCount;
   }, [sessions]);
 
   const totalWeightLifted = useMemo(() => {
@@ -38,7 +38,7 @@ const StatisticView = () => {
       0,
     );
     console.log('totalWightLeft recomputed: ', totalWeightLefted.toString());
-    return totalWeightLefted.toString();
+    return totalWeightLefted;
   }, [sessions]);
 
   const totalDuration = useMemo(() => {
@@ -48,7 +48,6 @@ const StatisticView = () => {
       const durationInHours = parseInt(hours) + parseInt(minutes) / 60;
       durations += durationInHours;
     }
-    console.log(durations.toString());
     console.log('duration recomputed: ', durations.toString());
     return durations;
   }, [sessions]);
@@ -66,32 +65,6 @@ const StatisticView = () => {
     console.log('reps recomputed: ', reps.toString());
     return reps;
   }, [sessions]);
-
-  // const totDisteance = useMemo(() => {
-  //   sessions.reduce(
-  //     (acc, cur) =>
-  //       acc +
-  //       cur?.exercise.reduce(
-  //         (acc, cur) =>
-  //           acc + cur?.set.reduce((acc, cur) => acc + cur?.disteance, 0),
-  //         0,
-  //       ),
-  //     0,
-  //   );
-  // }, [sessions.length]);
-
-  // const totalCalories = useMemo(() => {
-  //   sessions.reduce(
-  //     (acc, cur) =>
-  //       acc +
-  //       cur?.exercise.reduce(
-  //         (acc, cur) =>
-  //           acc + cur?.set.reduce((acc, cur) => acc + cur?.calories, 0),
-  //         0,
-  //       ),
-  //     0,
-  //   );
-  // }, [sessions.length]);
 
   const totalSets = useMemo(() => {
     const sets = sessions.reduce(
@@ -124,8 +97,8 @@ const StatisticView = () => {
         />
         <StaticViewCard
           title="Weight Lifted"
-          value={totalWeightLifted}
-          notification="Total weight you have lifted"
+          value={totalWeightLifted.toString()}
+          notification="Totalou have lifted"
         />
         <StaticViewCard
           title="Reps"
@@ -170,11 +143,3 @@ const StatisticView = () => {
 };
 
 export default StatisticView;
-
-/* {exerciseCounts.map((v, i) => {
-      return (
-        <Text style={{color: 'white'}} key={i}>
-          {getExerciesName(v.id)}: {v.value}
-        </Text>
-      );
-    })} */
