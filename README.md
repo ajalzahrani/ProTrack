@@ -5,10 +5,12 @@ ProTrack is a mobile application designed for iOS that helps users keep track of
 ## Features
 
 - [x] Schedule training sessions
-- [x] Set up exercises and workouts
-- [x] Log weight and reps
-- [x] View progress statistics
+- [x] Build workouts and exercises
+- [x] Log workout sessions
+- [x] View session history & statistics
 - [ ] Get notifications
+
+## [Todos](./TODO.md)
 
 ## Usage
 
@@ -22,13 +24,6 @@ To use the app, follow these steps:
 1. From routine screen select the workout and press START to start session.
 1. Log each SET during the session.
 1. End the session.
-
-```
-npm start -- --reset-cache
-``` 
-```
-npm run sim clear-cache
-```
 
 ## Support
 
