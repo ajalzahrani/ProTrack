@@ -10,6 +10,8 @@ import {RoutineListNavigationProp} from '../RoutineListScreen';
 import {routineType} from 'src/types';
 import CustomModal from 'src/components/shared/CustomModal';
 
+import Entypo from 'react-native-vector-icons/Entypo';
+
 type RoutineCardProps = {
   routine: routineType;
 };
@@ -53,7 +55,9 @@ const RoutineCard: React.FC<RoutineCardProps> = ({routine}) => {
             onPress={() => {
               navigation.navigate('RoutineFormScreen', {routine: routine});
             }}>
-            <Image source={assets.icn_plus} />
+            {/* <Image source={assets.icn_plus} /> */}
+            <Entypo name="info-with-circle" size={20} color={colors.secondary} />
+
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {

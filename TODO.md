@@ -8,7 +8,7 @@
 - [x] 2.1.1: Hide it
 
 ### RoutineList screen
-- [ ] 3.1.1: Change + button to info button.
+- [x] 3.1.1: Change + button to info button.
 
 ### Routine screen
 - [ ] 4.1.1: Redeign start button.
