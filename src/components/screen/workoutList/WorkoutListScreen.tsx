@@ -6,7 +6,7 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 
 // Assets
@@ -26,6 +26,7 @@ import {RouteProp, useRoute} from '@react-navigation/native';
 import {HomeStackRootParamList} from 'src/components/navigation/HomeStack';
 import uuidv4 from 'src/components/shared/uuid4v';
 import weekdays from 'src/assets/database/weekdays';
+import ScreenContainerScroll from 'src/components/shared/ScreenContainerScroll';
 
 type WorkoutListScreenRouteType = RouteProp<
   HomeStackRootParamList,
@@ -50,18 +51,21 @@ const WorkoutListScreen: FC<WorkoutListScreenProp> = ({route, navigation}) => {
   const {t} = useTranslation();
 
   return (
-    <ScreenContainer>
-      <View style={{paddingHorizontal: 20, marginTop: 20}}>
+    <ScreenContainerScroll>
+      <View style={{paddingHorizontal: 20}}>
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-            paddingHorizontal: 20,
-            paddingVertical: 15,
             borderRadius: 10,
           }}>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('HomeScreen', {name: ''});
+              }}>
+              <Image source={assets.icn_goback} />
+            </TouchableOpacity>
+          </View>
           <View
             style={{
               flex: 1,
@@ -78,32 +82,35 @@ const WorkoutListScreen: FC<WorkoutListScreenProp> = ({route, navigation}) => {
         <ScrollView
           contentContainerStyle={{paddingBottom: 72}}
           style={{marginTop: 20}}>
-          {routines?.map((routine, i) => (
+          {routines?.map((routine, i) =>
             routine.workouts?.map((workout, j) => (
-            <View key={workout.id} style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity
-                style={{flex: 1}}
-                onPress={() => {
-                  setRoutineId(routine.id);
-                  console.log('navigate to workout screen');
-                  navigation.navigate('WorkoutScreen', {
-                    workout: workout,
-                    routineId: routine.id,
-                    handleUpdateRoutineWorkout: () => {},
-                    handleDeleteRoutineWorkout: () => {},
-                  });
-                }}>
-                <WorkoutListCard
+              <View
+                key={workout.id}
+                style={{flexDirection: 'row', alignItems: 'center'}}>
+                <TouchableOpacity
+                  style={{flex: 1}}
+                  onPress={() => {
+                    setRoutineId(routine.id);
+                    console.log('navigate to workout screen');
+                    navigation.navigate('WorkoutScreen', {
+                      workout: workout,
+                      routineId: routine.id,
+                      handleUpdateRoutineWorkout: () => {},
+                      handleDeleteRoutineWorkout: () => {},
+                    });
+                  }}>
+                  <WorkoutListCard
                     routineId={routine.id}
                     workout={workout}
-                    handleUpdateRoutineWorkout={() => {}}/>
-              </TouchableOpacity>
-            </View>
-                ))
-          ))}
+                    handleUpdateRoutineWorkout={() => {}}
+                  />
+                </TouchableOpacity>
+              </View>
+            )),
+          )}
         </ScrollView>
       </View>
-    </ScreenContainer>
+    </ScreenContainerScroll>
   );
 };
 

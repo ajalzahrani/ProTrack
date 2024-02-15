@@ -105,6 +105,7 @@ const useRoutineStore = create<State & Actions>((set, get) => ({
         const routineIndex = state.routines.findIndex(r => r.id === routineId);
         if (routineIndex !== -1) {
           state.routines[routineIndex] = routine;
+          store.set(def.routineGlobalKey, JSON.stringify(state.routines));
         } else {
           state.routines.push(routine);
           store.set(def.routineGlobalKey, JSON.stringify(state.routines));

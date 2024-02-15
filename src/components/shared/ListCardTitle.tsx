@@ -1,4 +1,4 @@
-import {Text, StyleSheet, ViewStyle} from 'react-native';
+import {Text, StyleSheet, ViewStyle, View} from 'react-native';
 import React from 'react';
 import ListCard from 'src/components/shared/ListCard';
 import {colors} from 'src/assets';
@@ -12,7 +12,9 @@ type propType = {
 const ListCardTitle = ({title, children, style}: propType) => {
   return (
     <ListCard style={style}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+        {title}
+      </Text>
       {children}
     </ListCard>
   );
@@ -21,6 +23,11 @@ const ListCardTitle = ({title, children, style}: propType) => {
 export default ListCardTitle;
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   title: {
     fontStyle: 'normal',
     fontWeight: '500',

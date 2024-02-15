@@ -36,6 +36,7 @@ const WorkoutCard = ({
             setWorkoutId(workout.id);
             navigation.navigate('WorkoutScreen', {
               workout: workout,
+              routineId: undefined,
               handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
             });
           }}>

@@ -62,6 +62,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
   const {t} = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [noExercisesModal, setNoExercisesModal] = useState(false);
 
   const handleUpdateRoutineWorkout = (workout: workoutType) => {
     const workoutIndex = routine.workouts.findIndex(w => w.id === workout.id);
@@ -144,6 +145,33 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
           },
         ]}
       />
+      <CustomModal
+        visible={noExercisesModal}
+        setVisible={setNoExercisesModal}
+        message="This workout has no exercies selected! Do you want to add exercises to this workout?"
+        buttons={[
+          // {text: 'Cancel', onPress: () => setNoExercisesModal(false)},
+
+          {
+            text: 'No',
+            onPress: () => setNoExercisesModal(false),
+            backgroundColor: colors.red,
+            textColor: colors.white,
+          },
+          {
+            text: 'Yes',
+            onPress: () => {
+              navigation.navigate('WorkoutScreen', {
+                workout: workout,
+                routineId: routine.id,
+                handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
+                handleDeleteRoutineWorkout: handleDeleteWorkout,
+              });
+              setNoExercisesModal(false);
+            },
+          },
+        ]}
+      />
       <View>
         <View style={style.goBackStyle}>
           <TouchableOpacity
@@ -180,6 +208,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
           setWorkoutId={setWorkoutId}
           dayId={dayId}
           setDayId={setDayId}
+          unsetDay={handleUpdateRoutineDeleteWeekDay}
         />
       </View>
       <View style={style.workoutContainerStyle}>
@@ -187,23 +216,6 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
           <>
             <View style={style.workoutTitleStyle}>
               <Text style={style.workoutTitleStyle}>{workout.title}</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('WorkoutScreen', {
-                    workout: workout,
-                    routineId: undefined,
-                    handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
-                    handleDeleteRoutineWorkout: handleDeleteWorkout,
-                  });
-                }}>
-                <Image source={assets.icn_edit} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  handleUpdateRoutineDeleteWeekDay();
-                }}>
-                <Image source={assets.icn_remove} />
-              </TouchableOpacity>
             </View>
 
             <PressableButton
@@ -211,6 +223,12 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
               iconSource={assets.icn_start}
               onPress={() => {
                 addNewRoutine(routine.id, routine);
+                // Check if workout has exercises, if not, navigate to workout screen
+                if (workout.exercises.length === 0) {
+                  // show a modal to add exercises, or to cancel
+                  setNoExercisesModal(true);
+                  return;
+                }
                 navigation.navigate('SessionScreen', {
                   routineId: routine.id,
                   workout: workout,
