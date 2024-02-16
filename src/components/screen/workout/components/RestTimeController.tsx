@@ -66,16 +66,19 @@ const RestTimeController: React.FC<RestTimeControllerProps> = ({
         <TouchableOpacity onPress={() => setIsPressed(!isPressed)}>
           <View
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
+              // justifyContent: 'center',
+              // alignItems: 'flex-start',
               flexDirection: 'row',
             }}>
-            <Text style={style.middleTextStyle}>{indicatorTitle}</Text>
-            {/* <ChevronDownIcon /> */}
             <Image
               source={isPressed ? assets.icn_min : assets.icn_add}
-              style={{height: 20, width: 20}}
+              style={{height: 20, width: 20, marginRight: 10}}
             />
+            <Text style={style.middleTextStyle}>{indicatorTitle}</Text>
+            {/* <ChevronDownIcon /> */}
+            <Text style={style.middleTextStyle}>
+              {value.minutes} Min {value.seconds} Sec
+            </Text>
           </View>
         </TouchableOpacity>
         {isPressed && (
@@ -108,7 +111,7 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    // alignItems: 'center',
     paddingHorizontal: 24,
     paddingVertical: 14,
   },
@@ -124,7 +127,7 @@ const style = StyleSheet.create({
   },
   middleTextStyle: {
     marginRight: 10,
-    fontWeight: '400',
+    fontWeight: '600',
     fontSize: 16,
     color: colors.white,
   },

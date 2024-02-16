@@ -24,8 +24,9 @@
 
 ### Workout screen
 
-- [ ] 5.1.1: Redesign exercieses cards
-- [ ] 5.1.2: Re-design Rest time controllers
+- [x] 5.1.1: Redesign exercieses cards
+- [x] 5.1.2: Re-design Rest time controllers
+- [x] 5.1.3: Add check box to copy first set reps to other sets reps.
 
 ### Exercise screen
 
@@ -73,6 +74,11 @@
 - [ ] 10.1.2: Fix calender view of to indicates sessions dates.
 - [ ] 10.1.3: Fix duration time presentation value.
 - [ ] 10.1.4: Add unit value to applied value.
+
+### App support functions
+
+- [ ] 11.1.1: Change custom model style.
+- [x] 11.1.2: Add left swipe to delete a card.
 
 ### App layout
 

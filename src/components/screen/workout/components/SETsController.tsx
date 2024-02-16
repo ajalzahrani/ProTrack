@@ -8,6 +8,7 @@ type SETsControllerProp = {
   indicatorTitle: string;
   index: number;
   freq: number[];
+  sharedReps: number;
   handleExerciseFreqRepCount: (
     exerciseId: string,
     index: number,
@@ -20,10 +21,18 @@ const SETsController: React.FC<SETsControllerProp> = ({
   indicatorTitle,
   freq,
   index,
+  sharedReps,
   handleExerciseFreqRepCount,
   exerciseId,
 }) => {
   const [number, setNumber] = useState(freq[index] || 0);
+
+  const [renderCount, setRenderCount] = useState(0);
+
+  useEffect(() => {
+    setNumber(sharedReps > 0 ? sharedReps : freq[index] || 0);
+  }, [sharedReps]);
+
   const updateFreq = () => {
     handleExerciseFreqRepCount(exerciseId, index, number);
   };
@@ -51,7 +60,9 @@ const SETsController: React.FC<SETsControllerProp> = ({
         <View style={{flexDirection: 'row'}}>
           {/* Number indicator */}
           <View style={style.numberIndicator}>
-            <Text style={{color: colors.white}}>{number}</Text>
+            <Text style={{color: colors.white}}>
+              {number} {number > 1 ? 'reps' : 'rep'}
+            </Text>
           </View>
 
           {/* FIXME: Add check box to copy first set reps to other sets reps */}
@@ -61,20 +72,15 @@ const SETsController: React.FC<SETsControllerProp> = ({
         <Text style={style.middleTextStyle}>{indicatorTitle}</Text>
 
         {/* plus - min buttons */}
-        <View
-          style={{flexDirection: 'row'}}
-          // className="space-x-10"
-        >
-          <TouchableOpacity
-            onPress={() => {
-              minNumber();
-            }}>
-            <Image source={assets.icn_min} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => addNumber()}>
-            <Image source={assets.icn_add} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            minNumber();
+          }}>
+          <Image source={assets.icn_min} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => addNumber()}>
+          <Image source={assets.icn_add} />
+        </TouchableOpacity>
       </View>
     </View>
   );

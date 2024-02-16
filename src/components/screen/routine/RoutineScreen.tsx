@@ -163,7 +163,7 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
             onPress: () => {
               navigation.navigate('WorkoutScreen', {
                 workout: workout,
-                routineId: routine.id,
+                routineId: undefined,
                 handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
                 handleDeleteRoutineWorkout: handleDeleteWorkout,
               });

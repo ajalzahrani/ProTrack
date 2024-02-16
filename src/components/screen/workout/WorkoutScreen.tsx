@@ -59,7 +59,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
   );
 
   // TODO: delete workout function
-  
+
   const [modalVisible, setModalVisible] = useState(false);
   const [titleModalVisible, setTitleModalVisible] = useState(false);
   const {t} = useTranslation();
@@ -186,7 +186,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
         return (
           <RestTimeController
             controllerType={0}
-            indicatorTitle="Set rest time"
+            indicatorTitle="Set rest time:"
             resttime={workout.resttime}
           />
         );
@@ -195,12 +195,12 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
           <>
             <RestTimeController
               controllerType={0}
-              indicatorTitle="Set rest time"
+              indicatorTitle="Set rest time:"
               resttime={workout.resttime}
             />
             <RestTimeController
               controllerType={1}
-              indicatorTitle="Exercise rest time"
+              indicatorTitle="Exercise rest time:"
               resttime={workout.resttime}
             />
           </>
@@ -286,38 +286,37 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             {RestTimeDrawer()}
 
             {routineId === undefined ? (
-            <PressableButton
-              title={t('workout.skitch')}
-              iconSource={assets.icn_edit}
-              onPress={() => {
-                if (workoutStore !== undefined) {
-                  if (!compareObjects(workoutStore, workout)) {
-                    console.log('objects not equals each other');
-                    setModalVisible(prev => !prev);
-                    return;
+              <PressableButton
+                title={t('workout.skitch')}
+                iconSource={assets.icn_edit}
+                onPress={() => {
+                  if (workoutStore !== undefined) {
+                    if (!compareObjects(workoutStore, workout)) {
+                      console.log('objects not equals each other');
+                      setModalVisible(prev => !prev);
+                      return;
+                    }
+                    console.log('objects equals each other');
+                    handleAddWorkout();
+                  } else {
+                    handleAddWorkout();
                   }
-                  console.log('objects equals each other');
-                  handleAddWorkout();
-                } else {
-                  handleAddWorkout();
-                }
-              }}
-            />
+                }}
+              />
             ) : (
               <PressableButton
-              // title={t('workout.skitch')}
-              title='Start'
-              iconSource={assets.icn_edit}
-              onPress={() => {
-                // naviaget to session screen
-                navigation.navigate('SessionScreen', {
-                  routineId: routineId,
-                  workout: workout,
-                });
-              }}
-            />
+                // title={t('workout.skitch')}
+                title="Start"
+                iconSource={assets.icn_edit}
+                onPress={() => {
+                  // naviaget to session screen
+                  navigation.navigate('SessionScreen', {
+                    routineId: routineId,
+                    workout: workout,
+                  });
+                }}
+              />
             )}
-            
 
             <PressableButton
               title={t('workout.delete')}
@@ -332,7 +331,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             />
 
             {/* Test button */}
-            <PressableButton
+            {/* <PressableButton
               title={'Test'}
               onPress={() => {
                 if (workout !== undefined) {
@@ -343,7 +342,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
                 }
                 // navigation!.goBack();
               }}
-            />
+            /> */}
           </ScrollView>
         </View>
       </View>

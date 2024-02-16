@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {FC} from 'react';
 import {useTranslation} from 'react-i18next';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -27,6 +28,7 @@ import {HomeStackRootParamList} from 'src/components/navigation/HomeStack';
 import uuidv4 from 'src/components/shared/uuid4v';
 import weekdays from 'src/assets/database/weekdays';
 import ScreenContainerScroll from 'src/components/shared/ScreenContainerScroll';
+import {TouchableHighlight} from 'react-native-gesture-handler';
 
 type WorkoutListScreenRouteType = RouteProp<
   HomeStackRootParamList,
@@ -47,6 +49,7 @@ const WorkoutListScreen: FC<WorkoutListScreenProp> = ({route, navigation}) => {
   const routines = useRoutineStore(s => s.routines);
   const sessions = useSessionStore(s => s.sessions);
   const setRoutineId = useRoutineStore(s => s.setRoutineId);
+  const deleteWorkout = useRoutineStore(s => s.deleteWorkout);
 
   const {t} = useTranslation();
 
