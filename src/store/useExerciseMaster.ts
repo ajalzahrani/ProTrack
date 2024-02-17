@@ -18,7 +18,8 @@ type State = {
 };
 
 type Actions = {
-  addNewExerciseMaster: (name: string) => void;
+  addNewExerciseMaster: (name: string) => exerciseMasterType;
+  deleteExerciseMaster: (id: string) => void;
 };
 
 const initialState: State = {
@@ -27,15 +28,34 @@ const initialState: State = {
 
 const useExerciseStore = create<State & Actions>((set, get) => ({
   ...initialState,
-  addNewExerciseMaster: name =>
+  addNewExerciseMaster: name => {
+    const newExercise = {
+      id: uuid.v4(),
+      name: name,
+    };
+
     set(
       produce(draft => {
-        const newExercise = {
-          id: uuid,
-          name: name,
-        };
-        draft.exercisesMaster.push(newExercise);
-        store.set('exercises', JSON.stringify(draft.exercisesMaster));
+        draft.exerciseMaster.push(newExercise);
+        store.set(
+          def.exerciseMasterGlobalKey,
+          JSON.stringify(draft.exerciseMaster),
+        );
+      }),
+    );
+
+    return newExercise;
+  },
+  deleteExerciseMaster: (id: string) =>
+    set(
+      produce(draft => {
+        draft.exerciseMaster = draft.exerciseMaster.filter(
+          exercise => exercise.id !== id,
+        );
+        store.set(
+          def.exerciseMasterGlobalKey,
+          JSON.stringify(draft.exerciseMaster),
+        );
       }),
     ),
 }));

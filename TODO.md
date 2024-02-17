@@ -30,10 +30,11 @@
 
 ### Exercise screen
 
-- [ ] 6.1.1: Presis exercise selection when search
-- [ ] 6.1.2: Auto select new added exercise
-- [ ] 6.1.3: Select exercise by clicking on it, not only on the checkbox
-- [ ] 6.1.4: Fix `Add` button bug when adding new exercise.
+- [x] 6.1.1: Presis exercise selection when search
+- [x] 6.1.2: Auto select new added exercise
+- [x] 6.1.3: Select exercise by clicking on it, not only on the checkbox
+- [x] 6.1.4: Fix `Add` button bug when adding new exercise.
+- [x] 6.1.5: Add left swipe to delete a card.
 
 ### Session screen
 

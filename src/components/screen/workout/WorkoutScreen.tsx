@@ -255,6 +255,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             navigation.navigate('ExerciseScreen', {
               exercises: workout?.exercises,
               handleExercise: handleExercise,
+              handleDeleteExercise: handleDeleteExercise,
             });
           }}>
           <Image source={assets.icn_plus} style={{}} />
