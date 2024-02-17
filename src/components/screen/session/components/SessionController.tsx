@@ -32,7 +32,7 @@ const SessionController = ({
   routineId,
   workoutId,
 }: SessionControllerType) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const registerSession = useSessionStore(s => s.registerSession);
 

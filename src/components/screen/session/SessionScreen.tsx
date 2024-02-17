@@ -69,6 +69,15 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
     }
   };
 
+  useEffect(() => {
+    console.log(
+      'Debug: set time: ',
+      workout.resttime[0],
+      ' exe time: ',
+      workout.resttime[1],
+    );
+  }, []);
+
   let scrollKey = 0;
   const renderExercise: ListRenderItem<exercisesType> = ({
     item,
@@ -87,9 +96,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
             exerciseId={item.id}
             exerciseName={exername}
             reps={item.freq[j]}
-            expiryTimestamp={new Date().setSeconds(
-              new Date().getSeconds() + workout.resttime[1],
-            )}
+            expiryTimestamp={workout.resttime[1]}
             scrollToNextCard={scrollToNextCard}
           />,
         );
@@ -103,9 +110,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
             exerciseId={item.id}
             exerciseName={exername}
             reps={item.freq[j]}
-            expiryTimestamp={new Date().setSeconds(
-              new Date().getSeconds() + workout.resttime[0],
-            )}
+            expiryTimestamp={workout.resttime[0]}
             scrollToNextCard={scrollToNextCard}
           />,
         );

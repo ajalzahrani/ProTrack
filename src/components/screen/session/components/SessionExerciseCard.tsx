@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {useTimer} from 'src/components/hooks/timer-hook';
+import {useTimer} from 'use-timer';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -40,27 +40,21 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   const [rep, setRep] = useState(reps);
   const [tut, setTut] = useState(0);
 
-  const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({
-    expiryTimestamp,
-    onExpire: () => handleTimerLableStop,
-    autoStart: false,
+  const {time, start, pause, status} = useTimer({
+    initialTime: expiryTimestamp,
+    timerType: 'DECREMENTAL',
   });
 
   useEffect(() => {
-    if (seconds === 0) {
+    console.log('expiryTimestamp: ', expiryTimestamp);
+    console.log('seconds: ', time);
+  }, []);
+
+  useEffect(() => {
+    if (time === 0) {
       handleTimerLableStop();
     }
-  }, [seconds]);
+  }, [time]);
 
   const handleTimerLableStop = () => {
     // scrollToNextCard(index);
@@ -118,7 +112,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
           {marginBottom: isPressed ? 0 : 7},
         ]}>
         <View style={style.cardTitle}>
-          <Text style={style.timerLable}>{seconds > 0 ? seconds : '--'}</Text>
+          <Text style={style.timerLable}>{time > -1 ? time : '--'}</Text>
           <Text
             style={skitchTitle ? style.workoutTitleDone : style.workoutTitle}>
             {exerciseName}

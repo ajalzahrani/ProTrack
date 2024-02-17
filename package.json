@@ -50,6 +50,7 @@
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^10.0.0",
     "reinput": "^3.7.2",
+    "use-timer": "^2.0.1",
     "victory-native": "^36.6.11",
     "zustand": "^4.1.3"
   },
