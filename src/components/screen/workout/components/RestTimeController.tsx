@@ -12,16 +12,20 @@ type RestTimeControllerProps = {
   indicatorTitle: string;
   controllerType: number;
   resttime: number[];
+  handleRestTimeChange: (resttime: number[]) => void;
 };
 const RestTimeController: React.FC<RestTimeControllerProps> = ({
   indicatorTitle,
   controllerType,
   resttime,
+  handleRestTimeChange,
 }) => {
   const [number, setNumber] = useState(() => {
     if (controllerType === 0) return resttime[0];
     else return resttime[1];
   });
+
+  const [restTimeObj, setRestTimeObj] = useState(resttime);
 
   const [value, setValue] = useState({
     hours: 1,
@@ -49,11 +53,25 @@ const RestTimeController: React.FC<RestTimeControllerProps> = ({
   };
 
   useEffect(() => {
-    setNumber(convertTimeToSeconds(value.minutes, value.seconds));
-  }, [value]);
+    // convert the time to seconds
+    const convertedTime = convertTimeToSeconds(value.minutes, value.seconds);
+
+    // update the number
+    setNumber(convertedTime);
+
+    // update the workoutObj using the handleRestTimeChange
+    let newRestTime = [...restTimeObj];
+    newRestTime[controllerType] = convertedTime;
+    handleRestTimeChange(newRestTime);
+  }, [value.seconds, value.minutes]);
 
   useEffect(() => {
-    resttime[controllerType] = number;
+    // update the restTimeObj
+    setRestTimeObj(prev => {
+      let newRestTime = [...prev];
+      newRestTime[controllerType] = number;
+      return newRestTime;
+    });
   }, [number]);
 
   useEffect(() => {

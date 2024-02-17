@@ -45,8 +45,6 @@ type WorkoutScreenProp = {
 };
 
 const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
-  // FIXME: Re-design Rest time controllers
-
   const workoutStore = route?.params?.workout;
   const routineId = route?.params?.routineId;
   const [workout, setWorkout] = useState<workoutType>(
@@ -58,10 +56,9 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
     },
   );
 
-  // TODO: delete workout function
-
   const [modalVisible, setModalVisible] = useState(false);
   const [titleModalVisible, setTitleModalVisible] = useState(false);
+  const [noExercisesModal, setNoExercisesModal] = useState(false);
   const {t} = useTranslation();
 
   const handleAddWorkout = () => {
@@ -179,6 +176,15 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
     [setWorkout],
   );
 
+  // write a function to handle rest time
+  const handleRestTimeChange = (resttime: number[]) => {
+    setWorkout(prev => {
+      const newWorkout = {...prev};
+      newWorkout.resttime = resttime;
+      return newWorkout;
+    });
+  };
+
   const RestTimeDrawer = () => {
     if (workout !== undefined) {
       let exercises = workout?.exercises?.length;
@@ -188,6 +194,7 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             controllerType={0}
             indicatorTitle="Set rest time:"
             resttime={workout.resttime}
+            handleRestTimeChange={handleRestTimeChange}
           />
         );
       } else if (exercises > 1) {
@@ -197,11 +204,13 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
               controllerType={0}
               indicatorTitle="Set rest time:"
               resttime={workout.resttime}
+              handleRestTimeChange={handleRestTimeChange}
             />
             <RestTimeController
               controllerType={1}
               indicatorTitle="Exercise rest time:"
               resttime={workout.resttime}
+              handleRestTimeChange={handleRestTimeChange}
             />
           </>
         );
@@ -235,6 +244,19 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             onPress: () => {
               handleAddWorkout();
               setModalVisible(false);
+            },
+          },
+        ]}
+      />
+      <CustomModal
+        visible={noExercisesModal}
+        setVisible={setNoExercisesModal}
+        message="This workout has no exercies or sets added! Add exercises to this workout or sets?"
+        buttons={[
+          {
+            text: 'OK',
+            onPress: () => {
+              setNoExercisesModal(false);
             },
           },
         ]}
@@ -310,6 +332,15 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
                 title="Start"
                 iconSource={assets.icn_edit}
                 onPress={() => {
+                  // Check if workout has exercises or no sets in frist exercise, if not, navigate to workout screen
+                  if (
+                    workout.exercises.length === 0 ||
+                    workout.exercises[0].freq.length === 0
+                  ) {
+                    // show a modal to add exercises, or to cancel
+                    setNoExercisesModal(true);
+                    return;
+                  }
                   // naviaget to session screen
                   navigation.navigate('SessionScreen', {
                     routineId: routineId,
@@ -332,18 +363,12 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             />
 
             {/* Test button */}
-            {/* <PressableButton
+            <PressableButton
               title={'Test'}
               onPress={() => {
-                if (workout !== undefined) {
-                  if (workout.id !== undefined) {
-                    console.log(workoutStore);
-                    console.log(workout);
-                  }
-                }
-                // navigation!.goBack();
+                console.log('workout resttime:', workout.resttime[0]);
               }}
-            /> */}
+            />
           </ScrollView>
         </View>
       </View>

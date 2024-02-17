@@ -19,7 +19,7 @@
 - [x] 4.1.1: Redeign start button.
 - [x] 4.1.2: Workout name should'nt take all the space in pre-list of workout.
 - [x] 4.1.3: Clicking on navigation button should prsiste configurations.
-- [x] 4.1.4: Don't start workout session if there is no exercises.
+- [x] 4.1.4: Don't start workout session if there is no exercises or no sets.
 - [x] 4.1.5: Prsiste creating new workout.
 
 ### Workout screen
@@ -27,6 +27,7 @@
 - [x] 5.1.1: Redesign exercieses cards
 - [x] 5.1.2: Re-design Rest time controllers
 - [x] 5.1.3: Add check box to copy first set reps to other sets reps.
+- [x] 5.1.4: Fix rest time presisting bug.
 
 ### Exercise screen
 
@@ -45,8 +46,8 @@
 - [ ] 7.1.5: Fix Scrolling tips.
 - [ ] 7.1.6: Scroll to next active card not skitch card.
 - [ ] 7.1.7: Fix last cards on screen when opened.
-- [ ] 7.1.8: Workout name should'nt take all the space in pre-list of workout.
-- [ ] 7.1.9: Fix Play/Pause button.
+- [x] 7.1.9: Fix Play/Pause button.
+- [x] 7.1.10: Fix Rest time when quick start.
 
 ### SessionReport screen
 
@@ -89,7 +90,7 @@
 
 ### WorkoutList screen
 
-- [ ] 12.1.1: Don't start workout session if there is no exercises.
+- [ ] 12.1.1: Don't start workout session if there is no exercises or no sets.
 - [x] 12.1.2: Add back button.
 
 # Future Features

@@ -223,8 +223,11 @@ const RoutineScreen: React.FC<RoutineScreenProps> = ({route, navigation}) => {
               iconSource={assets.icn_start}
               onPress={() => {
                 addNewRoutine(routine.id, routine);
-                // Check if workout has exercises, if not, navigate to workout screen
-                if (workout.exercises.length === 0) {
+                // Check if workout has exercises or no sets in frist exercise, if not, navigate to workout screen
+                if (
+                  workout.exercises.length === 0 ||
+                  workout.exercises[0].freq.length === 0
+                ) {
                   // show a modal to add exercises, or to cancel
                   setNoExercisesModal(true);
                   return;
