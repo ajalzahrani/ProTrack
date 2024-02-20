@@ -4,54 +4,22 @@ import React, {useEffect, useState} from 'react';
 // Assets
 import {colors, assets} from 'src/assets';
 
-type SETsControllerProp = {
+type RepsControllerProp = {
+  unitNumber: number;
+  unit: string;
   indicatorTitle: string;
-  index: number;
-  freq: number[];
-  sharedReps: number;
-  handleExerciseFreqRepCount: (
-    exerciseId: string,
-    index: number,
-    value: number,
-  ) => void;
-  exerciseId: string;
+  addNumber: () => void;
+  minNumber: () => void;
 };
 
-const SETsController: React.FC<SETsControllerProp> = ({
+const RepsContoller: React.FC<RepsControllerProp> = ({
+  unitNumber,
+  unit,
   indicatorTitle,
-  freq,
-  index,
-  sharedReps,
-  handleExerciseFreqRepCount,
-  exerciseId,
+  addNumber,
+  minNumber,
 }) => {
-  const [number, setNumber] = useState(freq[index] || 0);
-
-  const [renderCount, setRenderCount] = useState(0);
-
-  useEffect(() => {
-    setNumber(sharedReps > 0 ? sharedReps : freq[index] || 0);
-  }, [sharedReps]);
-
-  const updateFreq = () => {
-    handleExerciseFreqRepCount(exerciseId, index, number);
-  };
-
-  const addNumber = () => {
-    setNumber(number + 1);
-  };
-
-  const minNumber = () => {
-    if (number === 0) {
-      setNumber(0);
-    } else {
-      setNumber(number - 1);
-    }
-  };
-
-  useEffect(() => {
-    updateFreq();
-  }, [number]);
+  const [number, setNumber] = useState(unitNumber);
 
   return (
     <View style={style.containerStyle}>
@@ -61,7 +29,7 @@ const SETsController: React.FC<SETsControllerProp> = ({
           {/* Number indicator */}
           <View style={style.numberIndicator}>
             <Text style={{color: colors.white}}>
-              {number} {number > 1 ? 'reps' : 'rep'}
+              {unitNumber} {unit}
             </Text>
           </View>
         </View>
@@ -95,7 +63,6 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 24,
     paddingVertical: 14,
   },
   numberIndicator: {
@@ -115,4 +82,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default SETsController;
+export default RepsContoller;

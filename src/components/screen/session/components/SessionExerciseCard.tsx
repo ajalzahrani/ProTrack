@@ -9,11 +9,15 @@ import {colors, assets} from 'src/assets';
 // Store
 import useSessionStore from 'src/store/useSessionStore';
 
+// Components
+import RepsContoller from './RepsController';
+
 type SessionExerciseCardType = {
   index: number;
   sessionId: string;
   exerciseId: string;
   exerciseName: string;
+  setOrderNumber: number;
   reps: number;
   expiryTimestamp?: number;
   scrollToNextCard: (index: number) => void;
@@ -25,6 +29,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   sessionId,
   exerciseId,
   exerciseName,
+  setOrderNumber,
   reps,
   expiryTimestamp,
   scrollToNextCard,
@@ -39,6 +44,8 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   const [weight, setWeight] = useState(0);
   const [rep, setRep] = useState(reps);
   const [tut, setTut] = useState(0);
+
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const {time, start, pause, status} = useTimer({
     initialTime: expiryTimestamp,
@@ -112,10 +119,27 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
           {marginBottom: isPressed ? 0 : 7},
         ]}>
         <View style={style.cardTitle}>
-          <Text style={style.timerLable}>{time > -1 ? time : '--'}</Text>
+          <View>
+            {isPressed ? (
+              <></>
+            ) : (
+              <Text style={style.timerLable}>
+                {time > 0 ? time + 's' : '--'}
+              </Text>
+            )}
+          </View>
           <Text
             style={skitchTitle ? style.workoutTitleDone : style.workoutTitle}>
             {exerciseName}
+          </Text>
+          <Text
+            style={
+              skitchTitle
+                ? style.setOrderNumberDoneStyle
+                : style.setOrderNumberStyle
+            }>
+            {' '}
+            (Set {setOrderNumber})
           </Text>
         </View>
         <View style={style.editContainerStyle}>
@@ -130,30 +154,13 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       {isPressed && (
         <View style={style.controllerContainerStyle}>
           {/* <SETsController indicatorTitle={'Set'} /> */}
-          <View style={style.controllerRowContainerStyle}>
-            {/* inner set container */}
-            <View style={style.controllerRowInnerStyle}>
-              {/* Number indicator */}
-              <View style={style.controllerNumberIndicator}>
-                <Text style={{color: colors.white}}>{weight} kg</Text>
-              </View>
-
-              <Text style={style.controllerMiddleTextStyle}>Weight</Text>
-
-              {/* plus - min buttons */}
-              <View
-                style={{flexDirection: 'row'}}
-                // className="space-x-10"
-              >
-                <TouchableOpacity onPress={() => minWeight()}>
-                  <Image source={assets.icn_min} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => addWeight()}>
-                  <Image source={assets.icn_add} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+          <RepsContoller
+            unitNumber={weight}
+            unit="kg"
+            indicatorTitle="Weight"
+            addNumber={addWeight}
+            minNumber={minWeight}
+          />
 
           {/* Dividor */}
           <View
@@ -163,31 +170,14 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
               borderColor: colors.secondaryow,
             }}
           />
-          {/* <SETsController indicatorTitle={'Set'} /> */}
-          <View style={style.controllerRowContainerStyle}>
-            {/* inner set container */}
-            <View style={style.controllerRowInnerStyle}>
-              {/* Number indicator */}
-              <View style={style.controllerNumberIndicator}>
-                <Text style={{color: colors.white}}>{rep} r</Text>
-              </View>
 
-              <Text style={style.controllerMiddleTextStyle}>Reps</Text>
-
-              {/* plus - min buttons */}
-              <View
-                style={{flexDirection: 'row'}}
-                // className="space-x-10"
-              >
-                <TouchableOpacity onPress={() => minRep()}>
-                  <Image source={assets.icn_min} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => addRep()}>
-                  <Image source={assets.icn_add} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+          <RepsContoller
+            unitNumber={rep}
+            unit="r"
+            indicatorTitle="Reps"
+            addNumber={addRep}
+            minNumber={minRep}
+          />
 
           {/* Dividor */}
           <View
@@ -197,52 +187,68 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
               borderColor: colors.secondaryow,
             }}
           />
-          {/* <SETsController indicatorTitle={'Set'} /> */}
-          <View style={style.controllerRowContainerStyle}>
-            {/* inner set container */}
-            <View style={style.controllerRowInnerStyle}>
-              {/* Number indicator */}
-              <View style={style.controllerNumberIndicator}>
-                <Text style={{color: colors.white}}>{tut} s</Text>
-              </View>
 
-              <Text style={style.controllerMiddleTextStyle}>TUT</Text>
+          <RepsContoller
+            unitNumber={tut}
+            unit="s"
+            indicatorTitle="TUT"
+            addNumber={addTut}
+            minNumber={minTut}
+          />
 
-              {/* plus - min buttons */}
-              <View
-                style={{flexDirection: 'row'}}
-                // className="space-x-10"
-              >
-                <TouchableOpacity onPress={() => minTut()}>
-                  <Image source={assets.icn_min} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => addTut()}>
-                  <Image source={assets.icn_add} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            // className="mb-1"
-            onPress={() => {
-              toggleRestTimer();
-              // Register set to exercises array
-              registerSet(sessionId, exerciseId, weight, rep, tut);
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              // backgroundColor: colors.secondaryow,
+              justifyContent: 'space-between',
+              marginLeft: 5,
             }}>
-            <LinearGradient
-              // className="py-3 px-10 rounded-full"
-              colors={['#E10D60', '#FA3B89']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
-              locations={[0.75, 1]}>
+            <View
+              style={{
+                padding: 10,
+                backgroundColor: colors.yellow,
+                borderRadius: 150 / 2,
+              }}>
               <Text
-              // className="text-base font-semibold text-white"
-              >
-                {skitchTitle ? 'Edit' : 'Register'}
+                style={{
+                  fontSize: 18,
+                  color: 'black',
+                  textAlign: 'left',
+                }}>
+                {time > 0 ? time + 's' : '--'}
               </Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              disabled={isRegistered}
+              style={{padding: 10}}
+              onPress={() => {
+                toggleRestTimer();
+                // Register set to exercises array
+                registerSet(sessionId, exerciseId, weight, rep, tut);
+                setIsRegistered(true);
+              }}>
+              <LinearGradient
+                // className="py-3 px-10 rounded-full"
+                colors={['#E10D60', '#FA3B89']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 1}}
+                locations={[0.75, 1]}
+                style={{borderRadius: 20}}>
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontSize: 16,
+                    fontWeight: '500',
+                    textAlign: 'center',
+                    padding: 10,
+                  }}>
+                  {skitchTitle ? 'Edit' : 'Register set'}
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </>
@@ -296,7 +302,7 @@ const style = StyleSheet.create({
   controllerContainerStyle: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    // alignItems: 'center',
     marginBottom: 7,
     marginHorizontal: 20,
     paddingBottom: 15,
@@ -304,30 +310,6 @@ const style = StyleSheet.create({
     backgroundColor: colors.secondaryow,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
-  },
-
-  controllerRowContainerStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  controllerRowInnerStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 14,
-  },
-  controllerNumberIndicator: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 100,
-    backgroundColor: colors.secondaryow,
-    width: 80,
-    height: 29,
   },
   controllerMiddleTextStyle: {
     fontWeight: '400',
@@ -350,11 +332,30 @@ const style = StyleSheet.create({
     marginRight: 20,
     fontSize: 18,
     color: 'white',
+    // width: 50, // Adjust this value as needed
+    textAlign: 'left',
   },
   cardTitle: {
+    flex: 1,
     flexDirection: 'row',
-
+    flexWrap: 'wrap',
+    lineHeight: 30,
     alignItems: 'center',
+  },
+  setOrderNumberStyle: {
+    color: colors.red,
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 30,
+    // marginTop: 10,
+  },
+  setOrderNumberDoneStyle: {
+    color: colors.red,
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 30,
+    // marginTop: 10,
+    textDecorationLine: 'line-through',
   },
 });
 

@@ -93,6 +93,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
             key={key}
             index={scrollKey}
             sessionId={sessionId}
+            setOrderNumber={j + 1}
             exerciseId={item.id}
             exerciseName={exername}
             reps={item.freq[j]}
@@ -109,6 +110,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
             sessionId={sessionId}
             exerciseId={item.id}
             exerciseName={exername}
+            setOrderNumber={j + 1}
             reps={item.freq[j]}
             expiryTimestamp={workout.resttime[0]}
             scrollToNextCard={scrollToNextCard}

@@ -43,7 +43,7 @@
 - [ ] 7.1.1: ExerciseActiveCard render twice ???? need to fix this.
 - [ ] 7.1.2: Adjust the design.
 - [ ] 7.1.3: Open next card.
-- [ ] 7.1.4: Show set order number.
+- [x] 7.1.4: Show set order number.
 - [ ] 7.1.5: Fix Scrolling tips.
 - [ ] 7.1.6: Scroll to next active card not skitch card.
 - [ ] 7.1.7: Fix last cards on screen when opened.
