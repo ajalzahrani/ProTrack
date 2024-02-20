@@ -1,9 +1,6 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {TimePicker, ValueMap} from 'react-native-simple-time-picker';
-
-import useExerciseStore from 'src/store/useExerciseMaster';
-import useRoutineStore from 'src/store/useRoutineStore';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -12,20 +9,20 @@ type RestTimeControllerProps = {
   indicatorTitle: string;
   controllerType: number;
   resttime: number[];
-  handleRestTimeChange: (resttime: number[]) => void;
+  handleTimeToRestSet: (time: number) => void;
+  handleTimeToRestExercise: (time: number) => void;
 };
 const RestTimeController: React.FC<RestTimeControllerProps> = ({
   indicatorTitle,
   controllerType,
   resttime,
-  handleRestTimeChange,
+  handleTimeToRestSet,
+  handleTimeToRestExercise,
 }) => {
   const [number, setNumber] = useState(() => {
     if (controllerType === 0) return resttime[0];
     else return resttime[1];
   });
-
-  const [restTimeObj, setRestTimeObj] = useState(resttime);
 
   const [value, setValue] = useState({
     hours: 1,
@@ -58,20 +55,17 @@ const RestTimeController: React.FC<RestTimeControllerProps> = ({
 
     // update the number
     setNumber(convertedTime);
-
-    // update the workoutObj using the handleRestTimeChange
-    let newRestTime = [...restTimeObj];
-    newRestTime[controllerType] = convertedTime;
-    handleRestTimeChange(newRestTime);
-  }, [value.seconds, value.minutes]);
+  }, [value.minutes, value.seconds]);
 
   useEffect(() => {
     // update the restTimeObj
-    setRestTimeObj(prev => {
-      let newRestTime = [...prev];
-      newRestTime[controllerType] = number;
-      return newRestTime;
-    });
+    // setRestTimeObj(prev => {
+    //   let newRestTime = [...prev];
+    //   newRestTime[index] = number;
+    //   return newRestTime;
+    // });
+    if (controllerType === 0) handleTimeToRestSet(number);
+    else handleTimeToRestExercise(number);
   }, [number]);
 
   useEffect(() => {

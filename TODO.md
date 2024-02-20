@@ -28,6 +28,7 @@
 - [x] 5.1.2: Re-design Rest time controllers
 - [x] 5.1.3: Add check box to copy first set reps to other sets reps.
 - [x] 5.1.4: Fix rest time presisting bug.
+- [x] 5.1.5: Fix reset time bug, when set timer and exercise timer changed only exercise timer get changed.
 
 ### Exercise screen
 
@@ -90,7 +91,7 @@
 
 ### WorkoutList screen
 
-- [ ] 12.1.1: Don't start workout session if there is no exercises or no sets.
+- [x] 12.1.1: Don't start workout session if there is no exercises or no sets.
 - [x] 12.1.2: Add back button.
 
 # Future Features

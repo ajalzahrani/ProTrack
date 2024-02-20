@@ -29,6 +29,7 @@ import {RoutineStackRootParamList} from 'src/components/navigation/RoutineStack'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {workoutType} from 'src/types';
 import compareObjects from 'src/components/shared/compareObjects';
+import {set} from 'immer/dist/internal';
 export type WorkoutScreenRouteProp = RouteProp<
   RoutineStackRootParamList,
   'WorkoutScreen'
@@ -59,7 +60,26 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [titleModalVisible, setTitleModalVisible] = useState(false);
   const [noExercisesModal, setNoExercisesModal] = useState(false);
+  const [timeToRestSet, setTimeToRestSet] = useState(workout.resttime[0]);
+  const [timeToRestExercise, setTimeToRestExercise] = useState(
+    workout.resttime[1],
+  );
+
   const {t} = useTranslation();
+
+  const handleTimeToRestSet = useCallback(
+    (time: number) => {
+      setTimeToRestSet(time);
+    },
+    [setTimeToRestSet],
+  );
+
+  const handleTimeToRestExercise = useCallback(
+    (time: number) => {
+      setTimeToRestExercise(time);
+    },
+    [setTimeToRestExercise],
+  );
 
   const handleAddWorkout = () => {
     if (workout?.title.length === 0) {
@@ -177,13 +197,44 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
   );
 
   // write a function to handle rest time
-  const handleRestTimeChange = (resttime: number[]) => {
+  const handleRestTimeChange = (index: number, time: number) => {
+    console.log(
+      'rest time changed 1: ',
+      workout.resttime[0],
+      index == 0 ? time : 'false',
+      ' 2: ',
+      workout.resttime[1],
+      index == 1 ? time : 'false',
+    );
     setWorkout(prev => {
       const newWorkout = {...prev};
-      newWorkout.resttime = resttime;
+      newWorkout.resttime[index] = time;
       return newWorkout;
     });
+    console.log('finsished');
   };
+
+  // write same handleRestTimeChange function using useCallback
+  const handleRestTimeChangeCallback = useCallback(
+    (index: number, time: number) => {
+      console.log(
+        'rest time changed 1: ',
+        workout.resttime[0],
+        index == 0 ? time : 'false',
+        ' 2: ',
+        workout.resttime[1],
+        index == 1 ? time : 'false',
+      );
+      setWorkout(prev => {
+        const newWorkout = {...prev};
+        newWorkout.resttime[index] = time;
+        console.log('rest time changed after: ', newWorkout.resttime[index]);
+        return newWorkout;
+      });
+      console.log('finsished');
+    },
+    [workout],
+  );
 
   const RestTimeDrawer = () => {
     if (workout !== undefined) {
@@ -191,26 +242,29 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
       if (exercises === 1) {
         return (
           <RestTimeController
+            handleTimeToRestSet={handleTimeToRestSet}
+            handleTimeToRestExercise={handleTimeToRestExercise}
             controllerType={0}
             indicatorTitle="Set rest time:"
             resttime={workout.resttime}
-            handleRestTimeChange={handleRestTimeChange}
           />
         );
       } else if (exercises > 1) {
         return (
           <>
             <RestTimeController
+              handleTimeToRestSet={handleTimeToRestSet}
+              handleTimeToRestExercise={handleTimeToRestExercise}
               controllerType={0}
               indicatorTitle="Set rest time:"
               resttime={workout.resttime}
-              handleRestTimeChange={handleRestTimeChange}
             />
             <RestTimeController
+              handleTimeToRestSet={handleTimeToRestSet}
+              handleTimeToRestExercise={handleTimeToRestExercise}
               controllerType={1}
               indicatorTitle="Exercise rest time:"
               resttime={workout.resttime}
-              handleRestTimeChange={handleRestTimeChange}
             />
           </>
         );
@@ -219,6 +273,15 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
       }
     }
   };
+
+  useEffect(() => {
+    // update workout resttime when timeToRestSet or timeToRestExercise changes
+    setWorkout(prev => {
+      const newWorkout = {...prev};
+      newWorkout.resttime = [timeToRestSet, timeToRestExercise];
+      return newWorkout;
+    });
+  }, [timeToRestExercise, timeToRestSet]);
 
   useEffect(() => {
     RestTimeDrawer();
@@ -366,7 +429,8 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
             <PressableButton
               title={'Test'}
               onPress={() => {
-                console.log('workout resttime:', workout.resttime[0]);
+                console.log('workout resttime set: ', workout.resttime[0]);
+                console.log('workout resttime exc: ', workout.resttime[1]);
               }}
             />
           </ScrollView>
