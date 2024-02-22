@@ -29,7 +29,6 @@ import {RoutineStackRootParamList} from 'src/components/navigation/RoutineStack'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {workoutType} from 'src/types';
 import compareObjects from 'src/components/shared/compareObjects';
-import {set} from 'immer/dist/internal';
 export type WorkoutScreenRouteProp = RouteProp<
   RoutineStackRootParamList,
   'WorkoutScreen'
@@ -288,112 +287,146 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
   }, []);
 
   return (
-    <ScreenContainer>
-      <CustomModal
-        visible={modalVisible}
-        setVisible={setModalVisible}
-        message="Are you sure you want to save changes?"
-        buttons={[
-          {text: 'Cancel', onPress: () => setModalVisible(false)},
+    <View style={{flex: 1}}>
+      <ScreenContainer>
+        <CustomModal
+          visible={modalVisible}
+          setVisible={setModalVisible}
+          message="Are you sure you want to save changes?"
+          buttons={[
+            {text: 'Cancel', onPress: () => setModalVisible(false)},
 
-          {
-            text: 'No',
-            onPress: () => navigation.goBack(),
-            backgroundColor: colors.red,
-            textColor: colors.white,
-          },
-          {
-            text: 'Save',
-            onPress: () => {
-              handleAddWorkout();
-              setModalVisible(false);
+            {
+              text: 'No',
+              onPress: () => navigation.goBack(),
+              backgroundColor: colors.red,
+              textColor: colors.white,
             },
-          },
-        ]}
-      />
-      <CustomModal
-        visible={noExercisesModal}
-        setVisible={setNoExercisesModal}
-        message="This workout has no exercies or sets added! Add exercises to this workout or sets?"
-        buttons={[
-          {
-            text: 'OK',
-            onPress: () => {
-              setNoExercisesModal(false);
+            {
+              text: 'Save',
+              onPress: () => {
+                handleAddWorkout();
+                setModalVisible(false);
+              },
             },
-          },
-        ]}
-      />
-      <CustomModal
-        visible={titleModalVisible}
-        setVisible={setTitleModalVisible}
-        message="Please enter a workout name"
-        buttons={[{text: 'Ok', onPress: () => setTitleModalVisible(false)}]}
-      />
-      <View style={style.goBackStyle}>
-        <TouchableOpacity onPress={() => navigation!.goBack()}>
-          <Image source={assets.icn_goback} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.addNewExercise}
-          onPress={() => {
-            navigation.navigate('ExerciseScreen', {
-              exercises: workout?.exercises,
-              handleExercise: handleExercise,
-              handleDeleteExercise: handleDeleteExercise,
-            });
-          }}>
-          <Image source={assets.icn_plus} style={{}} />
-          <Text style={{color: colors.red}}>{t('workout.addNewExercise')}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{paddingHorizontal: 16, flex: 1}}>
-        <View style={style.preWorkoutListContainerStyle}>
-          <ScrollView contentContainerStyle={{paddingBottom: 72}}>
-            <TextInput
-              placeholder="Workout name"
-              placeholderTextColor={colors.offwhite}
-              onChangeText={inpuText => handleTitle(inpuText)}
-              defaultValue={workout?.title}
-              style={style.textInputStyle}
-            />
-
-            {workout?.exercises?.map(exercise => {
-              return (
-                <ExerciseCard
-                  key={exercise.id}
-                  exercise={exercise}
-                  handleExerciseFreqRepCount={handleExerciseFreqRepCount}
-                  handleExerciseFreqSetCount={handleExerciseFreqSetCount}
-                  handleDeleteExercise={handleDeleteExercise}
-                />
-              );
-            })}
-            {RestTimeDrawer()}
-
-            {routineId === undefined ? (
-              <PressableButton
-                title={t('workout.skitch')}
-                iconSource={assets.icn_edit}
-                onPress={() => {
-                  if (workoutStore !== undefined) {
-                    if (!compareObjects(workoutStore, workout)) {
-                      console.log('objects not equals each other');
-                      setModalVisible(prev => !prev);
-                      return;
-                    }
-                    console.log('objects equals each other');
-                    handleAddWorkout();
-                  } else {
-                    handleAddWorkout();
-                  }
-                }}
+          ]}
+        />
+        <CustomModal
+          visible={noExercisesModal}
+          setVisible={setNoExercisesModal}
+          message="This workout has no exercies or sets added! Add exercises to this workout or sets?"
+          buttons={[
+            {
+              text: 'OK',
+              onPress: () => {
+                setNoExercisesModal(false);
+              },
+            },
+          ]}
+        />
+        <CustomModal
+          visible={titleModalVisible}
+          setVisible={setTitleModalVisible}
+          message="Please enter a workout name"
+          buttons={[{text: 'Ok', onPress: () => setTitleModalVisible(false)}]}
+        />
+        <View style={style.goBackStyle}>
+          <TouchableOpacity onPress={() => navigation!.goBack()}>
+            <Image source={assets.icn_goback} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={style.addNewExercise}
+            onPress={() => {
+              navigation.navigate('ExerciseScreen', {
+                exercises: workout?.exercises,
+                handleExercise: handleExercise,
+                handleDeleteExercise: handleDeleteExercise,
+              });
+            }}>
+            <Image source={assets.icn_plus} style={{}} />
+            <Text style={{color: colors.red}}>
+              {t('workout.addNewExercise')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{paddingHorizontal: 16, flex: 1}}>
+          <View style={style.preWorkoutListContainerStyle}>
+            <ScrollView contentContainerStyle={{paddingBottom: 72}}>
+              <TextInput
+                placeholder="Workout name"
+                placeholderTextColor={colors.offwhite}
+                onChangeText={inpuText => handleTitle(inpuText)}
+                defaultValue={workout?.title}
+                style={style.textInputStyle}
               />
-            ) : (
-              <PressableButton
-                // title={t('workout.skitch')}
-                title="Start"
-                iconSource={assets.icn_edit}
+
+              {workout?.exercises?.map(exercise => {
+                return (
+                  <ExerciseCard
+                    key={exercise.id}
+                    exercise={exercise}
+                    handleExerciseFreqRepCount={handleExerciseFreqRepCount}
+                    handleExerciseFreqSetCount={handleExerciseFreqSetCount}
+                    handleDeleteExercise={handleDeleteExercise}
+                  />
+                );
+              })}
+              {RestTimeDrawer()}
+
+              {routineId === undefined ? (
+                <>
+                  <PressableButton
+                    title={t('workout.skitch')}
+                    iconSource={assets.icn_edit}
+                    onPress={() => {
+                      if (workoutStore !== undefined) {
+                        if (!compareObjects(workoutStore, workout)) {
+                          console.log('objects not equals each other');
+                          setModalVisible(prev => !prev);
+                          return;
+                        }
+                        console.log('objects equals each other');
+                        handleAddWorkout();
+                      } else {
+                        handleAddWorkout();
+                      }
+                    }}
+                  />
+
+                  <PressableButton
+                    title={t('workout.delete')}
+                    onPress={() => {
+                      if (workout !== undefined) {
+                        if (workout.id !== undefined) {
+                          route?.params.handleDeleteRoutineWorkout(workout);
+                        }
+                      }
+                      navigation!.goBack();
+                    }}
+                  />
+
+                  {/* Test button */}
+                  <PressableButton
+                    title={'Test'}
+                    onPress={() => {
+                      console.log(
+                        'workout resttime set: ',
+                        workout.resttime[0],
+                      );
+                      console.log(
+                        'workout resttime exc: ',
+                        workout.resttime[1],
+                      );
+                    }}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
+            </ScrollView>
+            {routineId !== undefined ? (
+              <TouchableOpacity
+                style={style.fab}
                 onPress={() => {
                   // Check if workout has exercises or no sets in frist exercise, if not, navigate to workout screen
                   if (
@@ -409,34 +442,19 @@ const WorkoutScreen: React.FC<WorkoutScreenProp> = ({route, navigation}) => {
                     routineId: routineId,
                     workout: workout,
                   });
-                }}
-              />
+                }}>
+                <Image source={assets.icn_start} style={{marginRight: 6}} />
+                <Text style={{fontWeight: '700', color: colors.white}}>
+                  Start
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <></>
             )}
-
-            <PressableButton
-              title={t('workout.delete')}
-              onPress={() => {
-                if (workout !== undefined) {
-                  if (workout.id !== undefined) {
-                    route?.params.handleDeleteRoutineWorkout(workout);
-                  }
-                }
-                navigation!.goBack();
-              }}
-            />
-
-            {/* Test button */}
-            <PressableButton
-              title={'Test'}
-              onPress={() => {
-                console.log('workout resttime set: ', workout.resttime[0]);
-                console.log('workout resttime exc: ', workout.resttime[1]);
-              }}
-            />
-          </ScrollView>
+          </View>
         </View>
-      </View>
-    </ScreenContainer>
+      </ScreenContainer>
+    </View>
   );
 };
 
@@ -532,6 +550,25 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  fab: {
+    display: 'flex',
+    flexDirection: 'row',
+
+    paddingHorizontal: 30,
+    paddingVertical: 16,
+    borderRadius: 100,
+
+    position: 'absolute',
+    // width: 56,
+    // height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 40,
+    alignSelf: 'center',
+    backgroundColor: colors.secondary,
+    // borderRadius: 30,
+    elevation: 8,
   },
 });
 

@@ -29,6 +29,7 @@
 - [x] 5.1.3: Add check box to copy first set reps to other sets reps.
 - [x] 5.1.4: Fix rest time presisting bug.
 - [x] 5.1.5: Fix reset time bug, when set timer and exercise timer changed only exercise timer get changed.
+- [x] 5.1.6: Make start button floatting and always on top, and hide delete button in case of quick start.
 
 ### Exercise screen
 
@@ -53,6 +54,7 @@
 ### SessionReport screen
 
 - [ ] 8.1.1: Adjust the design to be consist.
+- [ ] 8.1.2: Fix date and time format.
 
 ### Settings screen
 
