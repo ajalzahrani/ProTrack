@@ -13,7 +13,7 @@ import useSessionStore from 'src/store/useSessionStore';
 import RepsContoller from './RepsController';
 
 type SessionExerciseCardType = {
-  index: number;
+  scrollIndex: number;
   sessionId: string;
   exerciseId: string;
   exerciseName: string;
@@ -25,7 +25,7 @@ type SessionExerciseCardType = {
 };
 
 const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
-  index,
+  scrollIndex,
   sessionId,
   exerciseId,
   exerciseName,
@@ -38,7 +38,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   // FIXME: Disable edit session proprties after set is registered
   const registerSet = useSessionStore(s => s.registerSet);
   const [isActive, setIsActive] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [skitchTitle, setSkitchTitle] = useState(false);
 
   const [weight, setWeight] = useState(0);
@@ -53,19 +53,14 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   });
 
   useEffect(() => {
-    console.log('expiryTimestamp: ', expiryTimestamp);
-    console.log('seconds: ', time);
-  }, []);
-
-  useEffect(() => {
     if (time === 0) {
       handleTimerLableStop();
     }
   }, [time]);
 
   const handleTimerLableStop = () => {
-    // scrollToNextCard(index);
-    setIsPressed(s => !s);
+    scrollToNextCard(scrollIndex);
+    setIsExpanded(s => !s);
     setSkitchTitle(true);
   };
 
@@ -78,8 +73,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
     setIsActive(false);
   }
 
-  const addWeight = () => {
-    setWeight(weight + 5);
+  const addWeight = (value?: number) => {
+    if (value) {
+      setWeight(value);
+    } else {
+      setWeight(weight + 5);
+    }
   };
   const minWeight = () => {
     if (weight === 0) {
@@ -88,8 +87,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       setWeight(weight - 1);
     }
   };
-  const addRep = () => {
-    setRep(rep + 1);
+  const addRep = (value?: number) => {
+    if (value) {
+      setRep(value);
+    } else {
+      setRep(rep + 1);
+    }
   };
   const minRep = () => {
     if (rep === 0) {
@@ -98,8 +101,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       setRep(rep - 1);
     }
   };
-  const addTut = () => {
-    setTut(tut + 5);
+  const addTut = (value?: number) => {
+    if (value) {
+      setTut(value);
+    } else {
+      setTut(tut + 5);
+    }
   };
   const minTut = () => {
     if (tut === 0) {
@@ -114,13 +121,13 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       <View
         style={[
           style.cardContainer,
-          {borderBottomEndRadius: isPressed ? 0 : 10},
-          {borderBottomStartRadius: isPressed ? 0 : 10},
-          {marginBottom: isPressed ? 0 : 7},
+          {borderBottomEndRadius: isExpanded ? 0 : 10},
+          {borderBottomStartRadius: isExpanded ? 0 : 10},
+          {marginBottom: isExpanded ? 0 : 7},
         ]}>
         <View style={style.cardTitle}>
           <View>
-            {isPressed ? (
+            {isExpanded ? (
               <></>
             ) : (
               <Text style={style.timerLable}>
@@ -145,13 +152,13 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
         <View style={style.editContainerStyle}>
           <TouchableOpacity
             onPress={() => {
-              setIsPressed(!isPressed);
+              setIsExpanded(!isExpanded);
             }}>
-            <Image source={isPressed ? assets.icn_min : assets.icn_add} />
+            <Image source={isExpanded ? assets.icn_min : assets.icn_add} />
           </TouchableOpacity>
         </View>
       </View>
-      {isPressed && (
+      {isExpanded && (
         <View style={style.controllerContainerStyle}>
           {/* <SETsController indicatorTitle={'Set'} /> */}
           <RepsContoller

@@ -8,7 +8,7 @@ import {
   ListRenderItemInfo,
   FlatList,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import uuidv4 from 'src/components/shared/uuid4v';
 import useExerciseName from 'src/components/hooks/useExerciseName';
 
@@ -45,40 +45,22 @@ type SessionScreenProp = {
 };
 
 const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
-  // FIXME: ExerciseActiveCard render twice ???? need to fix this
-  // FIXME: workout name should'nt take all the space in pre-list of workout
-  // FIXME: Adjust the design
-  // FIXME: Open next card
-  // FIXME: Show set order number
-  // FIXME: Fix Scrolling tips
-  // FIXME: Scroll to next active card not skitch card
-  // FIXME: Fix last cards on screen when opened
-
   const workout = route.params.workout;
   const routineId = route.params.routineId;
-  const [ref, setRef] = useState<FlatList<any> | null>(null); // ref to flatlist
+  const listRef = useRef<FlatList<exercisesType> | null>(null);
   const registerSession = useSessionStore(s => s.registerSession);
   const [sessionId, setSessionId] = useState(uuidv4());
   const getExerciseName = useExerciseName();
 
   const scrollToNextCard = (index: number) => {
-    index++;
-    index *= 100;
-    if (ref) {
-      ref.scrollToOffset({animated: true, offset: index + 2});
-    }
+    // index++;
+    // index *= 100;
+    console.log(index);
+
+    listRef.current?.scrollToIndex({index: index + 1, animated: true});
   };
 
-  useEffect(() => {
-    console.log(
-      'Debug: set time: ',
-      workout.resttime[0],
-      ' exe time: ',
-      workout.resttime[1],
-    );
-  }, []);
-
-  let scrollKey = 0;
+  let scrollIndex = 0;
   const renderExercise: ListRenderItem<exercisesType> = ({
     item,
   }: ListRenderItemInfo<exercisesType>) => {
@@ -91,7 +73,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
         rows.push(
           <SessionExerciseCard
             key={key}
-            index={scrollKey}
+            scrollIndex={scrollIndex}
             sessionId={sessionId}
             setOrderNumber={j + 1}
             exerciseId={item.id}
@@ -106,7 +88,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
         rows.push(
           <SessionExerciseCard
             key={key}
-            index={scrollKey}
+            scrollIndex={scrollIndex}
             sessionId={sessionId}
             exerciseId={item.id}
             exerciseName={exername}
@@ -118,7 +100,7 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
         );
       }
       key++;
-      scrollKey++;
+      scrollIndex++;
     }
 
     return <>{rows}</>;
@@ -152,21 +134,22 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
   return (
     <ScreenContainer>
       <View style={style.workoutContainerStyle}>
-        <Text style={style.workoutTitleStyle}>{workout.title}</Text>
-        <TouchableOpacity
+        {/* <Text style={style.workoutTitleStyle}>{workout.title}</Text> */}
+        {/* <TouchableOpacity
           style={{backgroundColor: colors.greeny, padding: 10}}
           onPress={() => {
             console.log('Debug: ');
           }}>
           <Text>Debug: Show vol</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <FlatList
         contentContainerStyle={{paddingBottom: 72}}
         data={workout.exercises}
-        ref={ref => setRef(ref)}
+        ref={listRef}
         renderItem={renderExercise}
         keyExtractor={item => item.id}
+        pagingEnabled
       />
       <SessionController
         sessionId={sessionId}
