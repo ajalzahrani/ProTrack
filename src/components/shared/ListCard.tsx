@@ -8,9 +8,7 @@ type propType = {
 };
 
 const ListCard = ({children, style}: propType) => {
-  return (
-    <View style={[styles.container, styles.shadowProp, style]}>{children}</View>
-  );
+  return <View style={[styles.container, style]}>{children}</View>;
 };
 
 export default ListCard;
