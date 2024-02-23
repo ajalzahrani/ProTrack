@@ -39,6 +39,16 @@ type SessionScreenNavigationProp = NativeStackNavigationProp<
 
 import type {exercisesType} from 'src/types';
 
+export type set = {
+  id: string;
+  value: number;
+};
+
+export type exerciseWithSets = {
+  id: string;
+  sets: set[];
+};
+
 type SessionScreenProp = {
   route: SessionScreenRouteProp;
   navigation: SessionScreenNavigationProp;
@@ -46,56 +56,83 @@ type SessionScreenProp = {
 
 const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
   const workout = route.params.workout;
+  const [exerciseData, setExerciseData] = useState<exerciseWithSets[]>(
+    createExercisesWithSets(workout.exercises),
+  );
   const routineId = route.params.routineId;
-  const listRef = useRef<FlatList<exercisesType> | null>(null);
+  // const listRef = useRef<FlatList<exerciseWithSets> | null>(null);
   const registerSession = useSessionStore(s => s.registerSession);
   const [sessionId, setSessionId] = useState(uuidv4());
   const getExerciseName = useExerciseName();
 
-  const scrollToNextCard = (index: number) => {
-    // index++;
-    // index *= 100;
-    console.log(index);
+  const handleScrollToNextCard = (index: number) => {
+    // listRef.current?.scrollToIndex({index: index + 1, animated: true});
+  };
 
-    listRef.current?.scrollToIndex({index: index + 1, animated: true});
+  function createExercisesWithSets(
+    exercises: exercisesType[],
+  ): exerciseWithSets[] {
+    return exercises.map(exercise => ({
+      id: exercise.id,
+      sets: exercise.freq.map(value => ({id: uuidv4(), value})),
+    }));
+  }
+
+  const handleRemoveFinishedSet = (exerciseId: string, setId: string) => {
+    setExerciseData(prev =>
+      prev.map(exercise => {
+        if (exercise.id === exerciseId) {
+          return {
+            ...exercise,
+            sets: exercise.sets.filter(set => set.id !== setId),
+          };
+        } else {
+          return exercise;
+        }
+      }),
+    );
   };
 
   let scrollIndex = 0;
-  const renderExercise: ListRenderItem<exercisesType> = ({
+  const renderExercise: ListRenderItem<exerciseWithSets> = ({
     item,
-  }: ListRenderItemInfo<exercisesType>) => {
+  }: ListRenderItemInfo<exerciseWithSets>) => {
     let exername = getExerciseName(item.id) || '';
     const rows = [];
     let key = 0;
-    for (let j = 0; j < item.freq.length; j++) {
+    for (let j = 0; j < item.sets.length; j++) {
       // Redner Last Exercise Card SET of an Exercise
-      if (item.freq.length - j == 1) {
+      if (item.sets.length - j == 1) {
         rows.push(
           <SessionExerciseCard
-            key={key}
+            key={item.sets[j].id}
             scrollIndex={scrollIndex}
             sessionId={sessionId}
-            setOrderNumber={j + 1}
+            setOrderNumber={j}
             exerciseId={item.id}
             exerciseName={exername}
-            reps={item.freq[j]}
+            setId={item.sets[j].id}
+            reps={item.sets[j].value}
             expiryTimestamp={workout.resttime[1]}
-            scrollToNextCard={scrollToNextCard}
+            handleScrollToNextCard={handleScrollToNextCard}
+            handleRemoveFinishedSet={handleRemoveFinishedSet}
           />,
         );
       } else {
         // Redner Exercise Cards of an Exercise
         rows.push(
           <SessionExerciseCard
-            key={key}
+            key={item.sets[j].id}
             scrollIndex={scrollIndex}
             sessionId={sessionId}
             exerciseId={item.id}
             exerciseName={exername}
-            setOrderNumber={j + 1}
-            reps={item.freq[j]}
+            setOrderNumber={j}
+            setId={item.sets[j].id}
+            reps={item.sets[j].value}
             expiryTimestamp={workout.resttime[0]}
-            scrollToNextCard={scrollToNextCard}
+            handleScrollToNextCard={handleScrollToNextCard}
+            handleRemoveFinishedSet={handleRemoveFinishedSet}
           />,
         );
       }
@@ -135,21 +172,22 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
     <ScreenContainer>
       <View style={style.workoutContainerStyle}>
         {/* <Text style={style.workoutTitleStyle}>{workout.title}</Text> */}
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={{backgroundColor: colors.greeny, padding: 10}}
           onPress={() => {
-            console.log('Debug: ');
+            console.log('Debug: ', exerciseData);
           }}>
           <Text>Debug: Show vol</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
       <FlatList
         contentContainerStyle={{paddingBottom: 72}}
-        data={workout.exercises}
-        ref={listRef}
+        data={exerciseData}
+        // extraData={exerciseData}
+        // ref={listRef}
         renderItem={renderExercise}
         keyExtractor={item => item.id}
-        pagingEnabled
+        // pagingEnabled
       />
       <SessionController
         sessionId={sessionId}

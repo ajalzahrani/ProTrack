@@ -30,6 +30,7 @@
 - [x] 5.1.4: Fix rest time presisting bug.
 - [x] 5.1.5: Fix reset time bug, when set timer and exercise timer changed only exercise timer get changed.
 - [x] 5.1.6: Make start button floatting and always on top, and hide delete button in case of quick start.
+- [ ] 5.1.7: Change Time picker interval to 5 seconds.
 
 ### Exercise screen
 
@@ -84,6 +85,7 @@
 
 - [ ] 11.1.1: Change custom model style.
 - [x] 11.1.2: Add left swipe to delete a card.
+- [ ] 11.1.3: Enable wearning messages.
 
 ### App layout
 

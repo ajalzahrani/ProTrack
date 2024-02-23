@@ -101,7 +101,7 @@ const RestTimeController: React.FC<RestTimeControllerProps> = ({
             pickerShows={['minutes', 'seconds']}
             secondsUnit="Sec"
             minutesUnit="Min"
-            secondsInterval={5}
+            secondsInterval={1}
           />
         )}
       </View>

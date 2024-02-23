@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTimer} from 'use-timer';
 
@@ -18,10 +18,11 @@ type SessionExerciseCardType = {
   exerciseId: string;
   exerciseName: string;
   setOrderNumber: number;
+  setId: string;
   reps: number;
   expiryTimestamp?: number;
-  scrollToNextCard: (index: number) => void;
-  // setSelectedId: () => void;
+  handleScrollToNextCard: (index: number) => void;
+  handleRemoveFinishedSet: (exerciseId: string, setId: string) => void;
 };
 
 const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
@@ -30,11 +31,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   exerciseId,
   exerciseName,
   setOrderNumber,
+  setId,
   reps,
   expiryTimestamp,
-  scrollToNextCard,
+  handleScrollToNextCard,
+  handleRemoveFinishedSet,
 }) => {
-  // FIXME: Add value picker for weight and time
   // FIXME: Disable edit session proprties after set is registered
   const registerSet = useSessionStore(s => s.registerSet);
   const [isActive, setIsActive] = useState(false);
@@ -46,6 +48,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   const [tut, setTut] = useState(0);
 
   const [isRegistered, setIsRegistered] = useState(false);
+  const setOrderNumberState = useRef<number>(setOrderNumber);
 
   const {time, start, pause, status} = useTimer({
     initialTime: expiryTimestamp,
@@ -59,7 +62,8 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   }, [time]);
 
   const handleTimerLableStop = () => {
-    scrollToNextCard(scrollIndex);
+    // handleScrollToNextCard(scrollIndex);
+    handleRemoveFinishedSet(exerciseId, setId);
     setIsExpanded(s => !s);
     setSkitchTitle(true);
   };
@@ -120,7 +124,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
     <>
       <View
         style={[
-          style.cardContainer,
+          style.cardTitleContainer,
           {borderBottomEndRadius: isExpanded ? 0 : 10},
           {borderBottomStartRadius: isExpanded ? 0 : 10},
           {marginBottom: isExpanded ? 0 : 7},
@@ -146,7 +150,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
                 : style.setOrderNumberStyle
             }>
             {' '}
-            (Set {setOrderNumber})
+            (Set {setOrderNumberState.current + 1})
           </Text>
         </View>
         <View style={style.editContainerStyle}>
@@ -228,13 +232,15 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
               </Text>
             </View>
             <TouchableOpacity
-              disabled={isRegistered}
+              // disabled={isRegistered}
               style={{padding: 10}}
               onPress={() => {
                 toggleRestTimer();
                 // Register set to exercises array
                 registerSet(sessionId, exerciseId, weight, rep, tut);
-                setIsRegistered(true);
+                // setIsRegistered(true);
+                // Debugging
+                // handleRemoveFinishedSet(exerciseId, setOrderNumberState);
               }}>
               <LinearGradient
                 // className="py-3 px-10 rounded-full"
@@ -255,6 +261,13 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={{padding: 10}}
+              onPress={() => {
+                console.log('setId: ', setId);
+              }}>
+              <Text>print set order number</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}
@@ -264,7 +277,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
 
 const style = StyleSheet.create({
   // Exercise card
-  cardContainer: {
+  cardTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -307,6 +320,8 @@ const style = StyleSheet.create({
     backgroundColor: colors.secondary,
   },
   controllerContainerStyle: {
+    // flex: 1,
+    // height: 500,
     flexDirection: 'column',
     justifyContent: 'space-between',
     // alignItems: 'center',

@@ -28,7 +28,7 @@ const routines = [
           {id: '3', freq: [10, 10, 10, 10, 10]},
           {id: '4', freq: [20, 20]},
         ],
-        resttime: [7, 7],
+        resttime: [1, 2],
       },
       {
         id: '3',
