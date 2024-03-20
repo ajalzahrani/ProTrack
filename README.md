@@ -25,6 +25,18 @@ To use the app, follow these steps:
 1. Log each SET during the session.
 1. End the session.
 
+### Run the following command if xcode updated
+
+```console
+cd ios && pod deintegrate
+cd .. && pod install
+npx react-native clean
+rm -rf /ios/build
+npx react-native run-ios
+```
+
+and if you running flipperKit in your project you should remove it using [Removing+FlipperKit](./RemoveFlipperKit.md)
+
 ## Support
 
 If you have any questions or issues with the app, please contact at alzahrani.abdulrahman3@gmail.com.
