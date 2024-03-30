@@ -29,13 +29,19 @@ To use the app, follow these steps:
 
 ```console
 cd ios && pod deintegrate
-cd .. && pod install
+cd .. && pod install OR arch -x86_64 npx pod install
 npx react-native clean
 rm -rf /ios/build
 npx react-native run-ios
 ```
 
 and if you running flipperKit in your project you should remove it using [Removing+FlipperKit](./RemoveFlipperKit.md)
+
+you can also delete simulator cache using:
+
+```terminal
+cd ~/Library/Developer/CoreSimulator/Caches && rm -rf dyld
+```
 
 ## Support
 
