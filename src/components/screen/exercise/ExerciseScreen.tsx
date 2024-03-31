@@ -12,7 +12,7 @@ import {
   ListRenderItem,
   ListRenderItemInfo,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -31,6 +31,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import type {exerciseMasterType} from 'src/types';
 import {ScrollView} from 'react-native-gesture-handler';
+import {set} from 'immer/dist/internal';
 
 type ExerciseScreenRouteProp = RouteProp<
   RoutineStackRootParamList,
@@ -50,6 +51,7 @@ const ExerciseScreen: React.FC<ExerciseScreenProp> = ({route, navigation}) => {
   // FIXME: presis exercise selection when search
   // FIXME: auto select new added exercise
   const exerciseMaster = useExerciseStore(s => s.exerciseMaster);
+  const deleteExerciseMaster = useExerciseStore(s => s.deleteExerciseMaster);
   const addNewExerciseMaster = useExerciseStore(s => s.addNewExerciseMaster);
   const [search, setSearch] = useState(''); //
   const [searchResult, setSearchResult] = useState(exerciseMaster);
@@ -58,13 +60,37 @@ const ExerciseScreen: React.FC<ExerciseScreenProp> = ({route, navigation}) => {
 
   const handleExercise = route.params.handleExercise;
   const preSelectedExercises = route.params.exercises;
+  const handleRemoveExerciseFromWorkout = route.params.handleDeleteExercise;
+  const [selectedItems, setSelectedItems] = useState(preSelectedExercises);
+
+  const handleSelectedExercise = (exerciseId: string) => {
+    setSelectedItems(prevSelectedItems => [
+      ...prevSelectedItems,
+      {id: exerciseId, freq: []},
+    ]);
+    handleExercise(exerciseId);
+  };
+
+  const handleDeleteExerciseMaster = (id: string) => {
+    console.log('delete exercise', id);
+    deleteExerciseMaster(id);
+    handleRemoveExerciseFromWorkout(id);
+  };
+
+  const handleAddExercise = () => {
+    setNotFound(false);
+    setSearch('');
+    const newExercise = addNewExerciseMaster(search);
+    setSearchResult(exerciseMaster);
+    handleExercise(newExercise.id);
+  };
 
   // search the list of exercises data and eanble the user to add not found exercies.
   const handleSearch = (searchText: string) => {
     setSearch(searchText);
     const filterdExercies = exerciseMaster.filter((exer, index) => {
       // console.log(exer.title.match(searchText));
-      return exer.name.match(searchText.toLowerCase());
+      return exer.name.includes(searchText.toLowerCase());
     });
     if (searchText.length === 0) {
       setSearchResult(filterdExercies);
@@ -81,16 +107,25 @@ const ExerciseScreen: React.FC<ExerciseScreenProp> = ({route, navigation}) => {
     item,
   }: ListRenderItemInfo<exerciseMasterType>) => {
     return (
-      <View style={styles.preListContainerStyle}>
+      <View>
         <ExerciseSelectRow
           key={item.id}
           exerciseRow={item}
-          preSelectedExercises={preSelectedExercises}
-          handleExercise={handleExercise}
+          preSelectedExercises={selectedItems}
+          handleExercise={handleSelectedExercise}
+          handleDeleteExerciseMaster={handleDeleteExerciseMaster}
         />
       </View>
     );
   };
+
+  const filteredData = searchResult.filter(exercise =>
+    exercise.name.includes(search.toLowerCase()),
+  );
+
+  useEffect(() => {
+    setSearchResult(exerciseMaster);
+  }, [exerciseMaster.length]);
 
   return (
     <ScreenContainer>
@@ -131,14 +166,9 @@ const ExerciseScreen: React.FC<ExerciseScreenProp> = ({route, navigation}) => {
             <Text style={{color: 'white', marginRight: 10}}>
               Not found, Do you want to add
             </Text>
-            {/* <Button title="Add" /> */}
-            {/* FIXME: after save delete search and show the list again */}
             <TouchableOpacity
               onPress={() => {
-                setNotFound(false);
-                setSearch('');
-                addNewExerciseMaster(search);
-                setSearchResult(exerciseMaster);
+                handleAddExercise();
               }}>
               <Image source={assets.icn_add} />
             </TouchableOpacity>
@@ -146,22 +176,10 @@ const ExerciseScreen: React.FC<ExerciseScreenProp> = ({route, navigation}) => {
         )}
         <FlatList
           contentContainerStyle={{paddingBottom: 72}}
-          data={searchResult}
+          data={filteredData}
           renderItem={renderExercise}
           keyExtractor={exercise => exercise.id}
         />
-        {/* <ScrollView>
-          {searchResult.map(exercise => (
-            <View style={styles.preListContainerStyle}>
-              <ExerciseSelectRow
-                key={exercise.id}
-                exerciseRow={exercise}
-                preSelectedExercises={preSelectedExercises}
-                handleExercise={handleExercise}
-              />
-            </View>
-          ))}
-        </ScrollView> */}
       </View>
     </ScreenContainer>
   );
@@ -185,14 +203,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     marginVertical: 10,
-  },
-  preListContainerStyle: {
-    // flex: 1,
-    marginTop: 24,
-    backgroundColor: colors.secondaryow,
-    justifyContent: 'center',
-    borderRadius: 20,
-    padding: 10,
   },
   touchableOpacityStartStyle: {
     display: 'flex',

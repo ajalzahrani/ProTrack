@@ -1,3 +1,5 @@
+import {LogBox} from 'react-native';
+LogBox.ignoreAllLogs();
 import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 

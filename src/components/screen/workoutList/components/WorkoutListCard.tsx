@@ -1,5 +1,6 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -10,41 +11,20 @@ import {workoutType} from 'src/types';
 
 // Navigation
 import {useNavigation} from '@react-navigation/native';
-import {RoutineScreenNavigationProp} from '../RoutineScreen';
 type WorkoutCardType = {
   routineId: string;
   workout: workoutType;
   handleUpdateRoutineWorkout: (workout: workoutType) => void;
 };
 
-const WorkoutCard = ({
+const WorkoutLisCard = ({
   routineId,
   workout,
   handleUpdateRoutineWorkout,
 }: WorkoutCardType) => {
-  const navigation = useNavigation<RoutineScreenNavigationProp>();
   const setWorkoutId = useRoutineStore(s => s.setWorkoutId);
 
-  return (
-    <ListCardTitle title={workout.title}>
-      <View style={style.editContainerStyle}>
-        {/* <TouchableOpacity onPress={() => {}} style={{marginRight: 20}}>
-          <Image source={assets.icn_goforward} />
-        </TouchableOpacity> */}
-        <TouchableOpacity
-          onPress={() => {
-            setWorkoutId(workout.id);
-            navigation.navigate('WorkoutScreen', {
-              workout: workout,
-              routineId: undefined,
-              handleUpdateRoutineWorkout: handleUpdateRoutineWorkout,
-            });
-          }}>
-          <Image source={assets.icn_edit} />
-        </TouchableOpacity>
-      </View>
-    </ListCardTitle>
-  );
+  return <ListCardTitle title={workout.title} />;
 };
 
 const style = StyleSheet.create({
@@ -79,6 +59,25 @@ const style = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: colors.secondary,
   },
+  rightAction: {
+    backgroundColor: colors.greeny,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginLeft: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 20,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  actionView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  actionText: {
+    color: colors.black,
+    fontWeight: '500',
+    fontSize: 16,
+  },
 });
 
-export default WorkoutCard;
+export default WorkoutLisCard;

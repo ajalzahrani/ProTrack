@@ -8,7 +8,7 @@ import {
   ListRenderItemInfo,
   FlatList,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import uuidv4 from 'src/components/shared/uuid4v';
 import useExerciseName from 'src/components/hooks/useExerciseName';
 
@@ -39,79 +39,105 @@ type SessionScreenNavigationProp = NativeStackNavigationProp<
 
 import type {exercisesType} from 'src/types';
 
+export type set = {
+  id: string;
+  value: number;
+};
+
+export type exerciseWithSets = {
+  id: string;
+  sets: set[];
+};
+
 type SessionScreenProp = {
   route: SessionScreenRouteProp;
   navigation: SessionScreenNavigationProp;
 };
 
 const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
-  // FIXME: ExerciseActiveCard render twice ???? need to fix this
-  // FIXME: workout name should'nt take all the space in pre-list of workout
-  // FIXME: Adjust the design
-  // FIXME: Open next card
-  // FIXME: Show set order number
-  // FIXME: Fix Scrolling tips
-  // FIXME: Scroll to next active card not skitch card
-  // FIXME: Fix last cards on screen when opened
-
   const workout = route.params.workout;
+  const [exerciseData, setExerciseData] = useState<exerciseWithSets[]>(
+    createExercisesWithSets(workout.exercises),
+  );
   const routineId = route.params.routineId;
-  const [ref, setRef] = useState<FlatList<any> | null>(null); // ref to flatlist
+  // const listRef = useRef<FlatList<exerciseWithSets> | null>(null);
   const registerSession = useSessionStore(s => s.registerSession);
   const [sessionId, setSessionId] = useState(uuidv4());
   const getExerciseName = useExerciseName();
 
-  const scrollToNextCard = (index: number) => {
-    index++;
-    index *= 100;
-    if (ref) {
-      ref.scrollToOffset({animated: true, offset: index + 2});
-    }
+  const handleScrollToNextCard = (index: number) => {
+    // listRef.current?.scrollToIndex({index: index + 1, animated: true});
   };
 
-  let scrollKey = 0;
-  const renderExercise: ListRenderItem<exercisesType> = ({
+  function createExercisesWithSets(
+    exercises: exercisesType[],
+  ): exerciseWithSets[] {
+    return exercises.map(exercise => ({
+      id: exercise.id,
+      sets: exercise.freq.map(value => ({id: uuidv4(), value})),
+    }));
+  }
+
+  const handleRemoveFinishedSet = (exerciseId: string, setId: string) => {
+    setExerciseData(prev =>
+      prev.map(exercise => {
+        if (exercise.id === exerciseId) {
+          return {
+            ...exercise,
+            sets: exercise.sets.filter(set => set.id !== setId),
+          };
+        } else {
+          return exercise;
+        }
+      }),
+    );
+  };
+
+  let scrollIndex = 0;
+  const renderExercise: ListRenderItem<exerciseWithSets> = ({
     item,
-  }: ListRenderItemInfo<exercisesType>) => {
+  }: ListRenderItemInfo<exerciseWithSets>) => {
     let exername = getExerciseName(item.id) || '';
     const rows = [];
     let key = 0;
-    for (let j = 0; j < item.freq.length; j++) {
+    for (let j = 0; j < item.sets.length; j++) {
       // Redner Last Exercise Card SET of an Exercise
-      if (item.freq.length - j == 1) {
+      if (item.sets.length - j == 1) {
         rows.push(
           <SessionExerciseCard
-            key={key}
-            index={scrollKey}
+            key={item.sets[j].id}
+            scrollIndex={scrollIndex}
             sessionId={sessionId}
+            setOrderNumber={j}
             exerciseId={item.id}
             exerciseName={exername}
-            reps={item.freq[j]}
-            expiryTimestamp={new Date().setSeconds(
-              new Date().getSeconds() + workout.resttime[1],
-            )}
-            scrollToNextCard={scrollToNextCard}
+            setId={item.sets[j].id}
+            reps={item.sets[j].value}
+            expiryTimestamp={workout.resttime[1]}
+            handleScrollToNextCard={handleScrollToNextCard}
+            handleRemoveFinishedSet={handleRemoveFinishedSet}
           />,
         );
       } else {
         // Redner Exercise Cards of an Exercise
         rows.push(
           <SessionExerciseCard
-            key={key}
-            index={scrollKey}
+            key={item.sets[j].id}
+            scrollIndex={scrollIndex}
             sessionId={sessionId}
             exerciseId={item.id}
             exerciseName={exername}
-            reps={item.freq[j]}
-            expiryTimestamp={new Date().setSeconds(
-              new Date().getSeconds() + workout.resttime[0],
-            )}
-            scrollToNextCard={scrollToNextCard}
+            setOrderNumber={j}
+            setId={item.sets[j].id}
+            reps={item.sets[j].value}
+            expiryTimestamp={workout.resttime[0]}
+            handleScrollToNextCard={handleScrollToNextCard}
+            handleRemoveFinishedSet={handleRemoveFinishedSet}
           />,
         );
       }
       key++;
-      scrollKey++;
+      scrollIndex++;
     }
 
     return <>{rows}</>;
@@ -145,21 +171,23 @@ const SessionScreen: React.FC<SessionScreenProp> = ({route, navigation}) => {
   return (
     <ScreenContainer>
       <View style={style.workoutContainerStyle}>
-        <Text style={style.workoutTitleStyle}>{workout.title}</Text>
+        {/* <Text style={style.workoutTitleStyle}>{workout.title}</Text> */}
         <TouchableOpacity
           style={{backgroundColor: colors.greeny, padding: 10}}
           onPress={() => {
-            console.log('Debug: ');
+            console.log('Debug: ', exerciseData);
           }}>
           <Text>Debug: Show vol</Text>
         </TouchableOpacity>
       </View>
       <FlatList
         contentContainerStyle={{paddingBottom: 72}}
-        data={workout.exercises}
-        ref={ref => setRef(ref)}
+        data={exerciseData}
+        // extraData={exerciseData}
+        // ref={listRef}
         renderItem={renderExercise}
         keyExtractor={item => item.id}
+        // pagingEnabled
       />
       <SessionController
         sessionId={sessionId}

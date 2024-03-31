@@ -5,10 +5,12 @@ ProTrack is a mobile application designed for iOS that helps users keep track of
 ## Features
 
 - [x] Schedule training sessions
-- [x] Set up exercises and workouts
-- [x] Log weight and reps
-- [x] View progress statistics
+- [x] Build workouts and exercises
+- [x] Log workout sessions
+- [x] View session history & statistics
 - [ ] Get notifications
+
+## [Todos](./TODO.md)
 
 ## Usage
 
@@ -23,11 +25,48 @@ To use the app, follow these steps:
 1. Log each SET during the session.
 1. End the session.
 
+### Run on specifice device
+
+Choose your device from this list:
+
+```terminal
+xcrun simctl list devices
 ```
-npm start -- --reset-cache
-``` 
+
+Run the following command
+
+```terminal
+yarn ios --simulator "iPhone 14 Pro (16.0)"
 ```
-npm run sim clear-cache
+
+or
+
+```terminal
+yarn ios --udid "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"
+```
+
+or you can add command to package.json
+
+```json
+"sim": "react-native run-ios --udid \"A461E7AB-FAB7-42D4-90AD-3E321338E887\""
+```
+
+### Run the following command if xcode updated
+
+```console
+cd ios && pod deintegrate
+cd .. && pod install OR arch -x86_64 npx pod install
+npx react-native clean
+rm -rf /ios/build
+npx react-native run-ios
+```
+
+and if you running flipperKit in your project you should remove it using [Removing+FlipperKit](./RemoveFlipperKit.md)
+
+you can also delete simulator cache using:
+
+```terminal
+cd ~/Library/Developer/CoreSimulator/Caches && rm -rf dyld
 ```
 
 ## Support

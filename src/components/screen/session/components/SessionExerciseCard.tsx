@@ -1,7 +1,18 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Easing,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {useTimer} from 'src/components/hooks/timer-hook';
+import {useTimer} from 'use-timer';
+import {
+  AnimatedCircularProgress,
+  CircularProgress,
+} from 'react-native-circular-progress';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -9,61 +20,67 @@ import {colors, assets} from 'src/assets';
 // Store
 import useSessionStore from 'src/store/useSessionStore';
 
+// Components
+import RepsContoller from './RepsController';
+
 type SessionExerciseCardType = {
-  index: number;
+  scrollIndex: number;
   sessionId: string;
   exerciseId: string;
   exerciseName: string;
+  setOrderNumber: number;
+  setId: string;
   reps: number;
   expiryTimestamp?: number;
-  scrollToNextCard: (index: number) => void;
-  // setSelectedId: () => void;
+  handleScrollToNextCard: (index: number) => void;
+  handleRemoveFinishedSet: (exerciseId: string, setId: string) => void;
 };
 
 const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
-  index,
+  scrollIndex,
   sessionId,
   exerciseId,
   exerciseName,
+  setOrderNumber,
+  setId,
   reps,
   expiryTimestamp,
-  scrollToNextCard,
+  handleScrollToNextCard,
+  handleRemoveFinishedSet,
 }) => {
-  // FIXME: Add value picker for weight and time
+  // FIXME: Disable edit session proprties after set is registered
   const registerSet = useSessionStore(s => s.registerSet);
   const [isActive, setIsActive] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [skitchTitle, setSkitchTitle] = useState(false);
+  const [fill, setFill] = useState(0);
 
   const [weight, setWeight] = useState(0);
   const [rep, setRep] = useState(reps);
   const [tut, setTut] = useState(0);
 
-  const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({
-    expiryTimestamp,
-    onExpire: () => handleTimerLableStop,
-    autoStart: false,
+  const [isRegistered, setIsRegistered] = useState(false);
+  const setOrderNumberState = useRef<number>(setOrderNumber);
+
+  const {time, start, pause, status} = useTimer({
+    initialTime: expiryTimestamp,
+    timerType: 'DECREMENTAL',
   });
 
   useEffect(() => {
-    if (seconds === 0) {
+    if (time === 0) {
       handleTimerLableStop();
     }
-  }, [seconds]);
+  }, [time]);
+
+  const handleProgressUpdate = () => {
+    setFill(100);
+  };
 
   const handleTimerLableStop = () => {
-    // scrollToNextCard(index);
-    setIsPressed(s => !s);
+    // handleScrollToNextCard(scrollIndex);
+    handleRemoveFinishedSet(exerciseId, setId);
+    setIsExpanded(s => !s);
     setSkitchTitle(true);
   };
 
@@ -76,8 +93,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
     setIsActive(false);
   }
 
-  const addWeight = () => {
-    setWeight(weight + 5);
+  const addWeight = (value?: number) => {
+    if (value) {
+      setWeight(value);
+    } else {
+      setWeight(weight + 5);
+    }
   };
   const minWeight = () => {
     if (weight === 0) {
@@ -86,8 +107,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       setWeight(weight - 1);
     }
   };
-  const addRep = () => {
-    setRep(rep + 1);
+  const addRep = (value?: number) => {
+    if (value) {
+      setRep(value);
+    } else {
+      setRep(rep + 1);
+    }
   };
   const minRep = () => {
     if (rep === 0) {
@@ -96,8 +121,12 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       setRep(rep - 1);
     }
   };
-  const addTut = () => {
-    setTut(tut + 5);
+  const addTut = (value?: number) => {
+    if (value) {
+      setTut(value);
+    } else {
+      setTut(tut + 5);
+    }
   };
   const minTut = () => {
     if (tut === 0) {
@@ -111,54 +140,80 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
     <>
       <View
         style={[
-          style.cardContainer,
-          {borderBottomEndRadius: isPressed ? 0 : 10},
-          {borderBottomStartRadius: isPressed ? 0 : 10},
-          {marginBottom: isPressed ? 0 : 7},
+          style.cardTitleContainer,
+          {borderBottomEndRadius: isExpanded ? 0 : 10},
+          {borderBottomStartRadius: isExpanded ? 0 : 10},
+          {marginBottom: isExpanded ? 0 : 7},
         ]}>
         <View style={style.cardTitle}>
-          <Text style={style.timerLable}>{seconds > 0 ? seconds : '--'}</Text>
+          <View>
+            {isExpanded ? (
+              <></>
+            ) : (
+              <Text style={style.timerLable}>
+                {time > 0 ? time + 's' : '--'}
+              </Text>
+            )}
+          </View>
           <Text
             style={skitchTitle ? style.workoutTitleDone : style.workoutTitle}>
             {exerciseName}
+          </Text>
+          <Text
+            style={
+              skitchTitle
+                ? style.setOrderNumberDoneStyle
+                : style.setOrderNumberStyle
+            }>
+            {' '}
+            (Set {setOrderNumberState.current + 1})
           </Text>
         </View>
         <View style={style.editContainerStyle}>
           <TouchableOpacity
             onPress={() => {
-              setIsPressed(!isPressed);
+              setIsExpanded(!isExpanded);
             }}>
-            <Image source={isPressed ? assets.icn_min : assets.icn_add} />
+            <Image source={isExpanded ? assets.icn_min : assets.icn_add} />
           </TouchableOpacity>
         </View>
       </View>
-      {isPressed && (
+      {isExpanded && (
         <View style={style.controllerContainerStyle}>
           {/* <SETsController indicatorTitle={'Set'} /> */}
-          <View style={style.controllerRowContainerStyle}>
-            {/* inner set container */}
-            <View style={style.controllerRowInnerStyle}>
-              {/* Number indicator */}
-              <View style={style.controllerNumberIndicator}>
-                <Text style={{color: colors.white}}>{weight} kg</Text>
-              </View>
-
-              <Text style={style.controllerMiddleTextStyle}>Weight</Text>
-
-              {/* plus - min buttons */}
+          <AnimatedCircularProgress
+            size={100}
+            width={10}
+            fill={fill}
+            tintColor="#00e0ff"
+            duration={time * 1000}
+            onAnimationComplete={() => console.log('OnAnimateionComplete')}
+            backgroundColor="#3d5875"
+            children={fill => (
               <View
-                style={{flexDirection: 'row'}}
-                // className="space-x-10"
-              >
-                <TouchableOpacity onPress={() => minWeight()}>
-                  <Image source={assets.icn_min} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => addWeight()}>
-                  <Image source={assets.icn_add} />
-                </TouchableOpacity>
+                style={{
+                  padding: 10,
+                  backgroundColor: colors.yellow,
+                  borderRadius: 150 / 2,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: 'black',
+                    textAlign: 'left',
+                  }}>
+                  {time > 0 ? time + 's' : '--'}
+                </Text>
               </View>
-            </View>
-          </View>
+            )}
+          />
+          <RepsContoller
+            unitNumber={weight}
+            unit="kg"
+            indicatorTitle="Weight"
+            addNumber={addWeight}
+            minNumber={minWeight}
+          />
 
           {/* Dividor */}
           <View
@@ -168,31 +223,14 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
               borderColor: colors.secondaryow,
             }}
           />
-          {/* <SETsController indicatorTitle={'Set'} /> */}
-          <View style={style.controllerRowContainerStyle}>
-            {/* inner set container */}
-            <View style={style.controllerRowInnerStyle}>
-              {/* Number indicator */}
-              <View style={style.controllerNumberIndicator}>
-                <Text style={{color: colors.white}}>{rep} r</Text>
-              </View>
 
-              <Text style={style.controllerMiddleTextStyle}>Reps</Text>
-
-              {/* plus - min buttons */}
-              <View
-                style={{flexDirection: 'row'}}
-                // className="space-x-10"
-              >
-                <TouchableOpacity onPress={() => minRep()}>
-                  <Image source={assets.icn_min} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => addRep()}>
-                  <Image source={assets.icn_add} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+          <RepsContoller
+            unitNumber={rep}
+            unit="r"
+            indicatorTitle="Reps"
+            addNumber={addRep}
+            minNumber={minRep}
+          />
 
           {/* Dividor */}
           <View
@@ -202,52 +240,78 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
               borderColor: colors.secondaryow,
             }}
           />
-          {/* <SETsController indicatorTitle={'Set'} /> */}
-          <View style={style.controllerRowContainerStyle}>
-            {/* inner set container */}
-            <View style={style.controllerRowInnerStyle}>
-              {/* Number indicator */}
-              <View style={style.controllerNumberIndicator}>
-                <Text style={{color: colors.white}}>{tut} s</Text>
-              </View>
 
-              <Text style={style.controllerMiddleTextStyle}>TUT</Text>
+          <RepsContoller
+            unitNumber={tut}
+            unit="s"
+            indicatorTitle="TUT"
+            addNumber={addTut}
+            minNumber={minTut}
+          />
 
-              {/* plus - min buttons */}
-              <View
-                style={{flexDirection: 'row'}}
-                // className="space-x-10"
-              >
-                <TouchableOpacity onPress={() => minTut()}>
-                  <Image source={assets.icn_min} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => addTut()}>
-                  <Image source={assets.icn_add} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            // className="mb-1"
-            onPress={() => {
-              toggleRestTimer();
-              // Register set to exercises array
-              registerSet(sessionId, exerciseId, weight, rep, tut);
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              // backgroundColor: colors.secondaryow,
+              justifyContent: 'space-between',
+              marginLeft: 5,
             }}>
-            <LinearGradient
-              // className="py-3 px-10 rounded-full"
-              colors={['#E10D60', '#FA3B89']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
-              locations={[0.75, 1]}>
+            <View
+              style={{
+                padding: 10,
+                backgroundColor: colors.yellow,
+                borderRadius: 150 / 2,
+              }}>
               <Text
-              // className="text-base font-semibold text-white"
-              >
-                {skitchTitle ? 'Edit' : 'Register'}
+                style={{
+                  fontSize: 18,
+                  color: 'black',
+                  textAlign: 'left',
+                }}>
+                {time > 0 ? time + 's' : '--'}
               </Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              // disabled={isRegistered}
+              style={{padding: 10}}
+              onPress={() => {
+                toggleRestTimer();
+                handleProgressUpdate();
+                // Register set to exercises array
+                // registerSet(sessionId, exerciseId, weight, rep, tut);
+                // setIsRegistered(true);
+                // Debugging
+                // handleRemoveFinishedSet(exerciseId, setOrderNumberState);
+              }}>
+              <LinearGradient
+                // className="py-3 px-10 rounded-full"
+                colors={['#E10D60', '#FA3B89']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 1}}
+                locations={[0.75, 1]}
+                style={{borderRadius: 20}}>
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontSize: 16,
+                    fontWeight: '500',
+                    textAlign: 'center',
+                    padding: 10,
+                  }}>
+                  {skitchTitle ? 'Edit' : 'Register set'}
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{padding: 10}}
+              onPress={() => {
+                console.log('setId: ', setId);
+              }}>
+              <Text>print set order number</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </>
@@ -256,7 +320,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
 
 const style = StyleSheet.create({
   // Exercise card
-  cardContainer: {
+  cardTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -299,9 +363,11 @@ const style = StyleSheet.create({
     backgroundColor: colors.secondary,
   },
   controllerContainerStyle: {
+    // flex: 1,
+    // height: 500,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    // alignItems: 'center',
     marginBottom: 7,
     marginHorizontal: 20,
     paddingBottom: 15,
@@ -309,30 +375,6 @@ const style = StyleSheet.create({
     backgroundColor: colors.secondaryow,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
-  },
-
-  controllerRowContainerStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  controllerRowInnerStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 14,
-  },
-  controllerNumberIndicator: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 100,
-    backgroundColor: colors.secondaryow,
-    width: 80,
-    height: 29,
   },
   controllerMiddleTextStyle: {
     fontWeight: '400',
@@ -355,11 +397,30 @@ const style = StyleSheet.create({
     marginRight: 20,
     fontSize: 18,
     color: 'white',
+    // width: 50, // Adjust this value as needed
+    textAlign: 'left',
   },
   cardTitle: {
+    flex: 1,
     flexDirection: 'row',
-
+    flexWrap: 'wrap',
+    lineHeight: 30,
     alignItems: 'center',
+  },
+  setOrderNumberStyle: {
+    color: colors.red,
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 30,
+    // marginTop: 10,
+  },
+  setOrderNumberDoneStyle: {
+    color: colors.red,
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 30,
+    // marginTop: 10,
+    textDecorationLine: 'line-through',
   },
 });
 

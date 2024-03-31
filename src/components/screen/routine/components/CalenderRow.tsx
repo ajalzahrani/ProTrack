@@ -23,6 +23,7 @@ type CalenderRowProp = {
   setWorkoutId: React.Dispatch<React.SetStateAction<string>>;
   dayId: number;
   setDayId: React.Dispatch<React.SetStateAction<number>>;
+  unsetDay: () => void;
 };
 
 const CalenderRow: React.FC<CalenderRowProp> = ({
@@ -30,6 +31,7 @@ const CalenderRow: React.FC<CalenderRowProp> = ({
   setWorkoutId,
   dayId,
   setDayId,
+  unsetDay,
 }) => {
   const [db, setDB] = useState(dayButton);
 
@@ -42,6 +44,11 @@ const CalenderRow: React.FC<CalenderRowProp> = ({
           <TouchableOpacity
             key={day.id}
             onPress={() => {
+              // if day is already picked, unpick it
+              if (db[day.id].ispicked) {
+                unsetDay();
+                return;
+              }
               setDayId(day.id);
               setWorkoutId(day.workoutId);
               setDB(

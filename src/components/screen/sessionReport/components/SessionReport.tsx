@@ -20,15 +20,27 @@ const SessionReport: React.FC<SessionReportProp> = ({session}) => {
   const getExerciseName = useExerciseName();
   const getRoutineName = useRoutineName();
 
-  console.log(session);
   return (
     <View>
       <Text style={{fontSize: 30, color: colors.white}}>
         {moment(session.datetime).format('DD MMM YYYY h:mm a')}
       </Text>
       <Text style={style.generalFontSize}>
-        {moment(session.startTime).format('h:mm a').toString()} -{' '}
-        {moment(session.endTime).format('h:mm a').toString()}
+        {session.startTime
+          ? !isNaN(parseInt(session.startTime)) &&
+            moment
+              .unix(parseInt(session.startTime) / 1000)
+              .format('h:mm a')
+              .toString()
+          : null}
+        {' - '}
+        {session.endTime
+          ? !isNaN(parseInt(session.endTime)) &&
+            moment
+              .unix(parseInt(session.endTime) / 1000)
+              .format('h:mm a')
+              .toString()
+          : null}
       </Text>
       <Divider />
       <Text style={style.generalFontSize}>Total Time</Text>
@@ -36,16 +48,14 @@ const SessionReport: React.FC<SessionReportProp> = ({session}) => {
         {session.duration}
       </Text>
       <Divider />
-      <Text style={style.generalFontSize}>Routine Name</Text>
-      <Text style={style.generalFontSize}>
-        {/** Get the routine name */}
-        {session.routineId ? getRoutineName(session.routineId) : null}
+      <Text style={[style.generalFontSize, , {fontWeight: 'bold'}]}>
+        Routine: {session.routineId ? getRoutineName(session.routineId) : null}
       </Text>
-      <Divider />
       {session.exercise.map((exercise, i) => {
         return (
           <View key={i}>
-            <Text style={[style.generalFontSize, {fontWeight: 'bold'}]}>
+            <Divider />
+            <Text style={[style.generalFontSize]}>
               {getExerciseName(exercise.exerciseId)}
             </Text>
             <Text style={style.generalFontSize}>
@@ -59,7 +69,7 @@ const SessionReport: React.FC<SessionReportProp> = ({session}) => {
                 </Text>
               );
             })}
-            <Divider />
+            {/* {i !== session.exercise.length - 1 ? <Divider /> : null} */}
           </View>
         );
       })}

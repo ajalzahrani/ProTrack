@@ -28,9 +28,18 @@ const routines = [
           {id: '3', freq: [10, 10, 10, 10, 10]},
           {id: '4', freq: [20, 20]},
         ],
-        resttime: [7, 7],
+        resttime: [1, 2],
       },
-      {id: '3', title: 'Legs workout', exercises: [], resttime: [0, 0]},
+      {
+        id: '3',
+        title: 'Legs workout',
+        exercises: [
+          {freq: [15, 10, 10], id: '7'},
+          {freq: [15, 10, 10], id: '9'},
+          {freq: [15, 10, 10], id: '14'},
+        ],
+        resttime: [0, 0],
+      },
     ],
     weekdays: [
       {id: 0, symbol: 'S', isWorkday: true, workoutId: '1'},

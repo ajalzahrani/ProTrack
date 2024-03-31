@@ -1,10 +1,12 @@
 import {store} from '../../store/Store';
 import routines from './routines';
+import sessions from './sessions';
 import exerciseMaster from './exerciseMaster';
 import def from 'src/components/shared/GlobalDefinition';
 
 export function ImplementDataStructure() {
   // store.delete('routines');
+  // store.delete('sessions');
   // store.delete('exercises');
   // store.clearAll();
 
@@ -17,10 +19,11 @@ export function ImplementDataStructure() {
     store.set('routines', JSON.stringify(routines));
     console.log('✅ Workouts data implemented successfully ');
   }
-  // if (!store.contains(def.sessionGlobalKey)) {
-  //   store.set('exercises', JSON.stringify(exerciseMaster));
-  //   console.log('✅ Session data implemented successfully');
-  // }
+
+  if (!store.contains(def.sessionGlobalKey)) {
+    store.set('sessions', JSON.stringify(sessions));
+    console.log('✅ Session data implemented successfully');
+  }
 
   // if (!store.contains(def.userPreferences)) {
   //   store.set('routines', JSON.stringify(routines));

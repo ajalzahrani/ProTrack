@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  SafeAreaView,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import {StyleSheet, SafeAreaView, ViewStyle} from 'react-native';
 import React from 'react';
 import {colors} from 'src/assets';
 
