@@ -25,6 +25,32 @@ To use the app, follow these steps:
 1. Log each SET during the session.
 1. End the session.
 
+### Run on specifice device
+
+Choose your device from this list:
+
+```terminal
+xcrun simctl list devices
+```
+
+Run the following command
+
+```terminal
+yarn ios --simulator "iPhone 14 Pro (16.0)"
+```
+
+or
+
+```terminal
+yarn ios --udid "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"
+```
+
+or you can add command to package.json
+
+```json
+"sim": "react-native run-ios --udid \"A461E7AB-FAB7-42D4-90AD-3E321338E887\""
+```
+
 ### Run the following command if xcode updated
 
 ```console

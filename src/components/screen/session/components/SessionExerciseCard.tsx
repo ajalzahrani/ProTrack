@@ -1,7 +1,18 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Easing,
+} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTimer} from 'use-timer';
+import {
+  AnimatedCircularProgress,
+  CircularProgress,
+} from 'react-native-circular-progress';
 
 // Assets
 import {colors, assets} from 'src/assets';
@@ -42,6 +53,7 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
   const [isActive, setIsActive] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [skitchTitle, setSkitchTitle] = useState(false);
+  const [fill, setFill] = useState(0);
 
   const [weight, setWeight] = useState(0);
   const [rep, setRep] = useState(reps);
@@ -60,6 +72,10 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       handleTimerLableStop();
     }
   }, [time]);
+
+  const handleProgressUpdate = () => {
+    setFill(100);
+  };
 
   const handleTimerLableStop = () => {
     // handleScrollToNextCard(scrollIndex);
@@ -165,6 +181,32 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
       {isExpanded && (
         <View style={style.controllerContainerStyle}>
           {/* <SETsController indicatorTitle={'Set'} /> */}
+          <AnimatedCircularProgress
+            size={100}
+            width={10}
+            fill={fill}
+            tintColor="#00e0ff"
+            duration={time * 1000}
+            onAnimationComplete={() => console.log('OnAnimateionComplete')}
+            backgroundColor="#3d5875"
+            children={fill => (
+              <View
+                style={{
+                  padding: 10,
+                  backgroundColor: colors.yellow,
+                  borderRadius: 150 / 2,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: 'black',
+                    textAlign: 'left',
+                  }}>
+                  {time > 0 ? time + 's' : '--'}
+                </Text>
+              </View>
+            )}
+          />
           <RepsContoller
             unitNumber={weight}
             unit="kg"
@@ -236,8 +278,9 @@ const SessionExerciseCard: React.FC<SessionExerciseCardType> = ({
               style={{padding: 10}}
               onPress={() => {
                 toggleRestTimer();
+                handleProgressUpdate();
                 // Register set to exercises array
-                registerSet(sessionId, exerciseId, weight, rep, tut);
+                // registerSet(sessionId, exerciseId, weight, rep, tut);
                 // setIsRegistered(true);
                 // Debugging
                 // handleRemoveFinishedSet(exerciseId, setOrderNumberState);
